@@ -145,6 +145,9 @@ $(function() {
     var b             = a * x;                         // ???? this is the viewable cutoff as a fraction of document (we think)
     var newDocWidth   = (natDocWidth * (1 - b)) - 70;  // scale natural doc width by 1 - viewable cutoff as fraction of document (minus margin?)
     //var newDocWidth = natDocWidth-(w*x);
+    
+    extraNewDocWidth = natDocWidth - natNoteWidth + newWrapWidth - 70; // this is the simplifed version of the formulae above.
+    console.log("resize doc:", newDocWidth, extraNewDocWidth);
 
     var z = newDocWidth / natDocWidth;
     var newExcerptWidth = (notes[noteID].excerptWidth) * z;
