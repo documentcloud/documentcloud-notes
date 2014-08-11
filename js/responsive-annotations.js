@@ -22,10 +22,7 @@ $(function(){
 
     var findNotes = function() {
       var noteDiv = $(".DC-note-container"); 
-      $.each(noteDiv, function() {
-        getCoords(this); 
-            swapURL(this);
-      });
+      $.each(noteDiv, function() { getCoords(this); swapURL(this); });
     }
 
     //link notes to wapo embedder pages instead of document cloud
