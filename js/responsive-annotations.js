@@ -179,6 +179,23 @@ $(function() {
     $("#" + noteID + " .DC-right-cover").height(notes[noteID].excerptHeight);
   }
 
+  var scaleNoteImage = function(noteID,dimensions){
+    // set heights for note images.
+    $("#" + noteID + " .DC-note-excerpt").height(dimensions.imageHeight);
+    $("#" + noteID + " .DC-left-cover"  ).height(dimensions.imageHeight);
+    $("#" + noteID + " .DC-right-cover" ).height(dimensions.imageHeight); 
+
+    // Set widths of viewable area, left cover, note excerpt, and right cover.
+    $("#" + noteID + " .DC-note-image"  ).width(dimensions.imageWidth);
+    $("#" + noteID + " .DC-left-cover"  ).width(dimensions.leftCoverWidth);
+    $("#" + noteID + " .DC-note-excerpt").width(dimensions.excerptWidth);
+    $("#" + noteID + " .DC-right-cover" ).width(dimensions.rightCoverWidth);
+
+    // position left cover & note excerpt
+    $("#" + noteID + " .DC-note-image"  ).css('top', dimensions.imageHeight);
+    $("#" + noteID + " .DC-note-excerpt").css('left', dimensions.excerptLeft);
+  }
+
   //footnote click
   $(document).on('click', '.link-fn', function() {
     var fnLink = $(this);
