@@ -11,6 +11,8 @@ $(function() {
 
   var resizeTimer; //set resizeTimer to empty so it resets on page load
 
+  //entry point
+  //caches note & image width, sets up resize handler
   var init = function() {
     findNotes();
     //on resize, run the function and reset the timeout
@@ -37,25 +39,25 @@ $(function() {
   //    }
   //}  
 
-  // gets default/canonical positioning data for note & stores it.
+  // gets default/canonical positioning data from the DOM for note & stores it.
   var getCoordinates = function(noteEl) {
     var noteID = $(noteEl).attr('id');
 
-    var wrapWidth = $("#" + noteID + " .DC-note-excerpt").width(),
-      docWidth = $("#" + noteID + " .DC-note-image").width(),
-      docTop = $("#" + noteID + " .DC-note-image").position().top,
-      lCoverWidth = $("#" + noteID + " .DC-left-cover").width(),
-      rCoverWidth = $("#" + noteID + " .DC-right-cover").width(),
+    var wrapWidth   = $("#" + noteID + " .DC-note-excerpt").width(),
+      docWidth      = $("#" + noteID + " .DC-note-image").width(),
+      docTop        = $("#" + noteID + " .DC-note-image").position().top,
+      lCoverWidth   = $("#" + noteID + " .DC-left-cover").width(),
+      rCoverWidth   = $("#" + noteID + " .DC-right-cover").width(),
       excerptHeight = $("#" + noteID + " .DC-note-excerpt").height(),
-      excerptLeft = $("#" + noteID + " .DC-note-excerpt").position().left;
-    excerptWidth = $("#" + noteID + " .DC-note-excerpt").width();
+      excerptLeft   = $("#" + noteID + " .DC-note-excerpt").position().left,
+      excerptWidth  = $("#" + noteID + " .DC-note-excerpt").width();
 
     if (docWidth != 0 && !(notes[noteID])) { //don't store notes that are set to display none
       var x1 = lCoverWidth,
-        y1 = (docTop) * -1;
+          y1 = (docTop) * -1;
 
       var x2 = x1 + (750 - (lCoverWidth + rCoverWidth)),
-        y2 = y1 + excerptHeight;
+          y2 = y1 + excerptHeight;
 
       var noteWidth = (x2 - x1);
 
@@ -81,6 +83,7 @@ $(function() {
     setMatchMedia();
   }
 
+  //set up media event listeners
   var setMatchMedia = function() {
     //initial call of handleMatchMedia for each breakpoint
     handleMatchMedia(lgQuery);
@@ -109,6 +112,7 @@ $(function() {
     }
   }
 
+  //diffs the note's natural width with its current width and decides what to do
   var checkSize = function() {
     $.each(notes, function() {
       var noteElem = $("#" + this.noteID); // the notes lookup should just cache the element.
@@ -129,6 +133,7 @@ $(function() {
     });
   }
 
+  //calculates scaling factor based on the new note width & updates the note element's attributes
   var resizeDoc = function(noteID) {
     //original values
     var natNoteWidth = notes[noteID].noteWidth;
@@ -161,6 +166,7 @@ $(function() {
     $("#" + noteID + " .DC-right-cover" ).height(newExcerptHeight);
   }
 
+  //sets note element's attributes back to default
   var restoreDoc = function(noteID) {
     $("#" + noteID + " .DC-note-image").width(notes[noteID].docWidth);
     $("#" + noteID + " .DC-note-image").css('top', notes[noteID].docTop);
