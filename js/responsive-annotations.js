@@ -131,22 +131,22 @@ $(function(){
       //original values
       var natNoteWidth = notes[noteID].noteWidth; 
       var natWrapWidth = notes[noteID].wrapWidth;
-      var natDocWidth = notes[noteID].docWidth;  
+      var natDocWidth  = notes[noteID].docWidth;  
 
       //new values after resize of browser 
       var newWrapWidth = $("#"+noteID+" .DC-note-excerpt-wrap").width();
       var newNoteWidth = newWrapWidth;
  
      //calculate new width of document image
-    var w = (natNoteWidth-newWrapWidth); //w
-    var a = w/natNoteWidth;  //a
-    var x = (natNoteWidth/natDocWidth);  //x
-    var b = a*x; //b
-    var newDocWidth = (natDocWidth*(1-b))-70; 
+    var w             = (natNoteWidth-newWrapWidth); //w
+    var a             = w/natNoteWidth;  //a
+    var x             = (natNoteWidth/natDocWidth);  //x
+    var b             = a*x; //b
+    var newDocWidth   = (natDocWidth*(1-b))-70; 
     //var newDocWidth = natDocWidth-(w*x); 
 
-    var z = newDocWidth/natDocWidth;
-    var newExcerptWidth = (notes[noteID].excerptWidth)*z;
+    var z                = newDocWidth/natDocWidth;
+    var newExcerptWidth  = (notes[noteID].excerptWidth)*z;
     var newExcerptHeight = (notes[noteID].excerptHeight)*z;
 
     //new x1,x2,y1,y2
