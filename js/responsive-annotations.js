@@ -139,15 +139,7 @@ $(function() {
     var newWrapWidth = $("#" + noteID + " .DC-note-excerpt-wrap").width();
 
     //calculate new width of document image
-    var w             = (natNoteWidth - newWrapWidth); // delta between natural width & current viewable width (e.g. the # of pixels cut out of the viewable area.)
-    var a             = w / natNoteWidth;              // fraction of image that has been cutoff
-    var x             = (natNoteWidth / natDocWidth);  // note width as fraction of document width
-    var b             = a * x;                         // ???? this is the viewable cutoff as a fraction of document (we think)
-    var newDocWidth   = (natDocWidth * (1 - b)) - 70;  // scale natural doc width by 1 - viewable cutoff as fraction of document (minus margin?)
-    //var newDocWidth = natDocWidth-(w*x);
-    
-    extraNewDocWidth = natDocWidth - natNoteWidth + newWrapWidth - 70; // this is the simplifed version of the formulae above.
-    console.log("resize doc:", newDocWidth, extraNewDocWidth);
+    var newDocWidth = natDocWidth - natNoteWidth + newWrapWidth - 70;
 
     var z = newDocWidth / natDocWidth;
     var newExcerptWidth = (notes[noteID].excerptWidth) * z;
