@@ -21,19 +21,18 @@ $(function(){
     }
 
     var findNotes = function() {
-      var noteDiv = $(".DC-note-container"); 
-      $.each(noteDiv, function() { getCoords(this); swapURL(this); });
+      $(".DC-note-container").each(function() { getCoords(this); /*swapURL(this);*/ });
     }
 
     //link notes to wapo embedder pages instead of document cloud
-    var swapURL = function(note) {
-        var note = $(note); 
-        if (note.data('wapo')) {
-            var newLink = note.data('wapo'); 
-            note.find('a').attr('href', newLink); 
-            note.find('a').attr('target', '_blank');
-        }
-    }  
+    //var swapURL = function(note) {
+    //    var note = $(note); 
+    //    if (note.data('wapo')) {
+    //        var newLink = note.data('wapo'); 
+    //        note.find('a').attr('href', newLink); 
+    //        note.find('a').attr('target', '_blank');
+    //    }
+    //}  
 
     var getCoords = function (note) {
       var noteID = $(note).attr('id');  
