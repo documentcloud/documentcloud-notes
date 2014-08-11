@@ -155,28 +155,28 @@ $(function() {
     var newX2 = (notes[noteID].x2) * scaling_factor;
 
     //apply calculations to elements
-    //$("#" + noteID + " .DC-note-image"  ).width(newDocWidth);
-    //$("#" + noteID + " .DC-note-image"  ).css('top', (notes[noteID].docTop) * scaling_factor);
-    //$("#" + noteID + " .DC-note-excerpt").width(newExcerptWidth);
-    //$("#" + noteID + " .DC-note-excerpt").height(newExcerptHeight);
-    //$("#" + noteID + " .DC-note-excerpt").css('left', -1 * newX1);
-    //$("#" + noteID + " .DC-left-cover"  ).width(newX1);
-    //$("#" + noteID + " .DC-right-cover" ).width(newExcerptWidth - newX2);
-    //$("#" + noteID + " .DC-left-cover"  ).height(newExcerptHeight);
-    //$("#" + noteID + " .DC-right-cover" ).height(newExcerptHeight);
+    scaleNoteImage(noteID, {
+      imageHeight:     newExcerptHeight,
+      imageWidth:      newDocWidth,
+      leftCoverWidth:  newX1,
+      excerptWidth:    newExcerptWidth,
+      rightCoverWidth: newExcerptWidth - newX2,
+      imageTop:        (notes[noteID].docTop) * scaling_factor,
+      excerptLeft:     -1 * newX1
+    });
   }
 
   //sets note element's attributes back to default
   var restoreDoc = function(noteID) {
-    $("#" + noteID + " .DC-note-image").width(notes[noteID].docWidth);
-    $("#" + noteID + " .DC-note-image").css('top', notes[noteID].docTop);
-    $("#" + noteID + " .DC-note-excerpt").width(notes[noteID].excerptWidth);
-    $("#" + noteID + " .DC-note-excerpt").height(notes[noteID].excerptHeight);
-    $("#" + noteID + " .DC-note-excerpt").css('left', notes[noteID].excerptLeft);
-    $("#" + noteID + " .DC-left-cover").width(notes[noteID].lCoverWidth);
-    $("#" + noteID + " .DC-right-cover").width(notes[noteID].rCoverWidth);
-    $("#" + noteID + " .DC-left-cover").height(notes[noteID].excerptHeight);
-    $("#" + noteID + " .DC-right-cover").height(notes[noteID].excerptHeight);
+    scaleNoteImage(noteID, {
+      imageHeight:     notes[noteID].excerptHeight,
+      imageWidth:      notes[noteID].docWidth,
+      leftCoverWidth:  notes[noteID].lCoverWidth,
+      excerptWidth:    notes[noteID].excerptWidth,
+      rightCoverWidth: notes[noteID].rCoverWidth,
+      imageTop:        notes[noteID].docTop,
+      excerptLeft:     notes[noteID].excerptLeft
+    });
   }
 
   var scaleNoteImage = function(noteID,dimensions){
@@ -192,7 +192,7 @@ $(function() {
     $("#" + noteID + " .DC-right-cover" ).width(dimensions.rightCoverWidth);
 
     // position left cover & note excerpt
-    $("#" + noteID + " .DC-note-image"  ).css('top', dimensions.imageHeight);
+    $("#" + noteID + " .DC-note-image"  ).css('top', dimensions.imageTop);
     $("#" + noteID + " .DC-note-excerpt").css('left', dimensions.excerptLeft);
   }
 
