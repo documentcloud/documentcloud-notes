@@ -141,24 +141,24 @@ $(function() {
     //calculate new width of document image
     var newDocWidth = natDocWidth - natNoteWidth + newWrapWidth - 70;
 
-    var z = newDocWidth / natDocWidth;
-    var newExcerptWidth = (notes[noteID].excerptWidth) * z;
-    var newExcerptHeight = (notes[noteID].excerptHeight) * z;
+    var scaling_factor   = newDocWidth / natDocWidth;
+    var newExcerptWidth  = (notes[noteID].excerptWidth)  * scaling_factor;
+    var newExcerptHeight = (notes[noteID].excerptHeight) * scaling_factor;
 
     //new x1,x2,y1,y2
-    var newX1 = (notes[noteID].x1) * z;
-    var newX2 = (notes[noteID].x2) * z;
+    var newX1 = (notes[noteID].x1) * scaling_factor;
+    var newX2 = (notes[noteID].x2) * scaling_factor;
 
     //apply calculations to elements
-    $("#" + noteID + " .DC-note-image").width(newDocWidth);
-    $("#" + noteID + " .DC-note-image").css('top', (notes[noteID].docTop) * z);
+    $("#" + noteID + " .DC-note-image"  ).width(newDocWidth);
+    $("#" + noteID + " .DC-note-image"  ).css('top', (notes[noteID].docTop) * scaling_factor);
     $("#" + noteID + " .DC-note-excerpt").width(newExcerptWidth);
     $("#" + noteID + " .DC-note-excerpt").height(newExcerptHeight);
     $("#" + noteID + " .DC-note-excerpt").css('left', -1 * newX1);
-    $("#" + noteID + " .DC-left-cover").width(newX1);
-    $("#" + noteID + " .DC-right-cover").width(newExcerptWidth - newX2);
-    $("#" + noteID + " .DC-left-cover").height(newExcerptHeight);
-    $("#" + noteID + " .DC-right-cover").height(newExcerptHeight);
+    $("#" + noteID + " .DC-left-cover"  ).width(newX1);
+    $("#" + noteID + " .DC-right-cover" ).width(newExcerptWidth - newX2);
+    $("#" + noteID + " .DC-left-cover"  ).height(newExcerptHeight);
+    $("#" + noteID + " .DC-right-cover" ).height(newExcerptHeight);
   }
 
   var restoreDoc = function(noteID) {
