@@ -25,7 +25,7 @@ $(function() {
 
   var findNotes = function() {
     $(".DC-note-container").each(function() {
-      getCoordinates(this); /*swapURL(this);*/
+      getCoordinates($(this)); /*swapURL(this);*/
     });
   }
 
@@ -43,14 +43,14 @@ $(function() {
   var getCoordinates = function(noteEl) {
     var noteID = $(noteEl).attr('id');
 
-    var wrapWidth   = $("#" + noteID + " .DC-note-excerpt").width(),
-      docWidth      = $("#" + noteID + " .DC-note-image").width(),
-      docTop        = $("#" + noteID + " .DC-note-image").position().top,
-      lCoverWidth   = $("#" + noteID + " .DC-left-cover").width(),
-      rCoverWidth   = $("#" + noteID + " .DC-right-cover").width(),
-      excerptHeight = $("#" + noteID + " .DC-note-excerpt").height(),
-      excerptLeft   = $("#" + noteID + " .DC-note-excerpt").position().left,
-      excerptWidth  = $("#" + noteID + " .DC-note-excerpt").width();
+    var wrapWidth   = noteEl.find(".DC-note-excerpt").width(),
+      docWidth      = noteEl.find(".DC-note-image").width(),
+      docTop        = noteEl.find(".DC-note-image").position().top,
+      lCoverWidth   = noteEl.find(".DC-left-cover").width(),
+      rCoverWidth   = noteEl.find(".DC-right-cover").width(),
+      excerptHeight = noteEl.find(".DC-note-excerpt").height(),
+      excerptLeft   = noteEl.find(".DC-note-excerpt").position().left,
+      excerptWidth  = noteEl.find(".DC-note-excerpt").width();
 
     if (docWidth != 0 && !(notes[noteID])) { //don't store notes that are set to display none
       var x1 = lCoverWidth,
@@ -181,19 +181,20 @@ $(function() {
 
   var scaleNoteImage = function(noteID,dimensions){
     // set heights for note images.
-    $("#" + noteID + " .DC-note-excerpt").height(dimensions.imageHeight);
-    $("#" + noteID + " .DC-left-cover"  ).height(dimensions.imageHeight);
-    $("#" + noteID + " .DC-right-cover" ).height(dimensions.imageHeight); 
+    var noteEl = $("#"+noteID);
+    noteEl.find(".DC-note-excerpt").height(dimensions.imageHeight);
+    noteEl.find(".DC-left-cover"  ).height(dimensions.imageHeight);
+    noteEl.find(".DC-right-cover" ).height(dimensions.imageHeight); 
 
     // Set widths of viewable area, left cover, note excerpt, and right cover.
-    $("#" + noteID + " .DC-note-image"  ).width(dimensions.imageWidth);
-    $("#" + noteID + " .DC-left-cover"  ).width(dimensions.leftCoverWidth);
-    $("#" + noteID + " .DC-note-excerpt").width(dimensions.excerptWidth);
-    $("#" + noteID + " .DC-right-cover" ).width(dimensions.rightCoverWidth);
+    noteEl.find(".DC-note-image"  ).width(dimensions.imageWidth);
+    noteEl.find(".DC-left-cover"  ).width(dimensions.leftCoverWidth);
+    noteEl.find(".DC-note-excerpt").width(dimensions.excerptWidth);
+    noteEl.find(".DC-right-cover" ).width(dimensions.rightCoverWidth);
 
     // position left cover & note excerpt
-    $("#" + noteID + " .DC-note-image"  ).css('top', dimensions.imageTop);
-    $("#" + noteID + " .DC-note-excerpt").css('left', dimensions.excerptLeft);
+    noteEl.find(".DC-note-image"  ).css('top', dimensions.imageTop);
+    noteEl.find(".DC-note-excerpt").css('left', dimensions.excerptLeft);
   }
 
   //footnote click
