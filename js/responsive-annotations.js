@@ -24,9 +24,7 @@ $(function() {
   }
 
   var findNotes = function() {
-    $(".DC-note-container").each(function() {
-      getCoordinates($(this)); /*swapURL(this);*/
-    });
+    $(".DC-note-container").each(function() { getCoordinates($(this)); /*swapURL(this);*/ });
   }
 
   //link notes to wapo embedder pages instead of document cloud
@@ -43,21 +41,21 @@ $(function() {
   var getCoordinates = function(noteEl) {
     var noteID = $(noteEl).attr('id');
 
-    var wrapWidth   = noteEl.find(".DC-note-excerpt").width(),
-      docWidth      = noteEl.find(".DC-note-image").width(),
-      docTop        = noteEl.find(".DC-note-image").position().top,
-      lCoverWidth   = noteEl.find(".DC-left-cover").width(),
-      rCoverWidth   = noteEl.find(".DC-right-cover").width(),
-      excerptHeight = noteEl.find(".DC-note-excerpt").height(),
-      excerptLeft   = noteEl.find(".DC-note-excerpt").position().left,
-      excerptWidth  = noteEl.find(".DC-note-excerpt").width();
+    var wrapWidth     = noteEl.find(".DC-note-excerpt").width();
+    var docWidth      = noteEl.find(".DC-note-image").width();
+    var docTop        = noteEl.find(".DC-note-image").position().top;
+    var lCoverWidth   = noteEl.find(".DC-left-cover").width();
+    var rCoverWidth   = noteEl.find(".DC-right-cover").width();
+    var excerptHeight = noteEl.find(".DC-note-excerpt").height();
+    var excerptLeft   = noteEl.find(".DC-note-excerpt").position().left;
+    var excerptWidth  = noteEl.find(".DC-note-excerpt").width();
 
     if (docWidth != 0 && !(notes[noteID])) { //don't store notes that are set to display none
-      var x1 = lCoverWidth,
-          y1 = (docTop) * -1;
+      var x1 = lCoverWidth;
+      var y1 = (docTop) * -1;
 
-      var x2 = x1 + (750 - (lCoverWidth + rCoverWidth)),
-          y2 = y1 + excerptHeight;
+      var x2 = x1 + (750 - (lCoverWidth + rCoverWidth));
+      var y2 = y1 + excerptHeight;
 
       var noteWidth = (x2 - x1);
 
