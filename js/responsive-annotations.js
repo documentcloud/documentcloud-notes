@@ -133,19 +133,18 @@ $(function() {
     //original values
     var natNoteWidth = notes[noteID].noteWidth;
     var natWrapWidth = notes[noteID].wrapWidth;
-    var natDocWidth = notes[noteID].docWidth;
+    var natDocWidth  = notes[noteID].docWidth;
 
     //new values after resize of browser 
     var newWrapWidth = $("#" + noteID + " .DC-note-excerpt-wrap").width();
-    var newNoteWidth = newWrapWidth;
 
     //calculate new width of document image
-    var w = (natNoteWidth - newWrapWidth);
-    var a = w / natNoteWidth;
-    var x = (natNoteWidth / natDocWidth);
-    var b = a * x;
-    var newDocWidth = (natDocWidth * (1 - b)) - 70;
-    //var newDocWidth = natDocWidth-(w*x); 
+    var w             = (natNoteWidth - newWrapWidth); // delta between natural width & current viewable width (e.g. the # of pixels cut out of the viewable area.)
+    var a             = w / natNoteWidth;              // fraction of image that has been cutoff
+    var x             = (natNoteWidth / natDocWidth);  // note width as fraction of document width
+    var b             = a * x;                         // ???? this is the viewable cutoff as a fraction of document (we think)
+    var newDocWidth   = (natDocWidth * (1 - b)) - 70;  // scale natural doc width by 1 - viewable cutoff as fraction of document (minus margin?)
+    //var newDocWidth = natDocWidth-(w*x);
 
     var z = newDocWidth / natDocWidth;
     var newExcerptWidth = (notes[noteID].excerptWidth) * z;
@@ -161,7 +160,6 @@ $(function() {
     $("#" + noteID + " .DC-note-excerpt").width(newExcerptWidth);
     $("#" + noteID + " .DC-note-excerpt").height(newExcerptHeight);
     $("#" + noteID + " .DC-note-excerpt").css('left', -1 * newX1);
-    console.debug()
     $("#" + noteID + " .DC-left-cover").width(newX1);
     $("#" + noteID + " .DC-right-cover").width(newExcerptWidth - newX2);
     $("#" + noteID + " .DC-left-cover").height(newExcerptHeight);
