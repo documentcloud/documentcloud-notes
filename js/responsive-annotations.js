@@ -1,5 +1,6 @@
 $(function(){
 
+  // Storage of note model/properties.
   var notes = {}; 
 
   var currentQuery; 
@@ -21,7 +22,7 @@ $(function(){
     }
 
     var findNotes = function() {
-      $(".DC-note-container").each(function() { getCoords(this); /*swapURL(this);*/ });
+      $(".DC-note-container").each(function() { getCoordinates(this); /*swapURL(this);*/ });
     }
 
     //link notes to wapo embedder pages instead of document cloud
@@ -34,8 +35,9 @@ $(function(){
     //    }
     //}  
 
-    var getCoords = function (note) {
-      var noteID = $(note).attr('id');  
+    // gets default/canonical positioning data for note & stores it.
+    var getCoordinates = function (noteEl) {
+      var noteID = $(noteEl).attr('id');  
 
       var wrapWidth = $("#"+noteID+" .DC-note-excerpt").width(),
       docWidth = $("#"+noteID+" .DC-note-image").width(),
