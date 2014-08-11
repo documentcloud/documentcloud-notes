@@ -100,28 +100,31 @@ $(function(){
     }
 
     var handleMatchMedia = function(mediaQuery) {
-      if (mediaQuery.matches) { 
-            console.log("mediaQuery.media = "+mediaQuery.media); 
+      if (mediaQuery.matches) {
+        console.log("mediaQuery.media = "+mediaQuery.media); 
         currentQuery = mediaQuery.media; 
-        checkSize();   
+        checkSize();
       }
     }
 
     var checkSize = function() {
       $.each(notes, function() { 
-      var noteElem = $("#"+this.noteID);  
-      var newWrapWidth = noteElem.find('.DC-note-excerpt-wrap').width(); 
-      var checkWidth = this.noteWidth/newWrapWidth; 
-      if (currentQuery != xsQuery.media) {
-          if (checkWidth > 1) {
-            resizeDoc(this.noteID); 
-          } else if (checkWidth < 1){
+        var noteElem = $("#"+this.noteID); // the notes lookup should just cache the element.
+        var newWrapWidth = noteElem.find('.DC-note-excerpt-wrap').width(); // Get viewable width
+        var checkWidth = this.noteWidth/newWrapWidth; // calculate the ration of the note's width to the veiwable width
+
+        // If we're at the smallest media width size just resize the doc/note
+        // otherwise check whether the note is larger or smaller than the viewerable width
+        if (currentQuery != xsQuery.media) {
+          if (checkWidth > 1) { // note width is larger than viewable width
+            resizeDoc(this.noteID);
+          } else if (checkWidth < 1){ // note width is smaller than viewable width
             restoreDoc(this.noteID); 
           }
         } else {
           resizeDoc(this.noteID); 
         }
-    }); 
+      }); 
     }
 
     var resizeDoc = function(noteID) {
