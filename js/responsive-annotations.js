@@ -142,7 +142,7 @@ $(function() {
     var newWrapWidth = $("#" + noteID + " .DC-note-excerpt-wrap").width();
 
     //calculate new width of document image
-    var newDocWidth = natDocWidth - natNoteWidth + newWrapWidth - 70;
+    var newDocWidth = natDocWidth - natNoteWidth + newWrapWidth;
 
     var scaling_factor   = newDocWidth / natDocWidth;
     var newExcerptWidth  = (notes[noteID].excerptWidth)  * scaling_factor;
