@@ -74,7 +74,9 @@ $(function() {
       var noteElem = $("#" + this.noteID); // the notes lookup should just cache the element.
       var newWrapWidth = noteElem.find('.DC-note-excerpt-wrap').width(); // Get viewable width
 
-      //if viewable width < left cover width + note width, kill left cover & scale!
+      //if viewable width < left cover width + note width, kill left cover
+      //if viewable width <                    note width, scale!
+      //else, restoreDoc
       ( newWrapWidth < this.lCoverWidth+this.noteWidth ) ? resizeDoc(this.noteID) : restoreDoc(this.noteID);
     });
   }
