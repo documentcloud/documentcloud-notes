@@ -51,19 +51,20 @@ $(function() {
     var excerptWidth  = noteEl.find(".DC-note-excerpt").width();
 
     if (docWidth != 0 && !(notes[noteID])) { //don't store notes that are set to display none
-      var x1 = lCoverWidth;
-      var y1 = (docTop) * -1;
-
-      var x2 = x1 + (750 - (lCoverWidth + rCoverWidth));
-      var y2 = y1 + excerptHeight;
-
-      var noteWidth = (x2 - x1);
+      //var x1 = lCoverWidth;
+      //var y1 = (docTop) * -1;
+      //
+      //var x2 = x1 + (750 - (lCoverWidth + rCoverWidth));
+      //var y2 = y1 + excerptHeight;
+      //
+      //var noteWidth = 750 - (lCoverWidth + rCoverWidth);//(x2 - x1);
 
       var note = {
-        x1: x1,
-        x2: x2,
-        y1: y1,
-        y2: y2,
+        x1: lCoverWidth,
+        x2: 750 - rCoverWidth,
+        y1: -1* docTop,
+        y2: -1* docTop + excerptHeight,
+        
         noteID: noteID,
         wrapWidth: wrapWidth,
         docWidth: docWidth,
@@ -73,7 +74,8 @@ $(function() {
         excerptHeight: excerptHeight,
         excerptLeft: excerptLeft,
         excerptWidth: excerptWidth,
-        noteWidth: noteWidth
+        
+        noteWidth: 750 - (lCoverWidth + rCoverWidth)
       }
 
       notes[noteID] = note;
