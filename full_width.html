@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      var resizeTimer; //set resizeTimer to empty so it resets on page load
+      $(window).resize(function(){
+        console.log("Resizing!", $(window).width());
+        $(".DC-note-container").each(function(){
+          console.log($(this).width());
+        })
+        //clearTimeout(resizeTimer);
+        //resizeTimer = setTimeout(checkSize, 250);
+      });
+    </script>
+    <style>
+    </style>
+  </head>
   <body>
     <div id="DC-note-168403" class="DC-note-container"></div>
     
