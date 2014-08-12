@@ -130,7 +130,9 @@ $(function() {
       //} else {
       //  resizeDoc(this.noteID);
       //}
-      resizeDoc(this.noteID);
+
+      //if viewable width < excerpt width, kill left cover & scale!
+      if ( newWrapWidth < this.noteWidth ){ console.log("resizing", newWrapWidth, this.noteWidth); resizeDoc(this.noteID); } else { console.log("restoring"); restoreDoc(this.noteID); }
     });
   }
 
