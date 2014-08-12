@@ -2,13 +2,6 @@ $(function() {
 
   // Storage of note model/properties.
   var notes = {};
-
-  var currentQuery;
-  var lgQuery = window.matchMedia("(min-width:1200px)");
-  var mdQuery = window.matchMedia("(min-width:980px) and (max-width:1199px)");
-  var smQuery = window.matchMedia("(min-width:768px) and (max-width:979px)");
-  var xsQuery = window.matchMedia("(max-width:767px)");
-
   var resizeTimer; //set resizeTimer to empty so it resets on page load
 
   //entry point
@@ -51,14 +44,6 @@ $(function() {
     var excerptWidth  = noteEl.find(".DC-note-excerpt").width();
 
     if (docWidth != 0 && !(notes[noteID])) { //don't store notes that are set to display none
-      //var x1 = lCoverWidth;
-      //var y1 = (docTop) * -1;
-      //
-      //var x2 = x1 + (750 - (lCoverWidth + rCoverWidth));
-      //var y2 = y1 + excerptHeight;
-      //
-      //var noteWidth = 750 - (lCoverWidth + rCoverWidth);//(x2 - x1);
-
       var note = {
         x1: lCoverWidth,
         x2: 750 - rCoverWidth,
@@ -80,36 +65,7 @@ $(function() {
 
       notes[noteID] = note;
     }
-    setMatchMedia();
-  }
-
-  //set up media event listeners
-  var setMatchMedia = function() {
-    //initial call of handleMatchMedia for each breakpoint
-    handleMatchMedia(lgQuery);
-    handleMatchMedia(mdQuery);
-    handleMatchMedia(smQuery);
-    handleMatchMedia(xsQuery);
-
-    //add listeners for when viewport size changes
-    lgQuery.addListener(handleMatchMedia);
-    mdQuery.addListener(handleMatchMedia);
-    smQuery.addListener(handleMatchMedia);
-    xsQuery.addListener(handleMatchMedia);
-
-    //orientation change listener
-    window.addEventListener("orientationchange", function() {
-      console.debug("orientation change = " + window.orientation);
-      checkSize();
-    }, false);
-  }
-
-  var handleMatchMedia = function(mediaQuery) {
-    if (mediaQuery.matches) {
-      console.log("mediaQuery.media = " + mediaQuery.media);
-      currentQuery = mediaQuery.media;
-      checkSize();
-    }
+    checkSize();
   }
 
   //diffs the note's natural width with its current width and decides what to do
@@ -117,22 +73,9 @@ $(function() {
     $.each(notes, function() {
       var noteElem = $("#" + this.noteID); // the notes lookup should just cache the element.
       var newWrapWidth = noteElem.find('.DC-note-excerpt-wrap').width(); // Get viewable width
-      var checkWidth = this.noteWidth / newWrapWidth; // calculate the ration of the note's width to the veiwable width
-      
-      //// If we're at the smallest media width size just resize the doc/note
-      //// otherwise check whether the note is larger or smaller than the viewerable width
-      //if (currentQuery != xsQuery.media) {
-      //  if (checkWidth > 1) { // note width is larger than viewable width
-      //    resizeDoc(this.noteID);
-      //  } else if (checkWidth < 1) { // note width is smaller than viewable width
-      //    restoreDoc(this.noteID);
-      //  }
-      //} else {
-      //  resizeDoc(this.noteID);
-      //}
 
       //if viewable width < left cover width + note width, kill left cover & scale!
-      if ( newWrapWidth < this.lCoverWidth+this.noteWidth ){ console.log("resizing", newWrapWidth, this.noteWidth); resizeDoc(this.noteID); } else { console.log("restoring"); restoreDoc(this.noteID); }
+      ( newWrapWidth < this.lCoverWidth+this.noteWidth ) ? resizeDoc(this.noteID) : restoreDoc(this.noteID);
     });
   }
 
