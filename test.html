@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+    <script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+    <script> window._.t = function(input){ return input; }</script>
+    <script type="text/javascript" src="js/dc/note_embed.js"></script>
+    <link type='text/css' rel='stylesheet' href="//s3.amazonaws.com/s3.documentcloud.org/note_embed/note_embed-datauri.css"/>
+    
+    <script>
+      var resizeTimer; //set resizeTimer to empty so it resets on page load
+      $(window).resize(function(){
+        console.log("Resizing!", $(window).width());
+        $(".DC-note-container").each(function(){ console.log($(this).width()); })
+      });
+      
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <template>
+      <div class="DC-note">
+        <div class="DC-note-contents">
+          <div class="DC-note-title display">
+            <a class="DC-title-link" href="<%= note.viewerUrl() %>"><%= note.get('title') %> <span class="DC-page-number">(<%=_.t('pg') %> <%= note.get('page') %>)</span></a>
+          </div>
+          <% if (note.get('access') == 'exclusive') { %>
+            <div class="DC-note-draft-label interface display"><%= _.t('draft') %></div>
+          <% } %>
+          <% if (note.get('access') == 'private') { %>
+            <div class="DC-icon lock display" title="<%= _.t('private_note') %>"></div>
+          <% } %>
+          <% var coords = note.coordinates(); %>
+          <% if (coords) { %>
+            <a href="<%= note.viewerUrl() %>">
+              <div class="DC-note-excerpt-wrap">
+                <div class="DC-note-excerpt" style="height: <%= coords.height %>px;">
+                  <div class="DC-left-cover"  style="height: <%= coords.height %>px; width: <%= coords.left %>px;"></div>
+                  <div class="DC-right-cover" style="height: <%= coords.height %>px; width: <%= 750 - coords.right %>px;"></div>
+                  <img class="DC-note-image" src="<%= note.imageUrl() %>" alt="" style="top: -<%= coords.top %>px;" />
+                </div>
+              </div>
+            </a>
+          <% } %>
+          <div class="DC-note-text display"><%= note.get('content') %></div>
+        </div>
+      </div>
+    </template>
+    <script>
+      var templateText = _.unescape($('template')[0].innerHTML);
+      window.JST = {};
+      JST['note_embed'] = _.template(templateText);
+    </script>
+
+    <div id="DC-note-168403" class="DC-note-container"></div>
+    
+    <div id="DC-note-168037" class="DC-note-container"></div>
+    
+    <script>
+      dc.embed.loadNote('//www.documentcloud.org/documents/1160076-224332847-nyt-innovation-report-2014/annotations/168403.js');
+
+      dc.embed.loadNote('//www.documentcloud.org/documents/1160076-224332847-nyt-innovation-report-2014/annotations/168037.js');
+    </script>
+  </body>
+</html>
