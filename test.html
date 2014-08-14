@@ -46,7 +46,6 @@
           var widthLeftCover  = noteEl.find(".DC-left-cover"  ).width();
           var widthRightCover = noteEl.find(".DC-right-cover" ).width();
           var heightOffset    = noteEl.find(".DC-note-image"  ).position().top;
-          var widthOffset     = noteEl.find(".DC-note-excerpt").position().left;
         //var widthImage    for a full-sized note is always 700 because all page images served are 700x900
         //var widthViewable for a full-sized note is always 750 because max width of viewable is 750
 
@@ -57,8 +56,7 @@
             widthLeftCover:  widthLeftCover,
             widthTarget:     750-(widthLeftCover+widthRightCover),
             widthRightCover: widthRightCover,
-            heightOffset:    heightOffset,
-            widthOffset:     widthOffset
+            heightOffset:    heightOffset
           };
           //add the note to notes
           notes[noteID] = note;
@@ -72,7 +70,7 @@
           var new_widthViewable = noteEl.find(".DC-note-excerpt-wrap").width();
 
           if( new_widthViewable < this.widthTarget ){
-            console.log( this.noteID,": case1" );
+            // console.log( this.noteID+": "+new_widthViewable+" < "+this.widthTarget );
             //kill left cover + scale
             var scaling_factor = new_widthViewable/this.widthTarget;
             scaleNote( this.noteID,{
@@ -81,11 +79,11 @@
               widthRightCover: scaling_factor*this.widthRightCover,
               widthImage:      scaling_factor*700,
               heightOffset:    scaling_factor*this.heightOffset,
-              widthOffset:     scaling_factor*this.widthOffset
+              widthOffset:     scaling_factor*this.widthLeftCover
             } );
           }
           else if( new_widthViewable < this.widthLeftCover+this.widthTarget ){
-            console.log( this.noteID,": case2" );
+            // console.log( this.noteID,": "+new_widthViewable+" < "+this.widthLeftCover+"+"+this.widthTarget );
             //kill left cover
             scaleNote( this.noteID,{
               heightViewable:  this.heightViewable,
@@ -93,11 +91,11 @@
               widthRightCover: this.widthRightCover,
               widthImage:      700,
               heightOffset:    this.heightOffset,
-              widthOffset:     this.widthOffset
+              widthOffset:     this.widthLeftCover
             } );
           }
           else{
-            console.log( this.noteID,": case3" );
+            // console.log( this.noteID,": large" );
             //restore left cover
             scaleNote( this.noteID,{
               heightViewable:  this.heightViewable,
@@ -105,7 +103,7 @@
               widthRightCover: this.widthRightCover,
               widthImage:      700,
               heightOffset:    this.heightOffset,
-              widthOffset:     this.widthOffset
+              widthOffset:     0
             } );
           }
         });
@@ -123,8 +121,8 @@
         noteEl.find(".DC-right-cover" ).width(dimensions.widthRightCover);
         noteEl.find(".DC-note-image"  ).width(dimensions.widthImage);
         // position left cover & note excerpt
-        noteEl.find(".DC-note-image"  ).css('top', dimensions.heightOffset);
-        noteEl.find(".DC-note-excerpt").css('left',dimensions.widthOffset);
+        noteEl.find(".DC-note-image"  ).css('top',    dimensions.heightOffset);
+        noteEl.find(".DC-note-excerpt").css('left',-1*dimensions.widthOffset);
       }
 
       $(window).load( function(){
