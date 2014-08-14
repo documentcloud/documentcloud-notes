@@ -11,12 +11,35 @@
     <link type='text/css' rel='stylesheet' href="http://s3.amazonaws.com/s3.documentcloud.org/note_embed/note_embed-datauri.css"/>
     
     <script>
+      var notes = {}; // Storage of note model/properties.
       var resizeTimer; //set resizeTimer to empty so it resets on page load
-      $(window).resize(function(){
-        console.log("Resizing!", $(window).width());
-        $(".DC-note-container").each(function(){ console.log($(this).width()); })
+
+      //entry point
+      var init = function(){
+        //add each note as an object of coordinates
+        $(".DC-note-container").each( function(){ 
+          addNotes( $(this) );
+          compareSize();
+        });
+
+        //on resize, run compareSize and reset the timeout
+        $(window).resize( function(){
+          clearTimeout( resizeTimer );
+          resizeTimer = setTimeout( compareSize,250 ); //250 is the delay in milliseconds. Can be adjusted as you see fit. 
+        });
+      }
+
+      //stores full-size note coordinates for each note
+      var addNotes = function(noteEl){
+      }
+
+      //compares new width of viewable to left cover and target widths & scales accordingly
+      var compareSize = function(){
+      }
+
+      $(window).load( function(){
+        init();
       });
-      
     </script>
     <style>
     </style>
