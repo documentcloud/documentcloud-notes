@@ -74,16 +74,56 @@
           if( new_widthViewable < this.widthTarget ){
             console.log( this.noteID,": case1" );
             //kill left cover + scale
+            scaleNote( this.noteID,{
+              heightViewable:  notes[this.noteID].heightViewable,
+              widthLeftCover:  notes[this.noteID].widthLeftCover,
+              widthRightCover: notes[this.noteID].widthRightCover,
+              widthImage:      700,
+              heightOffset:    notes[this.noteID].heightOffset,
+              widthOffset:     notes[this.noteID].widthOffset
+            } );
           }
           else if( new_widthViewable < this.widthLeftCover+this.widthTarget ){
             console.log( this.noteID,": case2" );
             //kill left cover
+            scaleNote( this.noteID,{
+              heightViewable:  notes[this.noteID].heightViewable,
+              widthLeftCover:  notes[this.noteID].widthLeftCover,
+              widthRightCover: notes[this.noteID].widthRightCover,
+              widthImage:      700,
+              heightOffset:    notes[this.noteID].heightOffset,
+              widthOffset:     notes[this.noteID].widthOffset
+            } );
           }
           else{
             console.log( this.noteID,": case3" );
             //restore left cover
+            scaleNote( this.noteID,{
+              heightViewable:  notes[this.noteID].heightViewable,
+              widthLeftCover:  notes[this.noteID].widthLeftCover,
+              widthRightCover: notes[this.noteID].widthRightCover,
+              widthImage:      700,
+              heightOffset:    notes[this.noteID].heightOffset,
+              widthOffset:     notes[this.noteID].widthOffset
+            } );
           }
         });
+      }
+
+      //scales note coordinates
+      var scaleNote = function(noteID,dimensions){
+        var noteEl = $("#"+noteID);
+        // set heights for note images.
+        noteEl.find(".DC-note-excerpt").height(dimensions.heightViewable);
+        noteEl.find(".DC-left-cover"  ).height(dimensions.heightViewable);
+        noteEl.find(".DC-right-cover" ).height(dimensions.heightViewable); 
+        // Set widths of left cover, target, right cover, and image.
+        noteEl.find(".DC-left-cover"  ).width(dimensions.widthLeftCover);
+        noteEl.find(".DC-right-cover" ).width(dimensions.widthRightCover);
+        noteEl.find(".DC-note-image"  ).width(dimensions.widthImage);
+        // position left cover & note excerpt
+        noteEl.find(".DC-note-image"  ).css('top', dimensions.heightOffset);
+        noteEl.find(".DC-note-excerpt").css('left',dimensions.widthOffset);
       }
 
       $(window).load( function(){
