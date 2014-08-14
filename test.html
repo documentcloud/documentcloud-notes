@@ -67,6 +67,23 @@
 
       //compares new width of viewable to left cover and target widths & scales accordingly
       var compareSize = function(){
+        $.each( notes,function(){
+          var noteEl = $("#"+this.noteID); //the notes lookup should just cache the element.
+          var new_widthViewable = noteEl.find(".DC-note-excerpt-wrap").width();
+
+          if( new_widthViewable < this.widthTarget ){
+            console.log( this.noteID,": case1" );
+            //kill left cover + scale
+          }
+          else if( new_widthViewable < this.widthLeftCover+this.widthTarget ){
+            console.log( this.noteID,": case2" );
+            //kill left cover
+          }
+          else{
+            console.log( this.noteID,": case3" );
+            //restore left cover
+          }
+        });
       }
 
       $(window).load( function(){
