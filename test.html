@@ -74,13 +74,14 @@
           if( new_widthViewable < this.widthTarget ){
             console.log( this.noteID,": case1" );
             //kill left cover + scale
+            var scaling_factor = new_widthViewable/notes[this.noteID].widthTarget;
             scaleNote( this.noteID,{
-              heightViewable:  notes[this.noteID].heightViewable,
-              widthLeftCover:  notes[this.noteID].widthLeftCover,
-              widthRightCover: notes[this.noteID].widthRightCover,
-              widthImage:      700,
-              heightOffset:    notes[this.noteID].heightOffset,
-              widthOffset:     notes[this.noteID].widthOffset
+              heightViewable:  scaling_factor*notes[this.noteID].heightViewable,
+              widthLeftCover:  0,
+              widthRightCover: scaling_factor*notes[this.noteID].widthRightCover,
+              widthImage:      scaling_factor*700,
+              heightOffset:    scaling_factor*notes[this.noteID].heightOffset,
+              widthOffset:     scaling_factor*notes[this.noteID].widthOffset
             } );
           }
           else if( new_widthViewable < this.widthLeftCover+this.widthTarget ){
@@ -88,7 +89,7 @@
             //kill left cover
             scaleNote( this.noteID,{
               heightViewable:  notes[this.noteID].heightViewable,
-              widthLeftCover:  notes[this.noteID].widthLeftCover,
+              widthLeftCover:  0,
               widthRightCover: notes[this.noteID].widthRightCover,
               widthImage:      700,
               heightOffset:    notes[this.noteID].heightOffset,
