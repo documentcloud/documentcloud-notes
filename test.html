@@ -29,8 +29,40 @@
         });
       }
 
+      //CLARIFICATION OF TERMINOLOGY
+      //box : the area with the yellow border
+      //viewable(".DC-note-excerpt-wrap") : just the area with the image
+      //left cover(".DC-left-cover"), target, right cover(".DC-right-cover") : parts of the viewable area; apparently there's no element corresponding directly to the target, or the actual focus of the note
+      //image(".DC-note-image") : actual image, a parts of which is visible in the viewable area
+
       //stores full-size note coordinates for each note
       var addNotes = function(noteEl){
+        var noteID          = noteEl.attr('id');
+        var widthViewable   = noteEl.find(".DC-note-excerpt-wrap").width();
+
+        //don't store notes that are set to display none && you can't embed the same note twice on one page, so you can't have two notes[noteID]
+        if( widthViewable!=0 && !(notes[noteID]) ){
+          var heightViewable  = noteEl.find(".DC-note-excerpt").height(); //heightViewable = heightLeftCover = heightTarget = heightRightCover
+          var widthLeftCover  = noteEl.find(".DC-left-cover"  ).width();
+          var widthRightCover = noteEl.find(".DC-right-cover" ).width();
+          var heightOffset    = noteEl.find(".DC-note-image"  ).position().top;
+          var widthOffset     = noteEl.find(".DC-note-excerpt").position().left;
+        //var widthImage    for a full-sized note is always 700 because all page images served are 700x900
+        //var widthViewable for a full-sized note is always 750 because max width of viewable is 750
+
+          //note
+          var note = {
+            noteID: noteID,
+            heightViewable:  heightViewable,
+            widthLeftCover:  widthLeftCover,
+            widthTarget:     750-(widthLeftCover+widthRightCover),
+            widthRightCover: widthRightCover,
+            heightOffset:    heightOffset,
+            widthOffset:     widthOffset
+          };
+          //add the note to notes
+          notes[noteID] = note;
+        }
       }
 
       //compares new width of viewable to left cover and target widths & scales accordingly
