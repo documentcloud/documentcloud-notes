@@ -159,7 +159,7 @@
     </style>
   </head>
   <body>
-    <template>
+    <script type="text/template" id="tmpl">
       <div class="DC-note">
         <div class="DC-note-contents">
           <div class="DC-note-title display">
@@ -186,9 +186,9 @@
           <div class="DC-note-text display"><%= note.get('content') %></div>
         </div>
       </div>
-    </template>
+    </script>
     <script>
-      var templateText = _.unescape($('template')[0].innerHTML);
+      var templateText = _.unescape($("#tmpl")[0].innerHTML);
       window.JST = {};
       JST['note_embed'] = _.template(templateText);
     </script>
