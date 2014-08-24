@@ -4,13 +4,13 @@ var resizeTimer; //set resizeTimer to empty so it resets on page load
 //entry point
 var init = function(){
   //add each note as an object of coordinates
-  $(".DC-note-container").each( function(){ 
-    addNotes( $(this) );
+  dc.jQuery(".DC-note-container").each( function(){ 
+    addNotes( dc.jQuery(this) );
     compareSize();
   });
 
   //on resize, run compareSize and reset the timeout
-  $(window).resize( function(){
+  dc.jQuery(window).resize( function(){
     clearTimeout( resizeTimer );
     resizeTimer = setTimeout( compareSize,250 ); //250 is the delay in milliseconds. Can be adjusted as you see fit. 
   });
@@ -53,8 +53,8 @@ var addNotes = function(noteEl){
 
 //compares new width of viewable to left cover and target widths & scales accordingly
 var compareSize = function(){
-  $.each( notes,function(){
-    var noteEl = $("#"+this.noteID); //the notes lookup should just cache the element.
+  dc.jQuery.each( notes,function(){
+    var noteEl = dc.jQuery("#"+this.noteID); //the notes lookup should just cache the element.
     var new_widthViewable = noteEl.find(".DC-note-excerpt-wrap").width();
 
     //changing from any case (1,2,3) to the smallest case (1), scaleNote & shiftLeft
@@ -118,7 +118,7 @@ var compareSize = function(){
 
 //scales note coordinates
 var scaleNote = function(noteID,dimensions){
-  var noteEl = $("#"+noteID);
+  var noteEl = dc.jQuery("#"+noteID);
   // set heights for note images.
   noteEl.find(".DC-note-excerpt").height(dimensions.heightViewable);
   noteEl.find(".DC-left-cover"  ).height(dimensions.heightViewable);
@@ -131,13 +131,13 @@ var scaleNote = function(noteID,dimensions){
 }
 //
 var shiftLeft = function(noteID,dimensions){
-  var noteEl = $("#"+noteID);
+  var noteEl = dc.jQuery("#"+noteID);
   // Set widths of left cover
   noteEl.find(".DC-left-cover"  ).width(dimensions.widthLeftCover);
   // position image
   noteEl.find(".DC-note-excerpt").css('left',-1*dimensions.widthOffset);
 }
 
-$(window).load( function(){
+dc.jQuery(window).load( function(){
   init();
 });
