@@ -4,8 +4,8 @@
   dc.embed  = dc.embed || {};
   var notes = dc.embed.notes = dc.embed.notes || {};
   
-  var _ = dc._        = window._.noConflict();
-  var $ = dc.jQuery   = window.jQuery.noConflict(true);
+  var _ = dc._             = window._.noConflict();
+  var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
   
   dc.embed.loadNote = function(embedUrl, opts) {
     var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
@@ -88,6 +88,43 @@
       return this.get('published_url') + suffix;
     }
     
+  };
+  
+  dc.embed.noteView = function(options){
+    // stolen out of Backbone.View.setElement
+    var element = options.el;
+    this.$el = element instanceof dc.$ ? element : dc.$(element);
+    this.el = this.$el[0];
+
+    this.model = options.model;
+  };
+  
+  dc.embed.noteView.prototype = {
+    render : function() {
+      debugger;
+      var containerWidth = this.$el.width();
+
+      this.$el.html(JST['note_embed']({note : this.model}));
+      if (containerWidth < 700) this.center(containerWidth);
+      return this.$el;
+    },
+    
+    center : function() {
+      var $excerpt       = this.$('.DC-note-excerpt');
+      var coords         = this.model.coordinates();
+      if (!coords) return;
+      var annoCenter     = coords.left + (coords.width / 2);
+      var viewportWidth  = $excerpt.closest('.DC-note-excerpt-wrap').width();
+      var viewportCenter = viewportWidth / 2;
+
+      if (coords.left + coords.width > viewportWidth) {
+        if (coords.width > viewportWidth) {
+          $excerpt.css('left', -1 * coords.left);
+        } else {
+          $excerpt.css('left', viewportCenter - annoCenter);
+        }
+      }
+    }
   };
   
   dc.embed.pingRemoteUrl = function(type, id) {
