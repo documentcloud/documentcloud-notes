@@ -22,17 +22,11 @@
     <script>
       dc.embed.loadNote('http://www.documentcloud.org/documents/1160076-224332847-nyt-innovation-report-2014/annotations/168403.js');
 
-      dc.embed.loadNote('http://www.documentcloud.org/documents/1160076-224332847-nyt-innovation-report-2014/annotations/168037.js');
-    </script>
-    
-    <div id="note-test"></div>
-    
-    <script>
-    dc.$(window).load(function(){
-      note = dc.embed.notes[dc._.keys(dc.embed.notes)[0]].model;
-      view = new dc.embed.noteView({model: note, el: '#note-test'});
-      view.render();
-    });
+      dc.embed.loadNote('http://www.documentcloud.org/documents/1160076-224332847-nyt-innovation-report-2014/annotations/168037.js', {
+        afterLoad: function(note){ 
+          note.$el.find('.DC-note').css("border", "3px solid rgb(0, 231, 0)");
+        }
+      });
     </script>
   </body>
 </html>
