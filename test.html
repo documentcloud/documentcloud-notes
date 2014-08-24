@@ -29,7 +29,7 @@
     
     <script>
     dc.$(window).load(function(){
-      note = dc.embed.notes[dc._.keys(dc.embed.notes)[0]];
+      note = dc.embed.notes[dc._.keys(dc.embed.notes)[0]].model;
       view = new dc.embed.noteView({model: note, el: '#note-test'});
       view.render();
     });

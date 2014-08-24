@@ -8,8 +8,11 @@
   var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
   
   dc.embed.loadNote = function(embedUrl, opts) {
+    var options = opts || {}
     var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
-    notes[id] = notes[id] || new dc.embed.noteModel(opts);
+    var noteModel = new dc.embed.noteModel(options);
+    var el = options.container || '#DC-note-' + id;
+    notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: el});
     $.getScript(embedUrl);
     
     dc.embed.pingRemoteUrl('note', id);
@@ -18,9 +21,9 @@
   dc.embed.noteCallback = function(response) {
     var id   = response.id;
     var note = dc.embed.notes[id];
-    note.attributes = response;
+    note.model.attributes = response;
     note.render();
-    if (note.options && note.options.afterLoad) note.options.afterLoad(note);
+    if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
   
   dc.embed.noteModel = function(opts) {
