@@ -31,17 +31,6 @@
   };
   
   dc.embed.noteModel.prototype = {
-    render : function(selector) {
-      var options    = this.options;
-      var container  = selector || options.container || '#DC-note-' + this.get('id');
-      var $container = $(container);
-      var containerWidth = $container.width();
-
-      $container.html(JST['note_embed']({note : this}));
-      if (containerWidth < 700) this.center($container, containerWidth);
-      return $container;
-    },
-    
     get : function(key) {
       return this.attributes[key];
     },
@@ -67,23 +56,6 @@
         height: css[2] - css[0],
         width:  css[1] - css[3]
       });
-    },
-    
-    center : function($container) {
-      var $excerpt       = $('.DC-note-excerpt', $container);
-      var coords         = this._coordinates;
-      if (!coords) return;
-      var annoCenter     = coords.left + (coords.width / 2);
-      var viewportWidth  = $excerpt.closest('.DC-note-excerpt-wrap').width();
-      var viewportCenter = viewportWidth / 2;
-
-      if (coords.left + coords.width > viewportWidth) {
-        if (coords.width > viewportWidth) {
-          $excerpt.css('left', -1 * coords.left);
-        } else {
-          $excerpt.css('left', viewportCenter - annoCenter);
-        }
-      }
     },
     
     viewerUrl : function() {
