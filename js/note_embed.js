@@ -15,7 +15,7 @@
     notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: el});
     $.getScript(embedUrl);
     
-    dc.embed.pingRemoteUrl('note', id);
+    if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
   
   dc.embed.noteCallback = function(response) {
@@ -25,18 +25,26 @@
     note.render();
     if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
+
+  dc.embed.pingRemoteUrl = function(type, id) {
+    var loc = window.location;
+    var url = loc.protocol + '//' + loc.host + loc.pathname;
+    if (url.match(/^file:/)) return false;
+    url = url.replace(/[\/]+$/, '');
+    var hitUrl = dc.recordHit;
+    var key    = encodeURIComponent(type + ':' + id + ':' + url);
+    $(document).ready( function(){ $(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
+  };
   
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
   };
   
   dc.embed.noteModel.prototype = {
-    get : function(key) {
-      return this.attributes[key];
-    },
+    get : function(key) { return this.attributes[key]; },
     
     option : function(key) {
-      return dc.embed.notes[this.get('id')].options[key];
+      return this.attributes.options[key];
     },
     
     imageUrl : function() {
@@ -98,15 +106,4 @@
       }
     }
   };
-  
-  dc.embed.pingRemoteUrl = function(type, id) {
-    var loc = window.location;
-    var url = loc.protocol + '//' + loc.host + loc.pathname;
-    if (url.match(/^file:/)) return false;
-    url = url.replace(/[\/]+$/, '');
-    var hitUrl = dc.recordHit;
-    var key    = encodeURIComponent(type + ':' + id + ':' + url);
-    $(document).ready( function(){ $(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
-  };
-  
 })();
