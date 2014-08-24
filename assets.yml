@@ -1,0 +1,14 @@
+javascript_compressor: closure
+template_function: dc._.template
+embed_assets: datauri
+
+javascripts:
+  note_embed:
+    - bower_components/underscore/underscore.js
+    - bower_components/jquery/dist/jquery.js
+    - js/note_embed.js
+    - templates/*.jst
+
+stylesheets:
+  note_embed:
+    - css/note_embed.css
