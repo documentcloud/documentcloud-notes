@@ -6,8 +6,6 @@
   
   var _ = dc._        = window._.noConflict();
   var $ = dc.jQuery   = window.jQuery.noConflict(true);
-  window.$ = $;
-  window._ = dc._;
   
   dc.embed.loadNote = function(embedUrl, opts) {
     var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
