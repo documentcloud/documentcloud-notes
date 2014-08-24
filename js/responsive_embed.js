@@ -44,7 +44,7 @@ var addNotes = function(noteEl){
       widthTarget:         750-(widthLeftCover+widthRightCover),
       widthRightCover:     widthRightCover,
       heightOffset:        heightOffset,
-      widthViewable_state: 3 //the largest case
+      widthViewableState: 3 //the largest case
     };
     //add the note to notes
     notes[noteID] = note;
@@ -55,29 +55,29 @@ var addNotes = function(noteEl){
 var compareSize = function(){
   dc.jQuery.each( notes,function(){
     var noteEl = dc.jQuery("#"+this.noteID); //the notes lookup should just cache the element.
-    var new_widthViewable = noteEl.find(".DC-note-excerpt-wrap").width();
+    var newViewableWidth = noteEl.find(".DC-note-excerpt-wrap").width();
 
     //changing from any case (1,2,3) to the smallest case (1), scaleNote & shiftLeft
-    if( new_widthViewable < this.widthTarget ){
+    if( newViewableWidth < this.widthTarget ){
       //scale + kill left cover
-      var scaling_factor = new_widthViewable/this.widthTarget;
+      var scalingFactor = newViewableWidth/this.widthTarget;
       scaleNote( this.noteID,{
-        heightViewable:  scaling_factor*this.heightViewable,
-        widthRightCover: scaling_factor*this.widthRightCover,
-        widthImage:      scaling_factor*700,
-        heightOffset:    scaling_factor*this.heightOffset
+        heightViewable:  scalingFactor*this.heightViewable,
+        widthRightCover: scalingFactor*this.widthRightCover,
+        widthImage:      scalingFactor*700,
+        heightOffset:    scalingFactor*this.heightOffset
       } );
       shiftLeft( this.noteID,{
         widthLeftCover:  0,
-        widthOffset:     scaling_factor*this.widthLeftCover
+        widthOffset:     scalingFactor*this.widthLeftCover
       } );
-      //update this.widthViewable_state
-      // console.log(this.noteID+" : "+this.widthViewable_state+"->1");
-      this.widthViewable_state = 1; //the smallest case
+      //update this.widthViewableState
+      // console.log(this.noteID+" : "+this.widthViewableState+"->1");
+      this.widthViewableState = 1; //the smallest case
     }
     else{
       //changing from the smallest case (1) to NOT the smallest case(2,3), scaleNote
-      if( this.widthViewable_state==1 ){
+      if( this.widthViewableState==1 ){
         scaleNote( this.noteID,{
           heightViewable:  this.heightViewable,
           widthRightCover: this.widthRightCover,
@@ -87,29 +87,29 @@ var compareSize = function(){
       }
 
       //changing from NOT the middle case (1,3) to the middle case (2), shiftLeft
-      if( new_widthViewable < this.widthLeftCover+this.widthTarget ){
-        if( this.widthViewable_state!=2 ){
+      if( newViewableWidth < this.widthLeftCover+this.widthTarget ){
+        if( this.widthViewableState!=2 ){
           //kill left cover
           shiftLeft( this.noteID,{
             widthLeftCover:  0,
             widthOffset:     this.widthLeftCover
           } );
-          //update this.widthViewable_state
-          // console.log(this.noteID+" : "+this.widthViewable_state+"->2");
-          this.widthViewable_state = 2; //the largest case
+          //update this.widthViewableState
+          // console.log(this.noteID+" : "+this.widthViewableState+"->2");
+          this.widthViewableState = 2; //the largest case
         }
       }
       //changing from NOT the largest case (1,2) to the largest case (3), shiftLeft
       else{
-        if( this.widthViewable_state!=3 ){
+        if( this.widthViewableState!=3 ){
           //restore left cover
           shiftLeft( this.noteID,{
             widthLeftCover:  this.widthLeftCover,
             widthOffset:     0
           } );
-          //update this.widthViewable_state
-          // console.log(this.noteID+" : "+this.widthViewable_state+"->3");
-          this.widthViewable_state = 3; //the largest case
+          //update this.widthViewableState
+          // console.log(this.noteID+" : "+this.widthViewableState+"->3");
+          this.widthViewableState = 3; //the largest case
         }
       }
     }
@@ -138,6 +138,4 @@ var shiftLeft = function(noteID,dimensions){
   noteEl.find(".DC-note-excerpt").css('left',-1*dimensions.widthOffset);
 }
 
-dc.jQuery(window).load( function(){
-  init();
-});
+dc.jQuery(window).load( function(){ init(); });
