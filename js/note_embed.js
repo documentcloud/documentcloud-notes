@@ -83,6 +83,7 @@
   };
   
   dc.embed.noteView.prototype = {
+    $: function(selector){ return this.$el.find(selector); },
     render : function() {
       this.$el.html(JST['note_embed']({note : this.model}));
       if (this.$el.width() < 700) this.center();
