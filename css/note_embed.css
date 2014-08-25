@@ -64,6 +64,7 @@
       }
         .DC-note .DC-left-cover,
         .DC-note .DC-right-cover {
+          height: inherit;
           position: absolute;
           z-index: 2;
           background: white;

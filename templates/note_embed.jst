@@ -14,8 +14,8 @@
       <a href="<%= note.viewerUrl() %>">
         <div class="DC-note-excerpt-wrap">
           <div class="DC-note-excerpt" style="height: <%= coords.height %>px;">
-            <div class="DC-left-cover"  style="height: <%= coords.height %>px; width: <%= coords.left %>px;"></div>
-            <div class="DC-right-cover" style="height: <%= coords.height %>px; width: <%= 750 - coords.right %>px;"></div>
+            <div class="DC-left-cover"  style="width: <%= coords.left %>px;"></div>
+            <div class="DC-right-cover" style="width: <%= 750 - coords.right %>px;"></div>
             <img class="DC-note-image" src="<%= note.imageUrl() %>" alt="" style="top: -<%= coords.top %>px;" />
           </div>
         </div>

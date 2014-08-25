@@ -121,8 +121,6 @@ var scaleNote = function(noteID,dimensions){
   var noteEl = dc.jQuery("#"+noteID);
   // set heights for note images.
   noteEl.find(".DC-note-excerpt").height(dimensions.heightViewable);
-  noteEl.find(".DC-left-cover"  ).height(dimensions.heightViewable);
-  noteEl.find(".DC-right-cover" ).height(dimensions.heightViewable); 
   // Set widths of right cover and image.
   noteEl.find(".DC-right-cover" ).width(dimensions.widthRightCover);
   noteEl.find(".DC-note-image"  ).width(dimensions.widthImage);
