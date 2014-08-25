@@ -7,6 +7,12 @@
   var _ = dc._             = window._.noConflict();
   var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
   
+  var resizeNotes = _.debounce(function(){
+    _.each(notes, function(note, id){ if (note.renderedWidth) note.resize(); });
+  }, 250);
+  
+  $(window).resize(resizeNotes);
+  
   dc.embed.loadNote = function(embedUrl, opts) {
     var options = opts || {}
     var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
@@ -36,6 +42,7 @@
     $(document).ready( function(){ $(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
   };
   
+  // Note Model 
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
   };
@@ -73,6 +80,7 @@
     
   };
   
+  // Note View
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
     var element = options.el;
@@ -107,6 +115,8 @@
           $excerpt.css('left', viewportCenter - annoCenter);
         }
       }
-    }
+    },
+    
+    resize: function() { console.log("Resizing!"); }
   };
 })();
