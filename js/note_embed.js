@@ -84,14 +84,16 @@
   
   dc.embed.noteView.prototype = {
     $: function(selector){ return this.$el.find(selector); },
+
     render : function() {
       this.$el.html(JST['note_embed']({note : this.model}));
-      if (this.$el.width() < 700) this.center();
+      this.renderedWidth = this.$el.width();
+      if (this.renderedWidth < 700) this.center();
       return this.$el;
     },
     
     center : function() {
-      var $excerpt       = this.$el.find('.DC-note-excerpt');
+      var $excerpt       = this.$('.DC-note-excerpt');
       var coords         = this.model.coordinates();
       if (!coords) return;
       var annoCenter     = coords.left + (coords.width / 2);
