@@ -1,37 +1,51 @@
 (function() {
   
+  // Setup namespaces
   window.dc = window.dc || {};
   dc.embed  = dc.embed || {};
   var notes = dc.embed.notes = dc.embed.notes || {};
   
+  // Setup dependencies
   var _ = dc._             = window._.noConflict();
   var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
   
+  // Setup global resize function
   var resizeNotes = _.debounce(function(){
-    _.each(notes, function(note, id){ if (note.renderedWidth) note.resize(); });
+    // Determine whether each note needs to be resized and resize it if needed.
+    _.each(notes, function(note, id){ if (note.viewablePageWidth) note.resize(); });
   }, 250);
-  
   $(window).resize(resizeNotes);
   
+  // Public API entry point for loading notes.
   dc.embed.loadNote = function(embedUrl, opts) {
-    var options = opts || {}
+    var options = opts || {};
     var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
-    var noteModel = new dc.embed.noteModel(options);
     var el = options.container || '#DC-note-' + id;
+    var noteModel = new dc.embed.noteModel(options);
+
+    // Store the note view for later access
     notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: el});
+    
+    // This API assumes that the response will be a JSONP response
+    // which will invoke `dc.embed.noteCallback`
+    //
+    // Get the party started by requesting note data.
     $.getScript(embedUrl);
     
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
   
+  // Complete the loading process & render the note.
   dc.embed.noteCallback = function(response) {
-    var id   = response.id;
-    var note = dc.embed.notes[id];
+    var id                = response.id;
+    var note              = dc.embed.notes[id];
     note.model.attributes = response;
     note.render();
+    // If the note was loaded with an afterLoad callback, now's the time to invoke it.
     if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
 
+  // How we report analytics
   dc.embed.pingRemoteUrl = function(type, id) {
     var loc = window.location;
     var url = loc.protocol + '//' + loc.host + loc.pathname;
@@ -42,11 +56,12 @@
     $(document).ready( function(){ $(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
   };
   
-  // Note Model 
+  // Note Model constructor
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
   };
   
+  // Note Model functions
   dc.embed.noteModel.prototype = {
     get : function(key) { return this.attributes[key]; },
     
@@ -80,7 +95,7 @@
     
   };
   
-  // Note View
+  // Note View constructor
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
     var element = options.el;
