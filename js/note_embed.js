@@ -12,7 +12,7 @@
   // Setup global resize function
   var resizeNotes = _.debounce(function(){
     // Determine whether each note needs to be resized and resize it if needed.
-    _.each(notes, function(note, id){ if (note.viewablePageWidth) note.resize(); });
+    _.each(notes, function(note, id){ note.checkAndSetWidth(); });
   }, 250);
   $(window).resize(resizeNotes);
   
@@ -106,12 +106,15 @@
   };
   
   dc.embed.noteView.prototype = {
+    displayModes: { "scale": 1, "narrow": 2, "full": 3 },
+    
     $: function(selector){ return this.$el.find(selector); },
 
     render : function() {
       this.$el.html(JST['note_embed']({note : this.model}));
-      this.renderedWidth = this.$el.width();
-      if (this.renderedWidth < 700) this.center();
+      this.cacheDomReferences();
+      this.viewablePageWidth = this.$(".DC-note-excerpt-wrap").width();
+      if (this.$el.width() < 700) this.center();
       return this.$el;
     },
     
@@ -132,6 +135,44 @@
       }
     },
     
-    resize: function() { console.log("Resizing!"); }
+    // Provide description
+    cacheDomReferences: function() {
+      this.$viewableArea = this.$(".DC-note-excerpt-wrap");
+      this.$noteExcerpt  = this.$(".DC-note-excerpt");
+      this.$leftCover    = this.$(".DC-left-cover"  );
+      this.$rightCover   = this.$(".DC-right-cover" );
+      this.$noteImage    = this.$(".DC-note-image"  );
+    },
+    
+    checkAndSetWidth: function() {
+      if (!this.model.coordinates()) return false;
+      var viewableWidth = this.$viewableArea.width();
+      var targetMode;
+      
+      if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
+        targetMode = this.displayModes["scale"];
+      } else if (viewableWidth < this.model.coordinates().right) { // Medium width, hide left cover or recenter, or whatever.
+        targetMode = this.displayModes["narrow"];
+      } else { // largest width, expand!
+        targetMode = this.displayModes["full"];
+      }
+      this.resize(targetMode);
+    },
+
+    resize: function(targetMode) {
+      console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
+      if (this.mode == targetMode) return;
+      if (targetMode === 1) {
+        // hide covers, shift left & begin scaling
+        
+      } else if (targetMode === 2) {
+        // recenter
+        
+      } else if (targetMode === 3) {
+        // fully expand
+        
+      }
+      this.mode = targetMode;
+    }
   };
 })();

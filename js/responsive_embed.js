@@ -136,4 +136,4 @@ var shiftLeft = function(noteID,dimensions){
   noteEl.find(".DC-note-excerpt").css('left',-1*dimensions.widthOffset);
 }
 
-dc.jQuery(window).load( function(){ init(); });
+//dc.jQuery(window).load( function(){ init(); });
