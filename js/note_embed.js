@@ -107,6 +107,7 @@
   
   dc.embed.noteView.prototype = {
     displayModes: { "scale": 1, "narrow": 2, "full": 3 },
+    displayNames: { 1: "scale", 2: "narrow", 3: "full" },
     
     $: function(selector){ return this.$el.find(selector); },
 
@@ -162,15 +163,18 @@
     resize: function(targetMode) {
       console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
       if (this.mode == targetMode) return;
+
+      this.$viewableArea.removeClass("excerpt-wrap-" + this.displayNames[this.mode]);
+      this.$viewableArea.addClass("excerpt-wrap-" + this.displayNames[targetMode]);
       if (targetMode === 1) {
         // hide covers, shift left & begin scaling
-        
+        this.$noteExcerpt.css("left", -this.model.coordinates().left);
       } else if (targetMode === 2) {
         // recenter
-        
+        this.$noteExcerpt.css("left", -this.model.coordinates().left);
       } else if (targetMode === 3) {
         // fully expand
-        
+        this.$noteExcerpt.css("left", 0);
       }
       this.mode = targetMode;
     }
