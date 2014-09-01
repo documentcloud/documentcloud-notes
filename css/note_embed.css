@@ -79,6 +79,9 @@
             right: 0;
             border-left: 1px solid #f1f1f1;
           }
+          .DC-note .excerpt-wrap-narrow .DC-left-cover,
+          .DC-note .excerpt-wrap-scale .DC-left-cover { display: none; }
+          .DC-note .excerpt-wrap-full .DC-left-cover { display: block; }
         .DC-note .DC-note-image {
           left: 0;
           position: absolute;
@@ -118,13 +121,3 @@
         .DC-note .DC-note-controls .DC-save-draft-note {
           width: 80px;
         }
-
-        .DC-note .DC-note-excerpt.full {
-          
-        }
-        
-        .DC-note .excerpt-wrap-scale .DC-left-cover { display: none; }
-
-        .DC-note .excerpt-wrap-narrow .DC-left-cover,
-        .DC-note .excerpt-wrap-full .DC-left-cover { display: block; }
-

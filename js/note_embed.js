@@ -166,20 +166,45 @@
 
     resize: function(targetMode) {
       console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
-      if (this.mode == targetMode) return;
+      if (this.mode != 1 && this.mode == targetMode) return;
+      
+      var coordinates = this.model.coordinates();
+      var pageCSS = {};
 
       this.$viewableArea.removeClass("excerpt-wrap-" + this.displayNames[this.mode]);
       this.$viewableArea.addClass("excerpt-wrap-" + this.displayNames[targetMode]);
+
+      // If moving into or out of scale mode, page dimensions must be set.
       if (targetMode === 1) {
         // hide covers, shift left & begin scaling
-        this.$noteExcerpt.css("left", -this.model.coordinates().left);
-      } else if (targetMode === 2) {
+        var scaleFactor = this.$viewableArea.width() / coordinates.width;
+        pageCSS.width  = scaleFactor * this.pageDimensions.width;
+        pageCSS.height = scaleFactor * this.pageDimensions.height;
+        pageCSS.top    = scaleFactor * -coordinates.top;
+        pageCSS.left   = scaleFactor * -coordinates.left;
+
+        this.$noteExcerpt.height(scaleFactor*coordinates.height);
+      } else {
+        // restore position & size
+        pageCSS.width  = this.pageDimensions.width;
+        pageCSS.height = this.pageDimensions.height;
+        pageCSS.top    = -coordinates.top;
+        pageCSS.left   = -coordinates.left;
+        
+        this.$noteExcerpt.height(coordinates.height);
+      }
+      
+      // When moving between narrow and full, reposition covers.
+      if (targetMode === 2) {
         // recenter
-        this.$noteExcerpt.css("left", -this.model.coordinates().left);
+        this.$rightCover.css('left', coordinates.width);
       } else if (targetMode === 3) {
         // fully expand
-        this.$noteExcerpt.css("left", 0);
+        pageCSS.left = 0;
+        this.$rightCover.css('left', coordinates.width+coordinates.left);
       }
+      
+      this.$noteImage.css(pageCSS);
       this.mode = targetMode;
     }
   };
