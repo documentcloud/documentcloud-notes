@@ -143,6 +143,10 @@
       this.$leftCover    = this.$(".DC-left-cover"  );
       this.$rightCover   = this.$(".DC-right-cover" );
       this.$noteImage    = this.$(".DC-note-image"  );
+      this.pageDimensions = {
+        height: this.$noteImage.height(),
+        width:  this.$noteImage.width()
+      };
     },
     
     checkAndSetWidth: function() {
