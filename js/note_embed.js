@@ -115,7 +115,7 @@
       this.$el.html(JST['note_embed']({note : this.model}));
       this.cacheDomReferences();
       this.viewablePageWidth = this.$(".DC-note-excerpt-wrap").width();
-      if (this.$el.width() < 700) this.center();
+      this.checkAndSetWidth();
       return this.$el;
     },
     
