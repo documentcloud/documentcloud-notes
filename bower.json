@@ -1,0 +1,33 @@
+{
+  "name": "documentcloud-note-embed",
+  "version": "1.0.0",
+  "main":"",
+  "homepage": "https://github.com/knowtheory/responsive-note-spike",
+  "authors": [
+    "Ted Han <ted@knowtheory.net>"
+  ],
+  "description": "Embedded notes provided by DocumentCloud",
+  "dependencies": {
+    "jquery": "1.11.1",
+    "underscore": "1.7.0"
+  },
+  "main": [
+    "dist/note_embed.js", "dist/note_embed.css"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "documentcloud",
+    "embedded",
+    "3rdparty"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
