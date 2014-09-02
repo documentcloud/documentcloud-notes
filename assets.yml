@@ -5,8 +5,8 @@ embed_assets: datauri
 
 javascripts:
   note_embed:
-    - bower_components/underscore/underscore.js
-    - bower_components/jquery/dist/jquery.js
+    - js/vendor/underscore/underscore.js
+    - js/vendor/jquery/dist/jquery.js
     - js/note_embed.js
     - templates/*.jst
 
