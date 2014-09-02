@@ -1,3 +1,8 @@
+/* reset */
+.DC-note * {
+  max-width: none;
+}
+
 .DC-note {
   position: relative;
   margin: 20px 0 0 0;
@@ -79,7 +84,6 @@
             right: 0;
             border-left: 1px solid #f1f1f1;
           }
-          .DC-note .excerpt-wrap-narrow .DC-left-cover,
           .DC-note .excerpt-wrap-scale .DC-left-cover { display: none; }
           .DC-note .excerpt-wrap-full .DC-left-cover { display: block; }
         .DC-note .DC-note-image {
