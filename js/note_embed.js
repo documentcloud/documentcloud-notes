@@ -116,7 +116,18 @@
       this.$el.html(JST['note_embed']({note : this.model}));
       this.cacheDomReferences();
       this.viewablePageWidth = this.$(".DC-note-excerpt-wrap").width();
-      this.checkAndSetWidth();
+      this.imageLoaded = false;
+
+      var cachePageDimensionsAndFitViewableArea = _.bind(function(){
+        this.imageLoaded = true;
+        this.pageDimensions = {
+          height: this.$noteImage.height(),
+          width:  this.$noteImage.width()
+        };
+        this.checkAndSetWidth();
+      }, this);
+      
+      this.$noteImage.load(cachePageDimensionsAndFitViewableArea);
       return this.$el;
     },
     
@@ -127,14 +138,10 @@
       this.$leftCover    = this.$(".DC-left-cover"  );
       this.$rightCover   = this.$(".DC-right-cover" );
       this.$noteImage    = this.$(".DC-note-image"  );
-      this.pageDimensions = {
-        height: this.$noteImage.height(),
-        width:  this.$noteImage.width()
-      };
     },
     
     checkAndSetWidth: function() {
-      if (!this.model.coordinates()) return false;
+      if (!this.model.coordinates() || !this.imageLoaded) return false;
       var viewableWidth = this.$viewableArea.width();
       var targetMode;
       
@@ -168,8 +175,8 @@
         this.$noteExcerpt.height(scaleFactor*coordinates.height);
       } else {
         // restore position & size
-        pageCSS.width  = this.pageDimensions.width;
-        pageCSS.height = this.pageDimensions.height;
+        pageCSS.width  = "";
+        pageCSS.height = "";
         pageCSS.top    = -coordinates.top;
         pageCSS.left   = -coordinates.left;
         
