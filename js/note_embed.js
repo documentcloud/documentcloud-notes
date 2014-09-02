@@ -156,7 +156,7 @@
     },
 
     resize: function(targetMode) {
-      console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
+      //console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
       var coordinates = this.model.coordinates();
       var pageCSS = {};
 
