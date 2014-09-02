@@ -120,23 +120,6 @@
       return this.$el;
     },
     
-    center : function() {
-      var $excerpt       = this.$('.DC-note-excerpt');
-      var coords         = this.model.coordinates();
-      if (!coords) return;
-      var annoCenter     = coords.left + (coords.width / 2);
-      var viewportWidth  = $excerpt.closest('.DC-note-excerpt-wrap').width();
-      var viewportCenter = viewportWidth / 2;
-
-      if (coords.left + coords.width > viewportWidth) {
-        if (coords.width > viewportWidth) {
-          $excerpt.css('left', -1 * coords.left);
-        } else {
-          $excerpt.css('left', viewportCenter - annoCenter);
-        }
-      }
-    },
-    
     // Provide description
     cacheDomReferences: function() {
       this.$viewableArea = this.$(".DC-note-excerpt-wrap");
@@ -157,7 +140,7 @@
       
       if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
         targetMode = this.displayModes["scale"];
-      } else if (viewableWidth < this.model.coordinates().right) { // Medium width, hide left cover or recenter, or whatever.
+      } else if (viewableWidth < this.model.coordinates().rightPageEdge) { // Medium width, hide left cover or recenter, or whatever.
         targetMode = this.displayModes["narrow"];
       } else { // largest width, expand!
         targetMode = this.displayModes["full"];
@@ -195,12 +178,19 @@
       
       // When moving between narrow and full, reposition covers.
       if (targetMode === 2) {
+        var viewableWidth = this.$viewableArea.width();
+        var marginWidth = (viewableWidth - coordinates.width) / 2;
+        var leftShift = coordinates.left - marginWidth;
+
         // recenter
-        this.$rightCover.css('left', coordinates.width);
+        pageCSS.left = -leftShift; // center note by shifting page image left
+        this.$leftCover.css('width', marginWidth);
+        this.$rightCover.css('width', (coordinates.rightPageEdge-coordinates.right)+leftShift);
       } else if (targetMode === 3) {
         // fully expand
         pageCSS.left = 0;
-        this.$rightCover.css('left', coordinates.width+coordinates.left);
+        this.$leftCover.css('width', coordinates.left);
+        this.$rightCover.css('width', coordinates.rightPageEdge-coordinates.right);
       }
       
       this.$noteImage.css(pageCSS);
