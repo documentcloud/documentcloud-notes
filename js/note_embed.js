@@ -166,8 +166,6 @@
 
     resize: function(targetMode) {
       console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
-      if (this.mode != 1 && this.mode == targetMode) return;
-      
       var coordinates = this.model.coordinates();
       var pageCSS = {};
 
