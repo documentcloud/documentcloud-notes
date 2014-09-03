@@ -1,6 +1,6 @@
 {
   "name": "documentcloud-notes",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": [ "dist/note_embed.js", "dist/note_embed.css" ],
   "homepage": "https://github.com/knowtheory/responsive-note-spike",
   "authors": [ "Ted Han <ted@knowtheory.net>" ],
