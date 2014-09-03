@@ -1,6 +1,7 @@
 /* reset */
 .DC-note * {
   max-width: none;
+  max-height: none;
 }
 
 .DC-note {
