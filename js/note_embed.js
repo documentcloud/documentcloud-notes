@@ -8,6 +8,8 @@
   // Setup dependencies
   var _ = dc._             = window._.noConflict();
   var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
+  // provide translation stub if one is not otherwise available.
+  _.t = _.t || function(input){ return input; };
   
   // Setup global resize function
   var resizeNotes = _.debounce(function(){
