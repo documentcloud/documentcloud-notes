@@ -8,6 +8,17 @@
     <link type='text/css' rel='stylesheet' href="dist/note_embed-datauri.css"/>
     
     <script type="text/javascript" src="js/responsive_embed.js"></script>
+    
+    <style>
+      .dcnoteWrapper {
+        display:none;
+      }
+    
+      .dcnote {
+        background-color: #D3D3D3;
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
 
@@ -24,5 +35,22 @@
         }
       });
     </script>
+    
+    <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct01" class="dcnote">Clicking here will unfold a note.</span></p>
+
+    <div id="dc01" class="dcnoteWrapper">
+      <div id="DC-note-176629" class="DC-note-container"></div>
+      <script>
+        dc.embed.loadNote('//www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
+      </script>
+    </div>
+    <script>
+      dc.$(document).ready(function() {
+        dc.$("#dct01").click(function() {
+          dc.$("#dc01").slideToggle("medium");
+        });
+      });
+    </script>
+    
   </body>
 </html>
