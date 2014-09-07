@@ -147,7 +147,7 @@
       var viewableWidth = this.$viewableArea.width();
       var targetMode;
       
-      if (viewableWidth === 0) {
+      if (viewableWidth <= 0) {
         targetMode = this.displayModes["full"]; // hax
       } else if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
         targetMode = this.displayModes["scale"];
