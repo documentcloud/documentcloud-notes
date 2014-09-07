@@ -123,8 +123,8 @@
       var cachePageDimensionsAndFitViewableArea = _.bind(function(){
         this.imageLoaded = true;
         this.pageDimensions = {
-          height: this.$noteImage.height(),
-          width:  this.$noteImage.width()
+          height: this.$noteImage[0].height,
+          width:  this.$noteImage[0].width
         };
         this.checkAndSetWidth();
       }, this);
@@ -147,7 +147,9 @@
       var viewableWidth = this.$viewableArea.width();
       var targetMode;
       
-      if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
+      if (viewableWidth === 0) {
+        targetMode = this.displayModes["full"]; // hax
+      } else if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
         targetMode = this.displayModes["scale"];
       } else if (viewableWidth < this.model.coordinates().rightPageEdge) { // Medium width, hide left cover or recenter, or whatever.
         targetMode = this.displayModes["narrow"];
