@@ -7,11 +7,19 @@
     <script type="text/javascript" src="dist/note_embed.js"></script>
     <link type='text/css' rel='stylesheet' href="dist/note_embed-datauri.css"/>
     
-    <script type="text/javascript" src="js/responsive_embed.js"></script>
-    
     <style>
+      div {
+        /********************
+         using box-sizing: border-box together with margin: 0 will 
+         make hidden elements report negative widths
+        *********************/
+        margin: 0;
+        box-sizing: border-box;
+      }
+    
       .dcnoteWrapper {
         display:none;
+        box-sizing: border-box;
       }
     
       .dcnote {
