@@ -1,6 +1,6 @@
 {
   "name": "documentcloud-notes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": [ "dist/note_embed.js", "dist/note_embed.css" ],
   "homepage": "https://github.com/documentcloud/documentcloud-notes",
   "authors": [ "Ted Han <ted@knowtheory.net>" ],
