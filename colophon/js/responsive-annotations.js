@@ -167,7 +167,7 @@ $(function() {
       fnLink.addClass('reverse');
       //add note to notes and run subsequent functions
       var note = $(footnote).find('.DC-note-container');
-      getCoords(note);
+      getCoordinates(note);
     }
     if (fnLinkIcon.hasClass('fa-caret-down')) {
       fnLinkIcon.removeClass('fa-caret-down').addClass('fa-caret-up');
