@@ -21,12 +21,11 @@
   // Public API entry point for loading notes.
   dc.embed.loadNote = function(embedUrl, opts) {
     var options = opts || {};
-    var id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
-    var el = options.container || '#DC-note-' + id;
+    var id = options.id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
     var noteModel = new dc.embed.noteModel(options);
 
     // Store the note view for later access
-    notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: el});
+    notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: options.container});
     
     // This API assumes that the response will be a JSONP response
     // which will invoke `dc.embed.noteCallback`
@@ -41,6 +40,11 @@
   dc.embed.noteCallback = function(response) {
     var id                = response.id;
     var note              = dc.embed.notes[id];
+
+    // If the embedder is a horrible person and has attempted to loadNote before their
+    // target div exists, we'll try to rescue them with setElement again.
+    if (!note.el) { note.setElement(note.model.options.container || '#DC-note-' + note.model.id); }
+
     note.model.attributes = response;
     note.render();
     // If the note was loaded with an afterLoad callback, now's the time to invoke it.
@@ -61,6 +65,7 @@
   // Note Model constructor
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
+    this.id = opts.id;
   };
   
   // Note Model functions
@@ -101,11 +106,10 @@
   // Note View constructor
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
-    var element = options.el;
-    this.$el = element instanceof dc.$ ? element : dc.$(element);
-    this.el = this.$el[0];
-
     this.model = options.model;
+    var el = this.model.options.el || '#DC-note-' + this.model.id
+    console.log(el)
+    this.setElement(el);
   };
   
   dc.embed.noteView.prototype = {
@@ -113,6 +117,10 @@
     displayNames: { 1: "scale", 2: "narrow", 3: "full" },
     
     $: function(selector){ return this.$el.find(selector); },
+    setElement: function(element) { 
+      this.$el = element instanceof dc.$ ? element : dc.$(element);
+      this.el  = this.$el[0];
+    },
 
     render : function() {
       this.$el.html(JST['note_embed']({note : this.model}));
@@ -157,6 +165,7 @@
         targetMode = this.displayModes["full"];
       }
       this.resize(targetMode);
+      return true;
     },
 
     resize: function(targetMode) {
