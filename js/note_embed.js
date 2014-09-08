@@ -108,7 +108,6 @@
     // stolen out of Backbone.View.setElement
     this.model = options.model;
     var el = this.model.options.el || '#DC-note-' + this.model.id
-    console.log(el)
     this.setElement(el);
   };
   
