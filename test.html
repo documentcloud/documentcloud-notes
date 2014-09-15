@@ -78,6 +78,25 @@
       $(window).load(function() {
         //change URL notes click through to
         swapURL();
+
+        //show hide note when link is clicked
+        $(document).on('click', '.dcNoteLink', function(){
+          var noteLink = $(this);
+          var noteID = $(this).attr('id').replace('dct', ''); 
+          var noteEmbed = $('#dc'+noteID);
+
+          //use slideUp and slideDown (instead of slideToggle) so you can call checkAndSetWidth only when necessary
+          if ($(noteEmbed).hasClass('show')) {
+              $(noteEmbed).slideUp({duration: 800, easing: 'swing'});
+              $(noteEmbed).removeClass('show'); 
+          } else {
+              //call checkAndSetWidth again or will default to the full size 
+              $(noteEmbed).slideDown({duration: 800, easing: 'swing', complete: function() { 
+                  dc.embed.notes[noteID].checkAndSetWidth(); 
+              }});
+              $(noteEmbed).addClass('show'); 
+          }
+        });
       });
     </script>
     
