@@ -3,7 +3,7 @@
   <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="dist/note_embed.js"></script>
     <link type='text/css' rel='stylesheet' href="dist/note_embed-datauri.css"/>
     
@@ -22,7 +22,7 @@
         box-sizing: border-box;
       }
     
-      .dcnote {
+      .dcNoteLink {
         background-color: #D3D3D3;
         text-decoration: underline;
       }
@@ -45,20 +45,39 @@
     </script>
     
     <div id="border-box-test">
-      <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct01" class="dcnote">Clicking here will unfold a note.</span></p>
+      <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct176629" class="dcNoteLink">Clicking here will unfold a note.</span></p>
 
-      <div id="dc01" class="dcnoteWrapper">
+      <div id="dc176629" class="dcnoteWrapper">
         <div id="DC-note-176629" class="DC-note-container"></div>
         <script>
-          dc.embed.loadNote('//www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
+          dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
         </script>
       </div>
     </div>
+    <script> 
+      /* URLs for the note embeds to click through to */
+      var noteURLs = [
+        "http://www.google.com",
+        "http://www.bing.com",
+        "http://www.statesman.com"
+      ]
+    </script>
     <script>
-      dc.$(document).ready(function() {
-        dc.$("#dct01").click(function() {
-          dc.$("#dc01").slideToggle("medium");
+      var swapURL = function() {
+        var noteDiv = $(".DC-note-container"); 
+        $.each(noteDiv, function(i, v) {
+            if (typeof noteURLs != 'undefined') { 
+                var noteURL = noteURLs[i]; 
+                console.debug($(this).find('a').attr("href"));
+                $(this).find('a').attr('href', noteURL); 
+                $(this).find('a').attr('target', '_blank');
+            }
         });
+      }
+
+      $(window).load(function() {
+        //change URL notes click through to
+        swapURL();
       });
     </script>
     
