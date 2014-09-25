@@ -3,7 +3,6 @@
   <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="dist/note_embed.js"></script>
     <link type='text/css' rel='stylesheet' href="dist/note_embed-datauri.css"/>
     
@@ -27,6 +26,7 @@
         text-decoration: underline;
       }
     </style>
+    
   </head>
   <body>
 
@@ -54,14 +54,19 @@
         </script>
       </div>
     </div>
+
+    <!-- include a jquery version just for testing purposes -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
     <script> 
       /* URLs for the note embeds to click through to */
       var noteURLs = [
-        "http://www.google.com",
-        "http://www.bing.com",
-        "http://www.statesman.com"
+        "http://www.documentcloud.org",
+        "http://www.ire.org",
+        "http://www.wasingtonpost.com"
       ]
     </script>
+
     <script>
       var swapURL = function() {
         var noteDiv = $(".DC-note-container"); 
