@@ -1,6 +1,12 @@
 (function() {
-  
-  // Setup namespaces
+
+//     DocumentCloud Notes 0.0.3
+
+//     (c) Ted Han, DocumentCloud and Investigative Reporters & Editors
+//     DocumentCloud Notes are a part of [DocumentCloud](https://www.documentcloud.org)
+//     and may be distributed under the [MIT license](http://opensource.org/licenses/MIT)
+
+  // Setup global namespace
   window.dc = window.dc || {};
   dc.embed  = dc.embed || {};
   var notes = dc.embed.notes = dc.embed.notes || {};
@@ -62,6 +68,9 @@
     $(document).ready( function(){ $(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
   };
   
+  // Note Model
+  // ----------
+
   // Note Model constructor
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
@@ -103,6 +112,9 @@
     
   };
   
+  // Note View
+  // ---------
+
   // Note View constructor
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
