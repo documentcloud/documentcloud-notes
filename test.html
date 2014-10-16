@@ -7,6 +7,11 @@
     <link type='text/css' rel='stylesheet' href="dist/note_embed-datauri.css"/>
     
     <style>
+      #selector-specificity-trolling img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+    
       #border-box-test div {
         /********************
          using box-sizing: border-box together with margin: 0 will 
@@ -29,29 +34,30 @@
     
   </head>
   <body>
+    <div id="selector-specificity-trolling">
+      <div id="DC-note-175279" class="DC-note-container"></div>
 
-    <div id="DC-note-175279" class="DC-note-container"></div>
+      <div id="DC-note-175280" class="DC-note-container"></div>
 
-    <div id="DC-note-175280" class="DC-note-container"></div>
+      <script>
+        dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175279.js');
 
-    <script>
-      dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175279.js');
-
-      dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175280.js', {
-        afterLoad: function(note){ 
-          note.$el.find('.DC-note').css("border", "3px solid rgb(0, 231, 0)");
-        }
-      });
-    </script>
+        dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175280.js', {
+          afterLoad: function(note){ 
+            note.$el.find('.DC-note').css("border", "3px solid rgb(0, 231, 0)");
+          }
+        });
+      </script>
     
-    <div id="border-box-test">
-      <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct176629" class="dcNoteLink">Clicking here will unfold a note.</span></p>
+      <div id="border-box-test">
+        <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct176629" class="dcNoteLink">Clicking here will unfold a note.</span></p>
 
-      <div id="dc176629" class="dcnoteWrapper">
-        <div id="DC-note-176629" class="DC-note-container"></div>
-        <script>
-          dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
-        </script>
+        <div id="dc176629" class="dcnoteWrapper">
+          <div id="DC-note-176629" class="DC-note-container"></div>
+          <script>
+            dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
+          </script>
+        </div>
       </div>
     </div>
 
