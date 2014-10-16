@@ -16,7 +16,8 @@
           <div class="DC-note-excerpt" style="height: <%= coords.height %>px;">
             <div class="DC-left-cover"  style="width: <%= coords.left %>px;"></div>
             <div class="DC-right-cover" style="width: <%= coords.rightPageEdge - coords.right %>px;"></div>
-            <img class="DC-note-image" src="<%= note.imageUrl() %>" alt="" style="top: -<%= coords.top %>px;" />
+            <% var styles = "max-width: none; max-height: none; top: -"+coords.top+"px;" %>
+            <img class="DC-note-image" src="<%= note.imageUrl() %>" alt="" style="<%= styles %>" />
           </div>
         </div>
       </a>
