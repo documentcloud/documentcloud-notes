@@ -6,8 +6,8 @@
   "authors": [ "Ted Han <ted@knowtheory.net>" ],
   "description": "Embeddable notes provided by DocumentCloud",
   "dependencies": {
-    "jquery": "1.11.1",
-    "underscore": "1.7.0"
+    "jquery":     "~1.11.3",
+    "underscore": "~1.8.3"
   },
   "moduleType": [ "globals" ],
   "keywords": [
