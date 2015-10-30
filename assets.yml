@@ -1,4 +1,3 @@
-compress_assets: true
 javascript_compressor: closure
 template_function: dc._.template
 embed_assets: datauri
