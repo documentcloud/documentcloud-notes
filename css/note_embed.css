@@ -47,6 +47,10 @@
       color: #333;
       font: 13px/18px Georgia;
     }
+    .DC-note .DC-note-text a {
+      color: #004276;
+      text-decoration: underline;
+    }
     .DC-note .DC-note-text-edit-wrap {
       position: relative;
       margin-right: 14px;
