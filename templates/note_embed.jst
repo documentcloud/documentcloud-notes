@@ -1,7 +1,7 @@
 <div class="DC-note">
   <div class="DC-note-contents">
     <div class="DC-note-title display">
-      <a class="DC-title-link" href="<%= note.viewerUrl() %>"><%- note.get('title') %> <span class="DC-page-number">(<%=_.t('pg') %> <%= note.get('page') %>)</span></a>
+      <a class="DC-title-link" href="<%= note.viewerUrl() %>" target="_blank"><%- note.get('title') %> <span class="DC-page-number">(<%=_.t('pg') %> <%= note.get('page') %>)</span></a>
     </div>
     <% if (note.get('access') == 'exclusive') { %>
       <div class="DC-note-draft-label interface display"><%= _.t('draft') %></div>
@@ -11,7 +11,7 @@
     <% } %>
     <% var coords = note.coordinates(); %>
     <% if (coords) { %>
-      <a href="<%= note.viewerUrl() %>">
+      <a href="<%= note.viewerUrl() %>" target="_blank">
         <div class="DC-note-excerpt-wrap">
           <div class="DC-note-excerpt" style="height: <%= coords.height %>px;">
             <div class="DC-left-cover"  style="width: <%= coords.left %>px;"></div>
