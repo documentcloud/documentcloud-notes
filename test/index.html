@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DocumentCloud Note Embed Test</title>
+    <link rel="stylesheet" href="../dist/note_embed.css" type="text/css">
+  </head>
+  <body>
+    
+    <header>
+      <h1>DocumentCloud Note Embed Testbed</h1>
+    </header>
+
+    <section>
+      <h3>1.0/Direct</h3>
+      <div id="DC-note-42282" class="DC-note-container"></div>
+      <script src="../dist/note_embed.js"></script>
+      <script>
+        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js');
+      </script>
+    </section>
+
+    <section>
+      <h3>1.1/New</h3>
+
+      <style type="text/css" media="screen">
+      .DC-new-note {
+        
+      }
+
+      .DC-new-note-image-frame {
+        position: relative;
+        border: 1px solid #ccc;
+        background-size: 100% auto;
+        background-repeat: none;
+        overflow: hidden;
+        box-shadow: inset 0 0 40px black;
+        margin: 1em 0;
+
+        background-image: url('https://www.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif');
+        background-position: center center;
+      }
+
+      @media (min-width: 768px) {
+        .DC-new-note-image-frame {
+          padding: 15px;
+        }
+      }
+
+      .DC-new-note-image-frame-fader {
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+        opacity: 0.90;
+      }
+
+      .DC-new-note-image-max-bounds {
+        position: relative;
+        margin: 0 auto;
+        z-index: 1;
+        box-shadow: 0 0 15px #aaa;
+
+        max-height: 85px; /* height */
+        max-width: 550px; /* width */
+      }
+
+      .DC-new-note-image-aspect-ratio {
+        position: relative;
+        overflow: hidden;
+        height: 0;
+        max-width: 100%;
+
+        padding-bottom: 15.454545454545454545%; /* height/width */
+      }
+
+      .DC-new-note-image-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .DC-new-note-image {
+        position: absolute;
+        display: block;
+
+        top: -342.352941176470588235%; /* top/height */
+        left: -13.454545454545454545%; /* left/width */
+        width: 127.272727272727272727%; /* 700/width */
+        height: auto;
+      }
+
+      /* Experiment in keeping the <img> tag out of the DOM */
+      .DC-new-note-image-standin {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-repeat: no-repeat;
+
+        background-position: 32.2% 5.614285714285714285748%; /* TODO: Figure out where these magic background-position numbers come from */
+        background-size: 133.587786259541984732% auto; /* Relative to wrapper */
+        background-image: url('https://www.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif');
+      }
+
+      </style>
+
+      <!--
+        291,624,376,74
+        40,583,192,59
+        top: 291px
+        height: 376-291 = 85px
+        left: 74px
+        width: 624-74 = 550px
+        aspect ratio: 15.454545454545454545%
+        scale: 127.272727272727272727%
+      -->
+      <div class="DC-new-note">
+        <div class="DC-new-note-header">
+          <a href="#">Untitled Note</a>
+        </div>
+
+        <div class="DC-new-note-image-frame">
+          <div class="DC-new-note-image-frame-fader"></div>
+
+          <div class="DC-new-note-image-max-bounds">
+            <div class="DC-new-note-image-aspect-ratio">
+
+              <!-- <div class="DC-new-note-image-standin"></div> -->
+              <div class="DC-new-note-image-wrapper">
+                <img class="DC-new-note-image" src="https://www.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="DC-new-note-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </section>
+
+  </body>
+</html>
