@@ -1,0 +1,17 @@
+javascript_compressor: closure
+css_compressor:         sass
+template_function:     dc._.template
+embed_assets:          off
+gzip_assets:           off
+
+javascripts:
+  note_embed:
+    - src/js/vendor/underscore/underscore.js
+    - src/js/vendor/jquery/dist/jquery.js
+    - src/js/note_embed.js
+    - src/templates/*.jst
+
+stylesheets:
+  note_embed:
+    - src/css/*.css
+    - src/css/*.scss
