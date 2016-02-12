@@ -32,20 +32,26 @@
       <style type="text/css" media="screen">
       .DC-new-note {
         font: 400 10pt/14pt 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        padding: 1em;
-        border-radius: 3px;
+        padding: 1em 0.5em;
+        margin: 2em 0;
+        border-radius: 6px;
 
-        color: black;
-        background-color: #f0f0f0;
+/*        color: black;
+        background-color: #f0f0f0;*/
+
+        border-top:    3px solid rgb(255, 227, 37);
+        border-bottom: 3px solid rgb(255, 227, 37);
+/*        border-top:    3px solid rgb(90, 118, 160);
+        border-bottom: 3px solid rgb(90, 118, 160);*/
       }
-
+      
       .DC-new-note-header {
         font: 700 9pt/14pt 'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
         text-transform: uppercase;
       }
       
       .DC-new-note-header > a {
-        color: black;
+        color: inherit;
         text-decoration: none;
       }
       .DC-new-note-header > a:after {
@@ -83,20 +89,11 @@
         margin-bottom: 0;
       }
 
-      .DC-new-note-body a {
-        color: rgb(90, 118, 160);
-        text-decoration: underline;
-      }
-
-      .DC-new-note-body a:hover {
-        text-decoration: none;
-      }
-
       .DC-new-note-image-background {
         position: relative;
         margin: 1em 0;
         border-radius: 3px;
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
         background-size: 100% auto;
         background-repeat: none;
         background-position: center center;
@@ -122,7 +119,7 @@
         position: relative;
         margin: 0 auto;
         z-index: 1;
-        box-shadow: 0 0 10px #bbb;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         border-radius: 3px;
         overflow: hidden;
 
