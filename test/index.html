@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DocumentCloud Note Embed Test</title>
     <link rel="stylesheet" href="../dist/note_embed.css" type="text/css">
+    <style type="text/css" media="screen">
+    body {
+
+/*      background: black;
+      color: white;
+*/
+    }
+    </style>
   </head>
   <body>
     
@@ -30,157 +38,36 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
       <style type="text/css" media="screen">
-      .DC-new-note {
-        font: 400 10pt/14pt 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        padding: 1em 0.5em;
-        margin: 2em 0;
-        border-radius: 6px;
 
-/*        color: black;
-        background-color: #f0f0f0;*/
+        /*
+           APPLY DIRECTLY TO FOREHEAD
+           (aka, stuff unique to each embed)
+        */
 
-        border-top:    3px solid rgb(255, 227, 37);
-        border-bottom: 3px solid rgb(255, 227, 37);
-/*        border-top:    3px solid rgb(90, 118, 160);
-        border-bottom: 3px solid rgb(90, 118, 160);*/
-      }
-      
-      .DC-new-note-header {
-        font: 700 9pt/14pt 'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        text-transform: uppercase;
-      }
-      
-      .DC-new-note-header > a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .DC-new-note-header > a:after {
-        content: '🔗';
-        font-family: 'Apple Color Emoji', 'Android Emoji', 'Segoe UI', 'Segoe UI Emoji';
-        font-weight: 400;
-        margin-left: 3px;
-        white-space: nowrap;
-      }
-      .DC-new-note-header > a:empty:after {
-        display: none;
-      }
+        .DC-new-note {
+          background-image: url('https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif');
+        }
 
-      .DC-new-note-header > a:hover {
-        text-decoration: underline;
-      }
+        .DC-new-note .DC-new-note-image-max-height-bounds {
+          position: relative;
+          max-height: 85px; /* height */
+          overflow: hidden;
+        }
 
-      .DC-new-note-private .DC-new-note-header:before {
-        text-transform: uppercase;
-        padding: 2px;
-        border: 2px solid rgb(90, 118, 160);
-        color: rgb(90, 118, 160);
-        content: 'Private';
-      }
+        .DC-new-note .DC-new-note-image-max-bounds {
+          max-height: 85px; /* height */
+          max-width: 550px; /* width */
+        }
 
-      .DC-new-note-draft .DC-new-note-header:before {
-        text-transform: uppercase;
-        padding: 2px;
-        border: 2px solid rgb(255, 50, 50);
-        color: rgb(255, 50, 50);
-        content: 'Draft';
-      }
+        .DC-new-note .DC-new-note-image-aspect-ratio {
+          padding-bottom: 15.454545454545454545%; /* height/width */
+        }
 
-      .DC-new-note-body *:last-child {
-        margin-bottom: 0;
-      }
-
-      .DC-new-note-image-background {
-        position: relative;
-        margin: 1em 0;
-        border-radius: 3px;
-        border: 1px solid #eee;
-        background-size: 100% auto;
-        background-repeat: none;
-        background-position: center center;
-        box-shadow: inset 0 0 40px #666;
-
-        /* Apply directly to forehead */
-        background-image: url('https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif');
-      }
-
-      .DC-new-note-image-background-fader {
-        position: absolute;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background-color: white;
-        opacity: 0.9;
-        border-radius: 2px;
-      }
-
-      .DC-new-note-image-max-bounds {
-        position: relative;
-        margin: 0 auto;
-        z-index: 1;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-        border-radius: 3px;
-        overflow: hidden;
-
-        /* Apply directly to forehead */
-        max-height: 85px; /* height */
-        max-width: 550px; /* width */
-      }
-
-      .DC-new-note-image-aspect-ratio {
-        position: relative;
-        overflow: hidden;
-        height: 0;
-        max-width: 100%;
-
-        /* Apply directly to forehead */
-        padding-bottom: 15.454545454545454545%; /* height/width */
-      }
-
-      .DC-new-note-image-space-filler {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        display: block;
-      }
-
-      .DC-new-note-image {
-        /* Resets for common things */
-        margin: 0;
-        border: 0;
-        outline: 0;
-        max-width: default;
-        max-height: default;
-
-        position: absolute;
-        display: block;
-        height: auto;
-
-        /* Apply directly to forehead */
-        top: -342.352941176470588235%; /* top/height */
-        left: -13.454545454545454545%; /* left/width */
-        width: 127.272727272727272727%; /* 700/width */
-      }
-
-      /* Experiment in keeping the <img> tag out of the DOM */
-      .DC-new-note-image-standin {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-repeat: no-repeat;
-
-        /* Apply directly to forehead */
-        background-position: 32.2% 5.614285714285714285748%; /* TODO: Figure out where these magic background-position numbers come from */
-        background-size: 133.587786259541984732% auto; /* Relative to wrapper */
-        background-image: url('https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif');
-      }
+        .DC-new-note .DC-new-note-image {
+          top: -342.352941176470588235%; /* top/height */
+          left: -13.454545454545454545%; /* left/width */
+          width: 127.272727272727272727%; /* 700/width */
+        }
 
       </style>
 
@@ -196,23 +83,25 @@
       -->
       <div class="DC-new-note" data-version="1.1">
         <div class="DC-new-note-header">
-          <a href="https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p57/a42282" target="_blank" title="View the note “Is LOLSPEAK a fad?” in its original document context on DocumentCloud in a new window or tab">Is LOLSPEAK a fad?</a>
+          <a class="DC-new-note-embed-resource" href="https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p57/a42282" target="_blank" title="View the note “Is LOLSPEAK a fad?” in its original document context on DocumentCloud in a new window or tab">
+            <span class="DC-new-note-title">Is LOLSPEAK a fad?</span>
+            <span class="DC-new-note-page-number">Page 57 on <span class="DC-new-note-logotype-link">DocumentCloud</span></span>
+          </a>
         </div>
 
-        <div class="DC-new-note-image-background">
-          <div class="DC-new-note-image-background-fader"></div>
-          <div class="DC-new-note-image-max-bounds">
-            <div class="DC-new-note-image-aspect-ratio">
-              <a class="DC-new-note-image-space-filler" href="https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p57/a42282" target="_blank" title="View the note “Is LOLSPEAK a fad?” in its original document context on DocumentCloud in a new window or tab">
-                <img class="DC-new-note-image" width="550" height="85" src="https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif" alt="Selected portion of Lefler Thesis">
-              </a>
-            </div>
+        <div class="DC-new-note-image-max-bounds">
+          <div class="DC-new-note-image-aspect-ratio">
+            <a class="DC-new-note-image-space-filler" href="https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p57/a42282" target="_blank" title="View the note “Is LOLSPEAK a fad?” in its original document context on DocumentCloud in a new window or tab">
+              <img class="DC-new-note-image" width="550" height="85" src="https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p57-normal.gif" alt="Selected portion of Lefler Thesis">
+            </a>
           </div>
         </div>
 
         <div class="DC-new-note-body">
           <p>Probably should avoid <a href="https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines">Betteridge's Law</a>. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
+
+        <div class="DC-new-note-background-fader"></div>
       </div>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
