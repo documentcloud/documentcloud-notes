@@ -1,6 +1,7 @@
 // Shared with page embed
 
 $dcBrandBlue:  rgb(90, 118, 160);
+$dcBrandBlueLight: rgb(119, 147, 189);
 $gray:         rgb(204, 204, 204);
 $grayLight:    rgb(235, 235, 235);
 $grayDark:     rgb(115, 115, 115);
@@ -32,7 +33,11 @@ $errorColor:   rgb(255, 50, 50);
 
 // Unique to notes
 
+$noteBorderRadius: 3px;
+
 $privateColor: rgb(119, 197, 246);
+$grayDarker:   rgb(80, 80, 80);
+$noteYellow:   rgb(255, 227, 37);
 
 $fontFamilyRegular: 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -63,7 +68,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
   padding: 1em 0.5em 0.5em 0.5em;
   margin: 2em 0;
   border: 1px solid $grayLight;
-  box-shadow: inset 0 0 40px $grayDark;
+  box-shadow: inset 0 0 40px $grayDarker;
 
   font: 400 10pt/14pt $fontFamilyRegular;
   color: black;
@@ -112,15 +117,15 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     position: relative;
     z-index: 1;
 
+    padding: 0.5em;
     margin: 0 auto 1em auto;
-    max-width: 55.55em; // Could be `calc(50em * 10/9)` if we didn't like IE8
+    max-width: 44.44em; // Could be `calc(40em * 10/9)` if we didn't like IE8
 
     font-size: 9pt;
 
     > a {
       background-color: white;
       color: $dcBrandBlue;
-      padding: 0.5em;
 
 //      &:after {
 //        content: '🔗';
@@ -175,7 +180,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
     padding: 0.5em;
     margin: 0.5em auto 0 auto;
-    max-width: 50em;
+    max-width: 40em;
 
     &:empty {
       display: none;
@@ -199,9 +204,18 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     margin: 0 auto;
 
     @include box-sizing(content-box);
-    border: 2px solid rgb(255, 227, 37);
-    border-radius: 3px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+    border: 2px solid $noteYellow;
+    border-radius: $noteBorderRadius;
+    box-shadow: 0 0 7px $grayDimmer;
+
+    -webkit-transition: border-color 150ms ease, box-shadow 150ms ease;
+       -moz-transition: border-color 150ms ease, box-shadow 150ms ease;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+
+    &:hover {
+      border-color: $dcBrandBlueLight;
+      box-shadow: 0 0 10px $grayDim;
+    }
   }
 
     &.DC-new-note-private .DC-new-note-image-max-bounds {
