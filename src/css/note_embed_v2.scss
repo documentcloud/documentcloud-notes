@@ -1,6 +1,12 @@
 // Shared with page embed
 
 $dcBrandBlue:  rgb(90, 118, 160);
+$gray:         rgb(204, 204, 204);
+$grayLight:    rgb(235, 235, 235);
+$grayDark:     rgb(115, 115, 115);
+$grayDim:      rgba(0, 0, 0, 0.55);
+$grayDimmer:   rgba(0, 0, 0, 0.25);
+$textColor:    rgb(0, 0, 0);
 $errorColor:   rgb(255, 50, 50);
 
 @mixin full-size() {
@@ -56,8 +62,8 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
   position: relative;
   padding: 1em 0.5em 0.5em 0.5em;
   margin: 2em 0;
-  border: 1px solid #ddd;
-  box-shadow: inset 0 0 40px #666;
+  border: 1px solid $grayLight;
+  box-shadow: inset 0 0 40px $grayDark;
 
   font: 400 10pt/14pt $fontFamilyRegular;
   color: black;
@@ -192,7 +198,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
     margin: 0 auto;
 
-    @include box-sizing(padding-box);
+    @include box-sizing(content-box);
     border: 2px solid rgb(255, 227, 37);
     border-radius: 3px;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
@@ -229,22 +235,11 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     height: auto;
   }
 
-  &.DC-new-note-iframe-embed {
-
-    .DC-new-note-iframe {
-      @include full-size;
-
-//      z-index: 12;
-      border-radius: 3px;
-      border: 1px solid #eee;
-    }
-  }
-
 }
 
 // This applies to the elements within the embedded page
 
-.DC-embed-iframe {
+.DC-embed-iframed {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -261,9 +256,6 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     padding: 0;
     border: 0;
     border-radius: 0;
-
-    .DC-new-note-image-background {
-      margin: 0;
-    }
+    box-shadow: none;
   }
 }
