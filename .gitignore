@@ -1,2 +1,4 @@
+bower_components
+src/js/vendor/*
 .DS_Store
 .tm_properties
