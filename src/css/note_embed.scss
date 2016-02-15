@@ -43,12 +43,12 @@ $fontFamilyRegular: 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 @mixin reset-image() {
-  margin: 0;
-  border: 0;
-  outline: 0;
-  max-width: none;
-  max-height: none;
-  display: block;
+  margin: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
 }
 
 @mixin note-tag($tagColor: inherit, $tagContent: '') {
