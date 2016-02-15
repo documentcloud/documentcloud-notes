@@ -1,0 +1,3 @@
+
+(function(){if(window.dc){if(window.dc.noteEmbedLoaded){return;}}
+window.dc=window.dc||{};window.dc.recordHit="//www.documentcloud.org/pixel.gif";var loadCSS=function(url,media){var link=document.createElement('link');link.rel='stylesheet';link.type='text/css';link.media=media||'screen';link.href=url;var head=document.getElementsByTagName('head')[0];head.appendChild(link);};loadCSS("../dist/note_embed-datauri.css");dc.noteEmbedLoaded=true;document.write('<script type="text/javascript" src="../dist/note_embed.js"></scr'+'ipt>');})();

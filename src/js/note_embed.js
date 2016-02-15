@@ -7,14 +7,12 @@
  *
  */
 (function() {
-  var dc = window.dc = window.dc || {
-    $:        window.jQuery.noConflict(),
-    _:        window._.noConflict()
-  };
+  var dc = window.dc = window.dc || {};
   dc.embed = dc.embed || { notes: {} };
 
-  var $  = dc.$;
-  var _  = dc._;
+  var $ = dc.$ = dc.$ || window.jQuery.noConflict();
+  var _ = dc._ = dc._     || window._.noConflict();
+
   _.t = _.t || function(input){ return input; };
 
   // Public API entry point for loading notes.

@@ -1,10 +1,13 @@
 javascript_compressor: closure
 css_compressor:        sass
 template_function:     dc._.template
-embed_assets:          off
+embed_assets:          datauri
 gzip_assets:           off
 
 javascripts:
+  loader:
+    - src/js/loader.js
+
   note_embed:
     - src/js/vendor/underscore/underscore.js
     - src/js/vendor/jquery/dist/jquery.js
