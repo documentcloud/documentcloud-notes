@@ -1,47 +1,47 @@
+/*!
+ * DocumentCloud Notes 0.1.0
+ * A part of [DocumentCloud](https://www.documentcloud.org).
+ *
+ * @license (c) (c) 2014 DocumentCloud, Investigative Reporters & Editors
+ * DocumentCloud Notes may be freely distributed under the MIT license.
+ *
+ */
 (function() {
+  var dc = window.dc = window.dc || {
+    $:        window.jQuery.noConflict(),
+    _:        window._.noConflict()
+  };
+  dc.embed = dc.embed || { notes: {} };
 
-//     DocumentCloud Notes 0.0.3
-
-//     (c) Ted Han, DocumentCloud and Investigative Reporters & Editors
-//     DocumentCloud Notes are a part of [DocumentCloud](https://www.documentcloud.org)
-//     and may be distributed under the [MIT license](http://opensource.org/licenses/MIT)
-
-  // Setup global namespace
-  window.dc = window.dc || {};
-  dc.embed  = dc.embed || {};
-  var notes = dc.embed.notes = dc.embed.notes || {};
-  
-  // Setup dependencies
-  var _ = dc._             = window._.noConflict();
-  var $ = dc.$ = dc.jQuery = window.jQuery.noConflict(true);
-  // provide translation stub if one is not otherwise available.
+  var $  = dc.$;
+  var _  = dc._;
   _.t = _.t || function(input){ return input; };
-  
-  // Setup global resize function
-  var resizeNotes = _.debounce(function(){
-    // Determine whether each note needs to be resized and resize it if needed.
-    _.each(notes, function(note, id){ note.checkAndSetWidth(); });
-  }, 250);
-  $(window).resize(resizeNotes);
-  
+
   // Public API entry point for loading notes.
-  dc.embed.loadNote = function(embedUrl, opts) {
-    var options = opts || {};
-    var id = options.id = parseInt(embedUrl.match(/(\d+).js$/)[1], 10);
+  dc.embed.loadNote = function(noteResourceUrl, options) {
+    options = options || {};
+
+    var id = options.id = parseInt(noteResourceUrl.match(/(\d+).(?:js|json)$/)[1], 10);
     var noteModel = new dc.embed.noteModel(options);
 
     // Store the note view for later access
-    notes[id] = notes[id] || new dc.embed.noteView({model: noteModel, el: options.container});
-    
-    // This API assumes that the response will be a JSONP response
-    // which will invoke `dc.embed.noteCallback`
-    //
-    // Get the party started by requesting note data.
-    $.getScript(embedUrl);
-    
+    dc.embed.notes[id] = dc.embed.notes[id] || new dc.embed.noteView({model: noteModel, el: options.container});
+
+    if (noteResourceUrl.match(/\.js$/)) {
+      // This API assumes that the response will be a JSONP response
+      // which will invoke `dc.embed.noteCallback`
+      //
+      // Get the party started by requesting note data.
+      $.getScript(noteResourceUrl);
+    } else if (noteResourceUrl.match(/\.json$/)) {
+      $.getJSON(noteResourceUrl, function(response) {
+        dc.embed.noteCallback(response);
+      });
+    }
+
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
-  
+
   // Complete the loading process & render the note.
   dc.embed.noteCallback = function(response) {
     var id                = response.id;
@@ -67,51 +67,93 @@
     var key    = encodeURIComponent(type + ':' + id + ':' + url);
     $(document).ready( function(){ $(document.body).append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
   };
-  
+
   // Note Model
   // ----------
 
   // Note Model constructor
   dc.embed.noteModel = function(opts) {
     this.options = opts || {};
-    this.id = opts.id;
+    this.id      = opts.id;
   };
-  
+
   // Note Model functions
   dc.embed.noteModel.prototype = {
-    get : function(key) { return this.attributes[key]; },
-    
-    option : function(key) {
+    get: function(key) { return this.attributes[key]; },
+
+    option: function(key) {
       return this.attributes.options[key];
     },
-    
-    imageUrl : function() {
+
+    isPrivate: function() {
+      return this.get('access') == 'private';
+    },
+
+    isDraft: function() {
+      return this.get('access') == 'exclusive';
+    },
+
+    canonicalUrl: function() {
+      return this.get('canonical_url');
+    },
+
+    contextualUrl: function() {
+      var url   = this.get('canonical_url');
+      var start = url.indexOf('/annotations/');
+      return url.substring(0, start) + '.html' + this._documentPageAnchor();
+    },
+
+    publishedUrlWithAnchor: function() {
+      return this.get('published_url') + this._documentPageAnchor();
+    },
+
+    // Alias for historical purposes
+    viewerUrl: function() {
+      return this.publishedUrlWithAnchor();
+    },
+
+    _documentPageAnchor: function() {
+      var id    = this.get('id');
+      var page  = this.get('page');
+      return '#document/p' + page + '/a' + id;
+    },
+
+    imageUrl: function() {
       return (this._imageUrl = this._imageUrl ||
         this.get('image_url').replace('{size}', 'normal').replace('{page}', this.get('page')));
     },
 
-    coordinates : function() {
-      if (this._coordinates) return this._coordinates;
-      var loc = this.get('location');
-      if (!loc) return null;
-      var css = _.map(loc.image.split(','), function(num){ return parseInt(num, 10); });
-      return (this._coordinates = {
-        top:    css[0],
-        left:   css[3],
-        right:  css[1],
-        height: css[2] - css[0],
-        width:  css[1] - css[3],
-        rightPageEdge: 750
-      });
+    // Parses the coordinates in pixel value and calculates pixel width/height
+    coordinates: function(force){
+      if (!this._coordinates || force) {
+        var css = _.map(this.get('location').image.split(','), function(num){ return parseInt(num, 10); });
+        this._coordinates = {
+          top:    css[0],
+          left:   css[3],
+          right:  css[1],
+          height: css[2] - css[0],
+          width:  css[1] - css[3],
+        };
+        this._transformCoordinatesToLegacy();
+      }
+      return this._coordinates;
     },
-    
-    viewerUrl : function() {
-      var suffix = '#document/p' + this.get('page') + '/a' + this.get('id');
-      return this.get('published_url') + suffix;
+
+    // The existing note viewer transforms stored note dimensions before
+    // rendering. Replicate those transformations here for compatibility.
+    _transformCoordinatesToLegacy: function() {
+      var adjustments = {
+        top:    1,
+        left:   -2,
+        width:  -8,
+      };
+      this._coordinates = _.mapObject(this._coordinates, function(val, key) {
+        return _.has(adjustments, key) ? val + adjustments[key] : val;
+      });
     }
-    
+
   };
-  
+
   // Note View
   // ---------
 
@@ -122,110 +164,49 @@
     var el = this.model.options.el || '#DC-note-' + this.model.id
     this.setElement(el);
   };
-  
+
   dc.embed.noteView.prototype = {
-    displayModes: { "scale": 1, "narrow": 2, "full": 3 },
-    displayNames: { 1: "scale", 2: "narrow", 3: "full" },
-    
+    IMAGE_WIDTH: 700,
+
     $: function(selector){ return this.$el.find(selector); },
-    setElement: function(element) { 
+    setElement: function(element) {
       this.$el = element instanceof dc.$ ? element : dc.$(element);
       this.el  = this.$el[0];
     },
 
-    render : function() {
-      this.$el.html(JST['note_embed']({note : this.model}));
-      this.cacheDomReferences();
-      this.viewablePageWidth = this.$(".DC-note-excerpt-wrap").width();
-      this.imageLoaded = false;
-
-      var cachePageDimensionsAndFitViewableArea = _.bind(function(){
-        this.imageLoaded = true;
-        this.pageDimensions = {
-          height: this.$noteImage[0].height,
-          width:  this.$noteImage[0].width
-        };
-        this.checkAndSetWidth();
-      }, this);
-      
-      this.$noteImage.load(cachePageDimensionsAndFitViewableArea);
+    render: function() {
+      this.$el.html(JST['note_embed']({
+        note:          this.model,
+        hasImage:      !_.isEmpty(this.model.coordinates()),
+        extraClasses:  this._extraClasses().join(' '),
+        imagePosition: this._inlineCSS()
+      }));
       return this.$el;
     },
-    
-    // Provide description
-    cacheDomReferences: function() {
-      this.$viewableArea = this.$(".DC-note-excerpt-wrap");
-      this.$noteExcerpt  = this.$(".DC-note-excerpt");
-      this.$leftCover    = this.$(".DC-left-cover"  );
-      this.$rightCover   = this.$(".DC-right-cover" );
-      this.$noteImage    = this.$(".DC-note-image"  );
-    },
-    
-    checkAndSetWidth: function() {
-      if (!this.model.coordinates() || !this.imageLoaded) return false;
-      var viewableWidth = this.$viewableArea.width();
-      var targetMode;
-      
-      if (viewableWidth <= 0) {
-        targetMode = this.displayModes["full"]; // hax
-      } else if (viewableWidth < this.model.coordinates().width) { // Smallest width, time to scale the image
-        targetMode = this.displayModes["scale"];
-      } else if (viewableWidth < this.model.coordinates().rightPageEdge) { // Medium width, hide left cover or recenter, or whatever.
-        targetMode = this.displayModes["narrow"];
-      } else { // largest width, expand!
-        targetMode = this.displayModes["full"];
-      }
-      this.resize(targetMode);
-      return true;
+
+    _inlineCSS: function() {
+      var coords = this.model.coordinates();
+      return _.isEmpty(coords) ? {} : {
+        aspectRatio: coords.height / coords.width * 100,
+        heightPixel: coords.height,
+        widthPixel: coords.width,
+        widthPercent: this.IMAGE_WIDTH / coords.width * 100,
+        offsetTopPercent: coords.top / coords.height * -100,
+        offsetLeftPercent: coords.left / coords.width * -100
+      };
     },
 
-    resize: function(targetMode) {
-      //console.log("Resizing "+this.model.get('id')+" from "+this.mode+" to "+targetMode+"!");
-      var coordinates = this.model.coordinates();
-      var pageCSS = {};
+    _extraClasses: function() {
+      var extraClasses = [];
+      if (this.model.isPrivate()) { extraClasses.push('private'); }
+      if (this.model.isDraft())   { extraClasses.push('draft'); }
+      return _.map(extraClasses, function(cls){ return 'DC-note-' + cls; });
+    },
 
-      this.$viewableArea.removeClass("excerpt-wrap-" + this.displayNames[this.mode]);
-      this.$viewableArea.addClass("excerpt-wrap-" + this.displayNames[targetMode]);
-
-      // If moving into or out of scale mode, page dimensions must be set.
-      if (targetMode === 1) {
-        // hide covers, shift left & begin scaling
-        var scaleFactor = this.$viewableArea.width() / coordinates.width;
-        pageCSS.width  = scaleFactor * this.pageDimensions.width;
-        pageCSS.height = scaleFactor * this.pageDimensions.height;
-        pageCSS.top    = scaleFactor * -coordinates.top;
-        pageCSS.left   = scaleFactor * -coordinates.left;
-
-        this.$noteExcerpt.height(scaleFactor*coordinates.height);
-      } else {
-        // restore position & size
-        pageCSS.width  = "";
-        pageCSS.height = "";
-        pageCSS.top    = -coordinates.top;
-        pageCSS.left   = -coordinates.left;
-        
-        this.$noteExcerpt.height(coordinates.height);
-      }
-      
-      // When moving between narrow and full, reposition covers.
-      if (targetMode === 2) {
-        var viewableWidth = this.$viewableArea.width();
-        var marginWidth = (viewableWidth - coordinates.width) / 2;
-        var leftShift = coordinates.left - marginWidth;
-
-        // recenter
-        pageCSS.left = -leftShift; // center note by shifting page image left
-        this.$leftCover.css('width', marginWidth);
-        this.$rightCover.css('width', (coordinates.rightPageEdge-coordinates.right)+leftShift);
-      } else if (targetMode === 3) {
-        // fully expand
-        pageCSS.left = 0;
-        this.$leftCover.css('width', coordinates.left);
-        this.$rightCover.css('width', coordinates.rightPageEdge-coordinates.right);
-      }
-      
-      this.$noteImage.css(pageCSS);
-      this.mode = targetMode;
-    }
+    displayModes: {},
+    displayNames: {},
+    cacheDomReferences: _.noop,
+    checkAndSetWidth: _.noop,
+    resize: _.noop,
   };
 })();

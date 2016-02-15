@@ -63,7 +63,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
   content: $tagContent;
 }
 
-.DC-new-note {
+.DC-note {
   position: relative;
   padding: 1em 0.5em 0.5em 0.5em;
   margin: 2em 0;
@@ -92,32 +92,31 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     }
   }
 
-  .DC-new-note-background-fader {
+  .DC-note-background-fader {
     @include full-size;
     z-index: 0;
     background-color: white;
     opacity: 0.93;
   }
 
-  &.DC-new-note-image-only {
+  &.DC-note-image-only {
     padding: 0;
     border: 0;
     box-shadow: none;
     background-image: none;
 
-    .DC-new-note-header,
-    .DC-new-note-body,
-    .DC-new-note-background-fader {
+    .DC-note-header,
+    .DC-note-body,
+    .DC-note-background-fader {
       display: none;
     }
   }
 
-  .DC-new-note-header {
+  .DC-note-header {
     // To lift it above the background fader
     position: relative;
     z-index: 1;
 
-    padding: 0.5em;
     margin: 0 auto 1em auto;
     max-width: 44.44em; // Could be `calc(40em * 10/9)` if we didn't like IE8
 
@@ -126,6 +125,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     > a {
       background-color: white;
       color: $dcBrandBlue;
+      padding: 0.5em;
 
 //      &:after {
 //        content: '🔗';
@@ -138,7 +138,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 //        content: '';
 //      }
 
-      .DC-new-note-title {
+      .DC-note-title {
         font-weight: 700;
         font-family: $fontFamilyBold;
         text-transform: uppercase;
@@ -154,7 +154,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
         }
       }
 
-      .DC-new-note-logotype-link {
+      .DC-note-logotype-link {
         font-weight: 700;
         font-family: $fontFamilyBold;
       }
@@ -163,15 +163,15 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
   }
 
-  &.DC-new-note-private .DC-new-note-header:after {
+  &.DC-note-private .DC-note-header:after {
     @include note-tag($privateColor, 'Private');
   }
 
-  &.DC-new-note-draft .DC-new-note-header:after {
+  &.DC-note-draft .DC-note-header:after {
     @include note-tag($errorColor, 'Draft');
   }
 
-  .DC-new-note-body {
+  .DC-note-body {
     // To lift it above the background fader
     position: relative;
     z-index: 1;
@@ -196,7 +196,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
   // Ensures the image never appears larger than its native size.
   // `max-width` and `max-height` set inline.
-  .DC-new-note-image-max-bounds {
+  .DC-note-image-max-bounds {
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -218,13 +218,13 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     }
   }
 
-    &.DC-new-note-private .DC-new-note-image-max-bounds {
+    &.DC-note-private .DC-note-image-max-bounds {
       border-color: $privateColor;
     }
 
   // Ensures the image remains the correct aspect ratio.
   // `padding-bottom` set inline.
-  .DC-new-note-image-aspect-ratio {
+  .DC-note-image-aspect-ratio {
     position: relative;
     overflow: hidden;
     height: 0;
@@ -233,7 +233,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
   // Fills the space of its trick parent (which has a 0px `height` to creates
   // a normal canvas for its contents to fill.
-  .DC-new-note-image-space-filler {
+  .DC-note-image-space-filler {
     @include full-size;
     overflow: hidden;
 
@@ -242,7 +242,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
   // The actual page image.
   // `top`, `left`, and `width` set inline.
-  .DC-new-note-image {
+  .DC-note-image {
     @include reset-image;
 
     position: absolute;
@@ -263,7 +263,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     overflow: hidden;
   }
 
-  .DC-new-note {
+  .DC-note {
     @include full-size;
 
     margin: 0;

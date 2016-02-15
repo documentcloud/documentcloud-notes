@@ -1,27 +1,19 @@
-<div class="DC-note">
-  <div class="DC-note-contents">
-    <div class="DC-note-title display">
-      <a class="DC-title-link" href="<%= note.viewerUrl() %>" target="_blank"><%- note.get('title') %> <span class="DC-page-number">(<%=_.t('pg') %> <%= note.get('page') %>)</span></a>
-    </div>
-    <% if (note.get('access') == 'exclusive') { %>
-      <div class="DC-note-draft-label interface display"><%= _.t('draft') %></div>
-    <% } %>
-    <% if (note.get('access') == 'private') { %>
-      <div class="DC-icon lock display" title="<%= _.t('private_note') %>"></div>
-    <% } %>
-    <% var coords = note.coordinates(); %>
-    <% if (coords) { %>
-      <a href="<%= note.viewerUrl() %>" target="_blank">
-        <div class="DC-note-excerpt-wrap">
-          <div class="DC-note-excerpt" style="height: <%= coords.height %>px;">
-            <div class="DC-left-cover"  style="width: <%= coords.left %>px;"></div>
-            <div class="DC-right-cover" style="width: <%= coords.rightPageEdge - coords.right %>px;"></div>
-            <% var styles = "max-width: none; max-height: none; top: -"+coords.top+"px;" %>
-            <img class="DC-note-image" src="<%= note.imageUrl() %>" alt="" style="<%= styles %>" />
-          </div>
-        </div>
-      </a>
-    <% } %>
-    <div class="DC-note-text display"><%= note.get('content') %></div>
+<div class="DC-note <%= extraClasses %>" data-version="1.1" style="background-image:url('<%= note.imageUrl() %>')">
+  <div class="DC-note-header">
+    <a class="DC-note-embed-resource" href="<%= note.contextualUrl() %>" target="_blank" title="View the note “<%- note.get('title') %>” in its original document context on DocumentCloud in a new window or tab">
+      <span class="DC-note-title"><%- note.get('title') %></span>
+      <span class="DC-note-page-number">Page <%= note.get('page') %> on <span class="DC-note-logotype-link">DocumentCloud</span></span>
+    </a>
   </div>
+  <% if (hasImage) { %>
+  <div class="DC-note-image-max-bounds" style="max-height:<%= imagePosition.heightPixel %>px;max-width:<%= imagePosition.widthPixel %>px">
+    <div class="DC-note-image-aspect-ratio" style="padding-bottom:<%= imagePosition.aspectRatio %>%">
+      <a class="DC-note-image-link DC-note-image-space-filler" href="<%= note.contextualUrl() %>" target="_blank" title="View the note “<%- note.get('title') %>” in its original document context on DocumentCloud in a new window or tab">
+        <img class="DC-note-image" width="<%= imagePosition.widthPixel %>" height="<%= imagePosition.heightPixel %>" src="<%= note.imageUrl() %>" alt="Selected portion of a source document hosted by DocumentCloud" style="top:<%= imagePosition.offsetTopPercent %>%;left:<%= imagePosition.offsetLeftPercent %>%;width:<%= imagePosition.widthPercent %>%;">
+      </a>
+    </div>
+  </div>
+  <% } %>
+  <div class="DC-note-body"><%= note.get('content') %></div>
+  <div class="DC-note-background-fader"></div>
 </div>

@@ -1,5 +1,5 @@
 javascript_compressor: closure
-css_compressor:         sass
+css_compressor:        sass
 template_function:     dc._.template
 embed_assets:          off
 gzip_assets:           off
@@ -8,10 +8,11 @@ javascripts:
   note_embed:
     - src/js/vendor/underscore/underscore.js
     - src/js/vendor/jquery/dist/jquery.js
+    # jQuery.XDomainRequest is for IE8/9
+    - src/js/vendor/jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest.js
     - src/js/note_embed.js
     - src/templates/*.jst
 
 stylesheets:
   note_embed:
-    - src/css/*.css
     - src/css/*.scss
