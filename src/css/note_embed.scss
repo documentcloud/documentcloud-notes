@@ -1,0 +1,275 @@
+// Shared with page embed
+
+$dcBrandBlue:  rgb(90, 118, 160);
+$dcBrandBlueLight: rgb(119, 147, 189);
+$gray:         rgb(204, 204, 204);
+$grayLight:    rgb(235, 235, 235);
+$grayDark:     rgb(115, 115, 115);
+$grayDim:      rgba(0, 0, 0, 0.55);
+$grayDimmer:   rgba(0, 0, 0, 0.25);
+$textColor:    rgb(0, 0, 0);
+$errorColor:   rgb(255, 50, 50);
+
+@mixin full-size() {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin box-sizing($sizing: border-box) {
+  -webkit-box-sizing: $sizing;
+     -moz-box-sizing: $sizing;
+          box-sizing: $sizing;
+}
+
+@mixin antialiased() {
+  -moz-osx-font-smoothing: grayscale;
+   -webkit-font-smoothing: antialiased;
+}
+
+// Unique to notes
+
+$noteBorderRadius: 3px;
+
+$privateColor: rgb(119, 197, 246);
+$grayDarker:   rgb(80, 80, 80);
+$noteYellow:   rgb(255, 227, 37);
+
+$fontFamilyRegular: 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+@mixin reset-image() {
+  margin: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+}
+
+@mixin note-tag($tagColor: inherit, $tagContent: '') {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: $fontFamilyBold;
+  padding: 2px;
+  margin-left: 2px;
+  background-color: white;
+  border: 2px solid $tagColor;
+  color: $tagColor;
+  content: $tagContent;
+}
+
+.DC-note {
+  position: relative;
+  padding: 1em 0.5em 0.5em 0.5em;
+  margin: 2em 0;
+  border: 1px solid $grayLight;
+  box-shadow: inset 0 0 40px $grayDarker;
+
+  font: 400 10pt/14pt $fontFamilyRegular;
+  color: black;
+
+  background-size: 100% auto;
+  background-repeat: none;
+  background-position: center center;
+
+  @include box-sizing;
+
+  *, *:after, *:before {
+    @include box-sizing;
+  }
+
+  a {
+    color: $dcBrandBlue;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .DC-note-background-fader {
+    @include full-size;
+    z-index: 0;
+    background-color: white;
+    opacity: 0.93;
+  }
+
+  &.DC-note-image-only {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background-image: none;
+
+    .DC-note-header,
+    .DC-note-body,
+    .DC-note-background-fader {
+      display: none;
+    }
+  }
+
+  .DC-note-header {
+    // To lift it above the background fader
+    position: relative;
+    z-index: 1;
+
+    margin: 0 auto 1em auto;
+    max-width: 44.44em; // Could be `calc(40em * 10/9)` if we didn't like IE8
+
+    font-size: 9pt;
+
+    > a {
+      background-color: white;
+      color: $dcBrandBlue;
+      padding: 0.5em;
+
+//      &:after {
+//        content: '🔗';
+//        font-family: 'Apple Color Emoji', 'Android Emoji', 'Segoe UI', 'Segoe UI Emoji';
+//        margin-left: 3px;
+//        white-space: nowrap;
+//      }
+//      &:empty:after {
+//        display: none;
+//        content: '';
+//      }
+
+      .DC-note-title {
+        font-weight: 700;
+        font-family: $fontFamilyBold;
+        text-transform: uppercase;
+
+        &:after {
+          content: ' — ';
+          font-weight: 400;
+          font-family: $fontFamilyRegular;
+        }
+        &:empty:after {
+          display: none;
+          content: '';
+        }
+      }
+
+      .DC-note-logotype-link {
+        font-weight: 700;
+        font-family: $fontFamilyBold;
+      }
+
+    }
+
+  }
+
+  &.DC-note-private .DC-note-header:after {
+    @include note-tag($privateColor, 'Private');
+  }
+
+  &.DC-note-draft .DC-note-header:after {
+    @include note-tag($errorColor, 'Draft');
+  }
+
+  .DC-note-body {
+    // To lift it above the background fader
+    position: relative;
+    z-index: 1;
+
+    background-color: white;
+
+    padding: 0.5em;
+    margin: 0.5em auto 0 auto;
+    max-width: 40em;
+
+    &:empty {
+      display: none;
+    }
+
+    > *:first-child {
+      margin-top: 0;
+    }
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Ensures the image never appears larger than its native size.
+  // `max-width` and `max-height` set inline.
+  .DC-note-image-max-bounds {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    margin: 0 auto;
+
+    @include box-sizing(content-box);
+    border: 2px solid $noteYellow;
+    border-radius: $noteBorderRadius;
+    box-shadow: 0 0 7px $grayDimmer;
+
+    -webkit-transition: border-color 150ms ease, box-shadow 150ms ease;
+       -moz-transition: border-color 150ms ease, box-shadow 150ms ease;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+
+    &:hover {
+      border-color: $dcBrandBlueLight;
+      box-shadow: 0 0 10px $grayDim;
+    }
+  }
+
+    &.DC-note-private .DC-note-image-max-bounds {
+      border-color: $privateColor;
+    }
+
+  // Ensures the image remains the correct aspect ratio.
+  // `padding-bottom` set inline.
+  .DC-note-image-aspect-ratio {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    max-width: 100%;
+  }
+
+  // Fills the space of its trick parent (which has a 0px `height` to creates
+  // a normal canvas for its contents to fill.
+  .DC-note-image-space-filler {
+    @include full-size;
+    overflow: hidden;
+
+    display: block;
+  }
+
+  // The actual page image.
+  // `top`, `left`, and `width` set inline.
+  .DC-note-image {
+    @include reset-image;
+
+    position: absolute;
+    height: auto;
+  }
+
+}
+
+// This applies to the elements within the embedded page
+
+.DC-embed-iframed {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  > body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .DC-note {
+    @include full-size;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

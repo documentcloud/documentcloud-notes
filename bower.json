@@ -1,20 +1,24 @@
 {
   "name": "documentcloud-notes",
-  "version": "0.0.6",
-  "main": [ "dist/note_embed.js", "dist/note_embed.css" ],
-  "authors": [ "Ted Han <ted@knowtheory.net>" ],
   "description": "Embeddable notes provided by DocumentCloud",
-  "dependencies": {
-    "jquery":     "~1.11.3",
-    "underscore": "~1.8.3"
-  },
-  "moduleType": [ "globals" ],
+  "version": "0.1.0",
+  "authors": [
+    "Ted Han <ted@knowtheory.net>",
+    "Justin Reese <justin@justinreese.com>"
+  ],
   "keywords": [
     "documentcloud",
     "embedded",
     "3rdparty"
   ],
   "license": "MIT",
+  "main": [
+    "dist/note_embed.js",
+    "dist/note_embed.css"
+  ],
+  "moduleType": [
+    "globals"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
@@ -22,5 +26,10 @@
     "colophon",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery":     "~1.11.3",
+    "jQuery-ajaxTransport-XDomainRequest": "~1.0.2",
+    "underscore": "~1.8.3"
+  }
 }

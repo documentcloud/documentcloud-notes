@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../dist/note_embed.js"></script>
+    <link type='text/css' rel='stylesheet' href="../dist/note_embed-datauri.css"/>
+    
+    <style>
+      #selector-specificity-trolling img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+    
+      #border-box-test div {
+        /********************
+         using box-sizing: border-box together with margin: 0 will 
+         make hidden elements report negative widths
+        *********************/
+        margin: 0;
+        box-sizing: border-box;
+      }
+    
+      .dcnoteWrapper {
+        display:none;
+        box-sizing: border-box;
+      }
+    
+      .dcNoteLink {
+        background-color: #D3D3D3;
+        text-decoration: underline;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <div id="selector-specificity-trolling">
+      <div id="DC-note-175279" class="DC-note-container"></div>
+
+      <div id="DC-note-175280" class="DC-note-container"></div>
+
+      <script>
+        dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175279.js');
+
+        dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175280.js', {
+          afterLoad: function(note){ 
+            note.$el.find('.DC-note').css("border", "3px solid rgb(0, 231, 0)");
+          }
+        });
+      </script>
+    
+      <div id="border-box-test">
+        <p>This is a paragraph which includes a click target tied into jQuery's slideToggle function as used by the Austin American Statesman: <span id="dct176629" class="dcNoteLink">Clicking here will unfold a note.</span></p>
+
+        <div id="dc176629" class="dcnoteWrapper">
+          <div id="DC-note-176629" class="DC-note-container"></div>
+          <script>
+            dc.embed.loadNote('http://www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/176629.js');
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- include a jquery version just for testing purposes -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <script> 
+      /* URLs for the note embeds to click through to */
+      var noteURLs = [
+        "http://www.documentcloud.org",
+        "http://www.ire.org",
+        "http://www.wasingtonpost.com"
+      ]
+    </script>
+
+    <script>
+      var swapURL = function() {
+        var noteDiv = $(".DC-note-container"); 
+        $.each(noteDiv, function(i, v) {
+            if (typeof noteURLs != 'undefined') { 
+                var noteURL = noteURLs[i]; 
+                console.debug($(this).find('a').attr("href"));
+                $(this).find('a').attr('href', noteURL); 
+                $(this).find('a').attr('target', '_blank');
+            }
+        });
+      }
+
+      $(window).load(function() {
+        //change URL notes click through to
+        swapURL();
+
+        //show hide note when link is clicked
+        $(document).on('click', '.dcNoteLink', function(){
+          var noteLink = $(this);
+          var noteID = $(this).attr('id').replace('dct', ''); 
+          var noteEmbed = $('#dc'+noteID);
+
+          //use slideUp and slideDown (instead of slideToggle) so you can call checkAndSetWidth only when necessary
+          if ($(noteEmbed).hasClass('show')) {
+              $(noteEmbed).slideUp({duration: 800, easing: 'swing'});
+              $(noteEmbed).removeClass('show'); 
+          } else {
+              //call checkAndSetWidth again or will default to the full size 
+              $(noteEmbed).slideDown({duration: 800, easing: 'swing', complete: function() { 
+                  dc.embed.notes[noteID].checkAndSetWidth(); 
+              }});
+              $(noteEmbed).addClass('show'); 
+          }
+        });
+      });
+    </script>
+    
+  </body>
+</html>
