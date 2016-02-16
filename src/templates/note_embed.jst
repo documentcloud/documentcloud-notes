@@ -2,7 +2,7 @@
   <div class="DC-note-header">
     <a class="DC-note-embed-resource" href="<%= note.contextualUrl() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
       <span class="DC-note-title"><%- note.get('title') %></span>
-      <span class="DC-note-page-number">Page <%= note.get('page') %> on <span class="DC-note-logotype-link">DocumentCloud</span></span>
+      <span class="DC-note-page-number">(p. <%= note.get('page') %>)</span>
     </a>
   </div>
   <% if (hasImage) { %>
@@ -15,5 +15,10 @@
   </div>
   <% } %>
   <div class="DC-note-body"><%= note.get('content') %></div>
+  <div class="DC-note-credit">
+    <a href="<%= note.contextualUrl() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
+      View entire document on <span class="DC-note-logotype-link">DocumentCloud</span>
+    </a>
+  </div>
   <div class="DC-note-background-fader"></div>
 </div>
