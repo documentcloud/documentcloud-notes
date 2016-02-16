@@ -44,6 +44,12 @@ $noteYellow:   rgb(255, 227, 37);
 $fontFamilyRegular: 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+     -moz-transition: $transition;
+          transition: $transition;
+}
+
 @mixin reset-image() {
   margin: 0 !important;
   border: 0 !important;
@@ -136,9 +142,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
       background-color: white;
       color: $dcBrandBlue;
 
-      -webkit-box-shadow: $noteContentpadding/2 0 0 white, -$noteContentpadding/2 0 0 white;
-              box-shadow: $noteContentpadding/2 0 0 white, -$noteContentpadding/2 0 0 white;
-
+      box-shadow: $noteContentpadding/2 0 0 white, -$noteContentpadding/2 0 0 white;
       -webkit-box-decoration-break: clone;
           -ms-box-decoration-break: clone;
            -o-box-decoration-break: clone;
@@ -227,9 +231,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     border-radius: $noteBorderRadius;
     box-shadow: 0 0 7px $grayDimmer;
 
-    -webkit-transition: border-color 150ms ease, box-shadow 150ms ease;
-       -moz-transition: border-color 150ms ease, box-shadow 150ms ease;
-            transition: border-color 150ms ease, box-shadow 150ms ease;
+    @include transition(border-color 150ms ease, box-shadow 150ms ease);
 
     &:hover {
       border-color: $dcBrandBlueLight;
