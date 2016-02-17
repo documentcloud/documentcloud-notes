@@ -1,6 +1,6 @@
 <div class="DC-note <%= extraClasses %>" data-version="1.1" style="background-image:url('<%= note.imageUrl() %>')">
   <div class="DC-note-header">
-    <a class="DC-note-embed-resource" href="<%= note.contextualUrl() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
+    <a class="DC-note-embed-resource" href="<%= note.publishedUrlWithAnchor() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
       <span class="DC-note-title"><%- note.get('title') %></span>
       <span class="DC-note-page-number">(p. <%= note.get('page') %>)</span>
     </a>
@@ -8,7 +8,7 @@
   <% if (hasImage) { %>
   <div class="DC-note-image-max-bounds" style="max-height:<%= imagePosition.heightPixel %>px;max-width:<%= imagePosition.widthPixel %>px">
     <div class="DC-note-image-aspect-ratio" style="padding-bottom:<%= imagePosition.aspectRatio %>%">
-      <a class="DC-note-image-link DC-note-image-space-filler" href="<%= note.contextualUrl() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
+      <a class="DC-note-image-link DC-note-image-space-filler" href="<%= note.publishedUrlWithAnchor() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
         <img class="DC-note-image" width="<%= imagePosition.widthPixel %>" height="<%= imagePosition.heightPixel %>" src="<%= note.imageUrl() %>" alt="Selected portion of a source document hosted by DocumentCloud" style="top:<%= imagePosition.offsetTopPercent %>%;left:<%= imagePosition.offsetLeftPercent %>%;width:<%= imagePosition.widthPercent %>%;">
       </a>
     </div>
@@ -16,8 +16,8 @@
   <% } %>
   <div class="DC-note-body"><%= note.get('content') %></div>
   <div class="DC-note-credit">
-    <a href="<%= note.contextualUrl() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
-      View entire document on <span class="DC-note-logotype-link">DocumentCloud</span>
+    <a href="<%= note.publishedUrlWithAnchor() %>" target="_blank" title="View the note '<%- note.get('title') %>' in its original document context on DocumentCloud in a new window or tab">
+      View entire document with <span class="DC-note-logotype-link">DocumentCloud</span>
     </a>
   </div>
   <div class="DC-note-background-fader"></div>
