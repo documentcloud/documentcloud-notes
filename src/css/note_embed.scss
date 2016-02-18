@@ -50,6 +50,11 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
           transition: $transition;
 }
 
+@mixin opacity($value) {
+  opacity: $value;
+  filter: alpha(opacity=$value*100);
+}
+
 @mixin reset-image() {
   margin: 0 !important;
   border: 0 !important;
@@ -83,7 +88,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
 
   background-color: white;
   background-size: 100% auto;
-  background-repeat: none;
+  background-repeat: no-repeat;
   background-position: center center;
 
   @include box-sizing;
@@ -111,7 +116,7 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
     @include full-size;
     z-index: 0;
     background-color: white;
-    opacity: 0.93;
+    @include opacity(0.93);
   }
 
   &.DC-note-image-only {

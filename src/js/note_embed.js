@@ -32,7 +32,7 @@
       // Get the party started by requesting note data.
       $.getScript(noteResourceUrl);
     } else if (noteResourceUrl.match(/\.json$/)) {
-      $.getJSON(noteResourceUrl, function(response) {
+      $.getJSON(noteResourceUrl).done(function(response) {
         dc.embed.noteCallback(response);
       });
     }

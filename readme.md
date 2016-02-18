@@ -28,7 +28,7 @@ Notes can then be embedded with three things: a target DIV, the note JavaScript 
   <div id="DC-note-175279" class="DC-note-container"></div>
   <script src="//assets.documentcloud.org/notes/loader.js"></script>
   <script>
-    dc.embed.loadNote('//www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175279.json');
+    dc.embed.loadNote('//www.documentcloud.org/documents/1282616-undeclarationofhr-tl/annotations/175279.js');
   </script>
 ```
 
