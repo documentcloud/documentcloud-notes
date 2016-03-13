@@ -98,10 +98,12 @@ $fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, s
   }
 
   a {
+    border-bottom: 0; // WordPress Whackamole
     color: $dcBrandBlue;
     text-decoration: underline;
 
     &:hover {
+      border-bottom: 0; // WordPress Whackamole
       text-decoration: none;
     }
 
