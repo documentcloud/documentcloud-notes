@@ -10,7 +10,7 @@
   var dc = window.dc = window.dc || {};
   dc.embed = dc.embed || { notes: {} };
 
-  var $ = dc.$ = dc.$ || window.jQuery.noConflict();
+  var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._     || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
@@ -159,7 +159,7 @@
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
     this.model = options.model;
-    var el = this.model.options.el || '#DC-note-' + this.model.id
+    var el = this.model.options.el || '#DC-note-' + this.model.id;
     this.setElement(el);
   };
 
