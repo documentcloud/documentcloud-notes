@@ -13,18 +13,43 @@
     </header>
 
     <section>
-      <h3>1.0/Direct</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <h3>Current/Direct</h3>
+
+      <h4>Default</h4>
       <div id="DC-note-42282" class="DC-note-container"></div>
       <script src="loader.js"></script>
       <script>
-        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js');
+        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js', {
+          container: '#DC-note-42282'
+        });
       </script>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      <h4>With non-default <code>container</code></h4>
+      <div id="DC-note-asdf" class="DC-note-container"></div>
+      <script src="loader.js"></script>
+      <script>
+        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42281.js', {
+          container: '#DC-note-asdf'
+        });
+      </script>
+
+      <h4>With matching <code>div</code> but no <code>container</code> option</h4>
+      <div id="DC-note-99206" class="DC-note-container"></div>
+      <script src="loader.js"></script>
+      <script>
+        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/99206.js');
+      </script>
+
+      <h4>With no target <code>div</code> or <code>container</code> option</h4>
+      <script src="loader.js"></script>
+      <script>
+        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42250.js');
+      </script>
+
     </section>
 
-    <hr>
-    
+    <!-- <hr>
+
     <h2>Everything below here is a work in progress</h2>
 
     <section>
@@ -91,7 +116,7 @@
       </div>
       <script src="//assets.documentcloud.org/embed/loader/enhance.js"></script>
 
-      <!-- <link rel="stylesheet" href="../dist/note_embed.css" type="text/css">
+      <link rel="stylesheet" href="../dist/note_embed.css" type="text/css">
       <div class="DC-note DC-note-iframe" data-version="2.0" style="background-image:url('//dev.dcloud.org/documents/368941177/pages/Franc-Ais-p1-normal.gif')">
         <div class="DC-note-header">
           <a class="DC-note-embed-resource" href="https://www.documentcloud.org/documents/368941177-Franc-Ais.html#document/p1/a1001664035" title="View the note 'Untitled Note' in its original document context">
@@ -106,9 +131,9 @@
         </div>
         <div class="DC-note-body"></div>
         <div class="DC-note-background-fader"></div>
-      </div> -->
+      </div>
 
-    </section>
+    </section> -->
 
   </body>
 </html>
