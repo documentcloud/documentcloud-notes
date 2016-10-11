@@ -34,8 +34,8 @@
       };
       var insertJavaScript = function(src, onLoadCallback) {
         if (!document.querySelector('script[src$="' + src + '"]')) {
-          script = document.createElement('script');
-          script.src = src;
+          script       = document.createElement('script');
+          script.src   = src;
           script.async = true;
           on(script, 'load', onLoadCallback);
           document.querySelector('body').appendChild(script);
