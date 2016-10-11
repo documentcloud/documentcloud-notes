@@ -42,7 +42,7 @@
         }
       };
       var loadNotes = function() {
-        q = window.dc.noteQueue;
+        var q = window.dc.noteQueue;
         for (var i = 0, qLength = q.length; i < qLength; i++) {
           window.dc.embed.actuallyLoadNote(q[i].url, q[i].options);
         }
