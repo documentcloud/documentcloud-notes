@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://assets.documentcloud.org/css/platform.css" type="text/css" media="screen">
+    <style type="text/css" media="screen">
+    body { padding: 3rem; }
+    h3.h5 { margin-bottom: 0; }
+    </style>
     <title>DocumentCloud Note Embed Test</title>
   </head>
   <body>
@@ -13,38 +18,101 @@
     </header>
 
     <section>
-      <h3>Current/Direct</h3>
+      <h2>Current/Direct</h2>
 
-      <h4>Default</h4>
-      <div id="DC-note-42282" class="DC-note-container"></div>
-      <script src="loader.js"></script>
-      <script>
-        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js', {
-          container: '#DC-note-42282'
-        });
-      </script>
+      <section>
+        <h3 class="h5">Default:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-42282" class="DC-note-container"></div>
+            <script src="loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js', {
+                container: '#DC-note-42282'
+              });
+            </script>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-42282&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42282.js&#x27;, {
+    container: &#x27;#DC-note-42282&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
 
-      <h4>With non-default <code>container</code></h4>
-      <div id="DC-note-asdf" class="DC-note-container"></div>
-      <script src="loader.js"></script>
-      <script>
-        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42281.js', {
-          container: '#DC-note-asdf'
-        });
-      </script>
+      <section>
+        <h3 class="h5">With non-default <code>container</code>:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-asdf" class="DC-note-container"></div>
+            <script src="loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42281.js', {
+                container: '#DC-note-asdf'
+              });
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-asdf&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42281.js&#x27;, {
+    container: &#x27;#DC-note-asdf&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
 
-      <h4>With matching <code>div</code> but no <code>container</code> option</h4>
-      <div id="DC-note-99206" class="DC-note-container"></div>
-      <script src="loader.js"></script>
-      <script>
-        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/99206.js');
-      </script>
+      <section>
+        <h3 class="h5">With matching <code>div</code> but no <code>container</code> option:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-99206" class="DC-note-container"></div>
+            <script src="loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/99206.js');
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-99206&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/99206.js&#x27;);
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
 
-      <h4>With no target <code>div</code> or <code>container</code> option</h4>
-      <script src="loader.js"></script>
-      <script>
-        dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42250.js');
-      </script>
+      <section>
+        <h3 class="h5">With no target <code>div</code> or <code>container</code> option:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <script src="loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42250.js');
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;script src=&quot;loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42250.js&#x27;);
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
 
     </section>
 
@@ -53,7 +121,7 @@
     <h2>Everything below here is a work in progress</h2>
 
     <section>
-      <h3>2.0/Rendered</h3>
+      <h3 class="h5">2.0/Rendered:</h3>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
@@ -87,7 +155,7 @@
     </section>
 
     <section>
-      <h3>2.0/Iframe</h3>
+      <h3 class="h5">2.0/Iframe:</h3>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
