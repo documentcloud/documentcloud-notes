@@ -10,7 +10,6 @@
   var dc = window.dc = window.dc || {};
   dc.embed = dc.embed || {};
   dc.embed.notes = dc.embed.notes || {};
-  dc.noteEmbedJSParsed = true;
 
   var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._     || window._.noConflict();
