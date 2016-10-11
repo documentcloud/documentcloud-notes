@@ -18,7 +18,7 @@
     </header>
 
     <section>
-      <h2>Current/Direct</h2>
+      <h2>Static</h2>
 
       <section>
         <h3 class="h5">Default:</h3>
@@ -116,6 +116,19 @@
 
     </section>
 
+    <section>
+      <h2>Ajax</h2>
+
+      <section>
+        <h3 class="h5">Local:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12" id="local-ajax-wrapper"></div>
+          <div class="col-sm-6 col-xs-12">
+          </div>
+        </div>
+      </section>
+    </section>
+
     <!-- <hr>
 
     <h2>Everything below here is a work in progress</h2>
@@ -203,5 +216,13 @@
 
     </section> -->
 
+      <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $.get('/notes/test/_embed_code.html').done(function(response){
+            $('#local-ajax-wrapper').html(response);
+          });
+        });
+      </script>
   </body>
 </html>
