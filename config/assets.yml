@@ -4,6 +4,8 @@ template_function:     dc._.template
 gzip_assets:           off
 
 javascripts:
+  loader:
+    - src/js/loader.js
   note_embed:
     - src/js/vendor/underscore/underscore.js
     - src/js/vendor/jquery/dist/jquery.js
@@ -11,6 +13,15 @@ javascripts:
     - src/js/vendor/jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest.js
     - src/js/note_embed.js
     - src/templates/*.jst
+  # old_loader:
+  #   - src/js/old_loader.js
+  # old_note_embed:
+  #   - src/js/vendor/underscore/underscore.js
+  #   - src/js/vendor/jquery/dist/jquery.js
+  #   # jQuery.XDomainRequest is for IE8/9
+  #   - src/js/vendor/jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest.js
+  #   - src/js/old_note_embed.js
+  #   - src/templates/*.jst
 
 stylesheets:
   note_embed:

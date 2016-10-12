@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <div id="DC-note-42282" class="DC-note-container"></div>
-            <script src="/dist/loader.js"></script>
+            <script src="/dist/old_loader.js"></script>
             <script>
               dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42282.js', {
                 container: '#DC-note-42282'
@@ -35,7 +35,7 @@
           <div class="col-sm-6 col-xs-12">
 <pre class="pre-scrollable"><code>
 &lt;div id=&quot;DC-note-42282&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;/dist/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/dist/old_loader.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42282.js&#x27;, {
     container: &#x27;#DC-note-42282&#x27;
@@ -51,7 +51,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <div id="DC-note-asdf" class="DC-note-container"></div>
-            <script src="/dist/loader.js"></script>
+            <script src="/dist/old_loader.js"></script>
             <script>
               dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42281.js', {
                 container: '#DC-note-asdf'
@@ -61,7 +61,7 @@
           <div class="col-md-6 col-xs-12">
 <pre class="pre-scrollable"><code>
 &lt;div id=&quot;DC-note-asdf&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;/dist/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/dist/old_loader.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42281.js&#x27;, {
     container: &#x27;#DC-note-asdf&#x27;
@@ -77,7 +77,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <div id="DC-note-99206" class="DC-note-container"></div>
-            <script src="/dist/loader.js"></script>
+            <script src="/dist/old_loader.js"></script>
             <script>
               dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/99206.js');
             </script>
@@ -85,7 +85,7 @@
           <div class="col-md-6 col-xs-12">
 <pre class="pre-scrollable"><code>
 &lt;div id=&quot;DC-note-99206&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;/dist/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/dist/old_loader.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/99206.js&#x27;);
 &lt;/script&gt;
@@ -98,14 +98,14 @@
         <h3 class="h5">With no target <code>div</code> or <code>container</code> option:</h3>
         <div class="row">
           <div class="col-md-6 col-xs-12">
-            <script src="/dist/loader.js"></script>
+            <script src="/dist/old_loader.js"></script>
             <script>
               dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42250.js');
             </script>
           </div>
           <div class="col-md-6 col-xs-12">
 <pre class="pre-scrollable"><code>
-&lt;script src=&quot;/dist/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/dist/old_loader.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42250.js&#x27;);
 &lt;/script&gt;
@@ -225,13 +225,13 @@
 
     </section> -->
 
-      <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com:443/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
       <script type="text/javascript">
         $(document).ready(function(){
-          $.get('http://notes-cors.dcloud.org:12346/test/_embed_code.html').done(function(response){
+          $.get('http://notes-cors.dcloud.org:12346/test/_embed_code_old.html').done(function(response){
             $('#local-ajax-wrapper').html(response);
           });
-          $.get('http://notes-cors.dcloud.org:12346/test/_oembed_code.json').done(function(response){
+          $.get('http://notes-cors.dcloud.org:12346/test/_oembed_code_old.json').done(function(response){
             $('#oembed-ajax-wrapper').html(response.html);
           });
         });

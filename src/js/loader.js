@@ -54,8 +54,8 @@
 
       // 3. Insert the styles and scripts needed, with `loadNotes` fired after 
       //    the script has finished loading
-      insertStylesheet('../dist/note_embed.css');
-      insertJavaScript('../dist/note_embed.js', loadNotes);
+      insertStylesheet('/dist/note_embed.css');
+      insertJavaScript('/dist/note_embed.js', loadNotes);
     }
   }
 
