@@ -1,5 +1,4 @@
 (function() {
-  console.log('loader.js start');
   // If the note embed is already loaded, don't repeat the process.
   if (window.dc) { if (window.dc.noteEmbedLoaded) { return; } }
 
@@ -29,5 +28,4 @@
 
   // Request the embed JavaScript.
   document.write('<script type="text/javascript" src="/test/v1.0-sync/note_embed.js"></scr' + 'ipt>');
-  console.log('loader.js end');
 })();

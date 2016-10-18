@@ -1,19 +1,16 @@
 (function() {
-  console.log('loader.js start');
   window.dc           = window.dc || {};
-  window.dc.recordHit = "//www.documentcloud.org/pixel.gif";
   window.dc.noteQueue = window.dc.noteQueue || [];
   window.dc.embed     = window.dc.embed     || {};
-  // Public entry point
+  window.dc.recordHit = "//www.documentcloud.org/pixel.gif";
+
+  // `loadNote()` used to be defined in `note_embed.js`, but we've renamed that 
+  // to `actuallyLoadNote()` and turned this into a queuing function.
   window.dc.embed.loadNote = function(url, options) {
-    console.log('dc.embed.loadNote start');
     if (window.dc.embed.actuallyLoadNote !== void 0) {
-      // We already have access to `note_embed.js`, so just proxy on to the 
-      // real note-loader
       window.dc.embed.actuallyLoadNote(url, options);
     } else {
-
-      // 1. Define the note-loading utilities we'll need
+      // 1. Define our note-loading utility functions
       var on = function (el, eventName, handler) {
         if (el.addEventListener) {
           el.addEventListener(eventName, handler);
@@ -50,16 +47,13 @@
         window.dc.noteQueue = [];
       };
 
-      // 2. Add this note to the queue that `loadNotes` will use
+      // 2. Add this note to the queue that `loadNotes()` will use
       window.dc.noteQueue.push({url: url, options: options});
 
-      // 3. Insert the styles and scripts needed, with `loadNotes` fired after 
-      //    the script has finished loading
+      // 3. Insert the styles and scripts needed, with `loadNotes()` fired 
+      //    after the script has finished loading
       insertStylesheet('/dist/note_embed.css');
       insertJavaScript('/dist/note_embed.js', loadNotes);
     }
-    console.log('dc.embed.loadNote end');
   }
-
-  console.log('loader.js end');
 })();
