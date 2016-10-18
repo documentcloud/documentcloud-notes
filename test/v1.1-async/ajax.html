@@ -30,7 +30,7 @@
 
     <script src="/src/js/vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
+      $(function(){
         $.get('/test/v1.1-async/_embed_code.html').done(function(response){
           $('#local-ajax-wrapper').html(response);
         });
