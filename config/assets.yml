@@ -5,8 +5,6 @@ embed_assets:          datauri
 gzip_assets:           off
 
 javascripts:
-  loader:
-    - src/js/loader.js
   note_embed:
     - src/js/vendor/underscore/underscore.js
     - src/js/vendor/jquery/dist/jquery.js

@@ -1,11 +1,12 @@
 (function() {
+  console.log('loader.js start');
   window.dc           = window.dc || {};
   window.dc.recordHit = "//www.documentcloud.org/pixel.gif";
   window.dc.noteQueue = window.dc.noteQueue || [];
   window.dc.embed     = window.dc.embed     || {};
-
   // Public entry point
   window.dc.embed.loadNote = function(url, options) {
+    console.log('dc.embed.loadNote start');
     if (window.dc.embed.actuallyLoadNote !== void 0) {
       // We already have access to `note_embed.js`, so just proxy on to the 
       // real note-loader
@@ -57,6 +58,8 @@
       insertStylesheet('/dist/note_embed.css');
       insertJavaScript('/dist/note_embed.js', loadNotes);
     }
+    console.log('dc.embed.loadNote end');
   }
 
+  console.log('loader.js end');
 })();

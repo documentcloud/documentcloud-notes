@@ -31,5 +31,8 @@
     "jquery":     "~1.12.0",
     "jQuery-ajaxTransport-XDomainRequest": "~1.0.2",
     "underscore": "~1.8.3"
+  },
+  "devDependencies": {
+    "jquery-pjax": "latest"
   }
 }

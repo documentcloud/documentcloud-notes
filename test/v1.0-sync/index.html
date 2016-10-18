@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://assets.documentcloud.org:443/css/platform.css" type="text/css" media="screen">
+    <style type="text/css" media="screen">
+      body { padding: 3rem; }
+      section { margin: 2rem 0; }
+      section > section { margin: 1rem 0; }
+      h2 { margin-bottom: 0.5rem; }
+      h3.h5 { margin-bottom: 0; }
+    </style>
+    <title>DocumentCloud Note Embed Test</title>
+  </head>
+  <body>
+    
+    <header>
+      <h1>DocumentCloud Note Embed Test</h1>
+      <nav class="nav nav-inline">
+        <a class="nav-link active" href="index.html">Static</a>
+        <a class="nav-link" href="ajax.html">Ajax</a>
+        <a class="nav-link" href="pjax.html">Pjax</a>
+        <a class="nav-link" href="oembed.html">oEmbed</a>
+      </nav>
+    </header>
+
+      <section>
+        <h3 class="h5">Default:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-42282" class="DC-note-container"></div>
+            <script src="/test/v1.0-sync/loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42282.js', {
+                container: '#DC-note-42282'
+              });
+            </script>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-42282&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;/test/v1.0-sync/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42282.js&#x27;, {
+    container: &#x27;#DC-note-42282&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="h5">With non-default <code>container</code>:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-asdf" class="DC-note-container"></div>
+            <script src="/test/v1.0-sync/loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42281.js', {
+                container: '#DC-note-asdf'
+              });
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-asdf&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;/test/v1.0-sync/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42281.js&#x27;, {
+    container: &#x27;#DC-note-asdf&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="h5">With matching <code>div</code> but no <code>container</code> option:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-99206" class="DC-note-container"></div>
+            <script src="/test/v1.0-sync/loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/99206.js');
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-99206&quot; class=&quot;DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;/test/v1.0-sync/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/99206.js&#x27;);
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="h5">With no target <code>div</code> or <code>container</code> option:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <script src="/test/v1.0-sync/loader.js"></script>
+            <script>
+              dc.embed.loadNote('https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42250.js');
+            </script>
+          </div>
+          <div class="col-md-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;script src=&quot;/test/v1.0-sync/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;https://www.documentcloud.org:443/documents/282753-lefler-thesis/annotations/42250.js&#x27;);
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+  </body>
+</html>
