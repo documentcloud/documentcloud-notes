@@ -4,13 +4,13 @@
   window.dc.embed     = window.dc.embed     || {};
   window.dc.recordHit = "//www.documentcloud.org/pixel.gif";
 
-  // `loadNote()` used to be defined in `note_embed.js`, but we've renamed that 
-  // to `actuallyLoadNote()` and turned this into a queuing function.
+  /* `loadNote()` used to be defined in `note_embed.js`, but we've renamed it to
+     `actuallyLoadNote()` and turned this into a queuing function. */
   window.dc.embed.loadNote = function(url, options) {
     if (window.dc.embed.actuallyLoadNote !== void 0) {
       window.dc.embed.actuallyLoadNote(url, options);
     } else {
-      // 1. Define our note-loading utility functions
+      /* 1. Define our note-loading utility functions */
       var on = function (el, eventName, handler) {
         if (el.addEventListener) {
           el.addEventListener(eventName, handler);
@@ -47,11 +47,11 @@
         window.dc.noteQueue = [];
       };
 
-      // 2. Add this note to the queue that `loadNotes()` will use
+      /* 2. Add this note to the queue that `loadNotes()` will use */
       window.dc.noteQueue.push({url: url, options: options});
 
-      // 3. Insert the styles and scripts needed, with `loadNotes()` fired 
-      //    after the script has finished loading
+      /* 3. Insert the styles and scripts needed, with `loadNotes()` fired
+            after the script has finished loading */
       insertStylesheet('/dist/note_embed.css');
       insertJavaScript('/dist/note_embed.js', loadNotes);
     }
