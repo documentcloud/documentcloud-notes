@@ -8,15 +8,15 @@
  */
 (function() {
   var dc = window.dc = window.dc || {};
-  dc.embed = dc.embed || { notes: {} };
+  dc.embed = dc.embed || {};
+  dc.embed.notes = dc.embed.notes || {};
 
   var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._     || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
 
-  // Public API entry point for loading notes.
-  dc.embed.loadNote = function(noteResourceUrl, options) {
+  dc.embed.actuallyLoadNote = function(noteResourceUrl, options) {
     options = options || {};
 
     var id = options.id = parseInt(noteResourceUrl.match(/(\d+).(?:js|json)$/)[1], 10);
@@ -47,13 +47,29 @@
 
     // If the embedder is a horrible person and has attempted to loadNote before their
     // target div exists, we'll try to rescue them with setElement again.
-    if (!note.el) { note.setElement(note.model.options.container || '#DC-note-' + note.model.id); }
+    if (!note.el) {
+      note.setElement(note.model.options.container || '#DC-note-' + note.model.id);
+      // Nuclear option! Create and insert a note div before the script tag 
+      // that called this (we hope)
+      if (!note.el) {
+        $('script:not([src]):contains("/annotations/' + note.model.id + '.js")').each(function(){
+          $(this).before('<div id="DC-note-' + note.model.id + '"></div>');
+          note.setElement('#DC-note-' + note.model.id);
+        });
+      }
+    }
 
     note.model.attributes = response;
     note.render();
     // If the note was loaded with an afterLoad callback, now's the time to invoke it.
     if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
+
+  // Alias the old loadNote fn to the new one (when the old one's not defined) 
+  // for backwards compatibility with the old loader.js.
+  if (_.isUndefined(dc.embed.loadNote)) {
+    dc.embed.loadNote = dc.embed.actuallyLoadNote;
+  }
 
   // How we report analytics
   dc.embed.pingRemoteUrl = function(type, id) {
