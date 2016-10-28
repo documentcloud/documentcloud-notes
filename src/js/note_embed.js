@@ -65,6 +65,12 @@
     if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
 
+  // Alias the old loadNote fn to the new one (when the old one's not defined) 
+  // for backwards compatibility with the old loader.js.
+  if (_.isUndefined(dc.embed.loadNote)) {
+    dc.embed.loadNote = dc.embed.actuallyLoadNote;
+  }
+
   // How we report analytics
   dc.embed.pingRemoteUrl = function(type, id) {
     var loc = window.location;
