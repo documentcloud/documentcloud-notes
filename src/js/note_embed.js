@@ -16,7 +16,10 @@
 
   _.t = _.t || function(input){ return input; };
 
-  dc.embed.actuallyLoadNote = function(noteResourceUrl, options) {
+  // Since https://github.com/documentcloud/documentcloud/pull/418, we intend 
+  // the public `dc.embed.loadNote` to be a queuing function (defined in the 
+  // loader) which only fires this function once it's available.
+  dc.embed.immediatelyLoadNote = function(noteResourceUrl, options) {
     options = options || {};
 
     var id = options.id = parseInt(noteResourceUrl.match(/(\d+).(?:js|json)$/)[1], 10);
@@ -40,10 +43,11 @@
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
 
-  // Alias the old loadNote fn to the new one (when the old one's not defined) 
-  // for backwards compatibility with the old loader.js.
+  // For backwards-compatibility with the old loader (and for use by people who 
+  // don't use our loader), alias `dc.embed.loadNote` to the immediate fn when 
+  // undefined.
   if (_.isUndefined(dc.embed.loadNote)) {
-    dc.embed.loadNote = dc.embed.actuallyLoadNote;
+    dc.embed.loadNote = dc.embed.immediatelyLoadNote;
   }
 
   // Complete the loading process & render the note.
