@@ -40,6 +40,12 @@
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
 
+  // Alias the old loadNote fn to the new one (when the old one's not defined) 
+  // for backwards compatibility with the old loader.js.
+  if (_.isUndefined(dc.embed.loadNote)) {
+    dc.embed.loadNote = dc.embed.actuallyLoadNote;
+  }
+
   // Complete the loading process & render the note.
   dc.embed.noteCallback = function(response) {
     var id                = response.id;
@@ -64,12 +70,6 @@
     // If the note was loaded with an afterLoad callback, now's the time to invoke it.
     if (note.model.options && note.model.options.afterLoad) note.model.options.afterLoad(note);
   };
-
-  // Alias the old loadNote fn to the new one (when the old one's not defined) 
-  // for backwards compatibility with the old loader.js.
-  if (_.isUndefined(dc.embed.loadNote)) {
-    dc.embed.loadNote = dc.embed.actuallyLoadNote;
-  }
 
   // How we report analytics
   dc.embed.pingRemoteUrl = function(type, id) {
