@@ -11,15 +11,6 @@
       window.dc.embed.immediatelyLoadNote(url, options);
     } else {
       /* 1. Define our note-loading utility functions */
-      var on = function (el, eventName, handler) {
-        if (el.addEventListener) {
-          el.addEventListener(eventName, handler);
-        } else {
-          el.attachEvent('on' + eventName, function() {
-            handler.call(el);
-          });
-        }
-      };
       var insertStylesheet = function(href) {
         if (!document.querySelector('link[href$="' + href + '"]')) {
           var stylesheet       = document.createElement('link');
@@ -35,7 +26,9 @@
           var script       = document.createElement('script');
               script.src   = src;
               script.async = true;
-          on(script, 'load', onLoadCallback);
+          if (script.addEventListener) {
+            script.addEventListener('load', onLoadCallback);
+          }
           document.querySelector('body').appendChild(script);
         }
       };
