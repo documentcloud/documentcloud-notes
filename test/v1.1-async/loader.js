@@ -1,52 +1,51 @@
 (function() {
-  window.dc           = window.dc || {};
-  window.dc.noteQueue = window.dc.noteQueue || [];
-  window.dc.embed     = window.dc.embed     || {};
-  window.dc.recordHit = "//www.documentcloud.org/pixel.gif";
-
-  /* `loadNote()` used to be defined in `note_embed.js`, but we've renamed it to
-     `immediatelyLoadNote()` and turned this into a queuing function. */
-  window.dc.embed.loadNote = function(url, options) {
-    if (window.dc.embed.immediatelyLoadNote !== void 0) {
-      window.dc.embed.immediatelyLoadNote(url, options);
-    } else {
-      /* 1. Define our note-loading utility functions */
-      var insertStylesheet = function(href) {
-        if (!document.querySelector('link[href$="' + href + '"]')) {
-          var stylesheet       = document.createElement('link');
-              stylesheet.rel   = 'stylesheet';
-              stylesheet.type  = 'text/css';
-              stylesheet.media = 'screen';
-              stylesheet.href  = href;
-          document.querySelector('head').appendChild(stylesheet);
-        }
-      };
-      var insertJavaScript = function(src, onLoadCallback) {
-        if (!document.querySelector('script[src$="' + src + '"]')) {
-          var script       = document.createElement('script');
-              script.src   = src;
-              script.async = true;
-          if (script.addEventListener) {
-            script.addEventListener('load', onLoadCallback);
-          }
-          document.querySelector('body').appendChild(script);
-        }
-      };
-      var loadQueuedNotes = function() {
-        var q = window.dc.noteQueue;
+  var dc = window.dc = window.dc || {};
+  dc.noteQueue       = dc.noteQueue || [];
+  dc.recordHit       = "//dev.dcloud.org/pixel.gif";
+  dc.embed           = dc.embed || {};
+  dc.embed.loadNote  = function(url, options) {
+    var insertStylesheet = function(href, media) {
+      if (!document.querySelector('link[href$="' + href + '"]')) {
+        media = media || 'screen';
+        var stylesheet       = document.createElement('link');
+            stylesheet.rel   = 'stylesheet';
+            stylesheet.type  = 'text/css';
+            stylesheet.media = media;
+            stylesheet.href  = href;
+        document.getElementsByTagName('head')[0].appendChild(stylesheet);
+      }
+    };
+    var insertJavaScript = function(src, onLoadCallback) {
+      var script = document.querySelector('script[src$="' + src + '"]');
+      if (!script) {
+        script       = document.createElement('script');
+        script.src   = src;
+        script.async = true;
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+      if (script.addEventListener && !script.getAttribute('data-listening')) {
+        script.setAttribute('data-listening', true);
+        script.addEventListener('load', onLoadCallback);
+      }
+    };
+    var loadQueuedNotes = function() {
+      var loadNote = dc.embed.immediatelyLoadNote || (dc.embed.noteCallback && dc.embed.loadNote ? dc.embed.loadNote : false);
+      if (loadNote) {
+        var q = dc.noteQueue;
         for (var i = 0, qLength = q.length; i < qLength; i++) {
-          window.dc.embed.immediatelyLoadNote(q[i].url, q[i].options);
+          loadNote(q[i].url, q[i].options);
         }
-        window.dc.noteQueue = [];
-      };
-
-      /* 2. Add this note to the queue that `loadQueuedNotes()` will use */
-      window.dc.noteQueue.push({url: url, options: options});
-
-      /* 3. Insert the styles and scripts needed, with `loadQueuedNotes()` fired
-            after the script has finished loading */
-      insertStylesheet('/dist/note_embed.css');
-      insertJavaScript('/dist/note_embed.js', loadQueuedNotes);
+        dc.noteQueue = [];
+      } else if (window.console) {
+        console.error("DocumentCloud embed can't load because of missing components.");
+      }
+    };
+    insertStylesheet('//notes-assets.dcloud.org/dist/note_embed-datauri.css');
+    if (dc.embed.immediatelyLoadNote) {
+      dc.embed.immediatelyLoadNote(url, options);
+    } else {
+      dc.noteQueue.push({url: url, options: options});
+      insertJavaScript('//notes-assets.dcloud.org/dist/note_embed.js', loadQueuedNotes);
     }
   }
 })();

@@ -44,9 +44,10 @@
   };
 
   // For backwards-compatibility with the old loader (and for use by people who 
-  // don't use our loader), alias `dc.embed.loadNote` to the immediate fn when 
-  // undefined.
-  if (_.isUndefined(dc.embed.loadNote)) {
+  // don't use the loader), alias `dc.embed.loadNote` when undefined OR when 
+  // defined by the old oEmbed loader 
+  // (https://github.com/documentcloud/documentcloud/issues/420)
+  if (_.isUndefined(dc.embed.loadNote) || !_.isUndefined(dc._notesWaitingForAppLoad)) {
     dc.embed.loadNote = dc.embed.immediatelyLoadNote;
   }
 
