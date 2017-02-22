@@ -53,6 +53,59 @@
       </section>
 
       <section>
+        <h3 class="h5">With native note object:</h3>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-42228" class="DC-embed DC-embed-note DC-note-container"></div>
+            <script src="/test/v1.1-async/loader.js"></script>
+            <script>
+              dc.embed.loadNote({"id":42228,"page":17,"title":"Macro Selection","content":"","access":"public","location":{"image":"111,649,376,68"},"image_url":"https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p{page}-{size}.gif","published_url":"https://www.documentcloud.org/documents/282753-lefler-thesis.html","canonical_url":"https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42228.html","resource_url":"https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42228.js"}, {
+                container: '#DC-note-42228'
+              });
+            </script>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-42228&quot; class=&quot;DC-embed DC-embed-note DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;/test/v1.1-async/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote({&quot;id&quot;:42228,&quot;page&quot;:17,&quot;title&quot;:&quot;Macro Selection&quot;,&quot;content&quot;:&quot;&quot;,&quot;access&quot;:&quot;public&quot;,&quot;location&quot;:{&quot;image&quot;:&quot;111,649,376,68&quot;},&quot;image_url&quot;:&quot;https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p{page}-{size}.gif&quot;,&quot;published_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis.html&quot;,&quot;canonical_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42228.html&quot;,&quot;resource_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42228.js&quot;}, {
+    container: &#x27;#DC-note-42228&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="h5">With JSON string:</h3>
+        <p>NOTE: This currently breaks if the note title or content contain any double-quotes (like so: <code>"</code>), because they get escaped weird and it's a whole thing.</p>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <div id="DC-note-42229" class="DC-embed DC-embed-note DC-note-container"></div>
+            <script src="/test/v1.1-async/loader.js"></script>
+            <script>
+              dc.embed.loadNote('{"id":42229,"page":18,"title":"Category Definition","content":"","access":"public","location":{"image":"131,628,280,74"},"image_url":"https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p{page}-{size}.gif","published_url":"https://www.documentcloud.org/documents/282753-lefler-thesis.html","canonical_url":"https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42229.html","resource_url":"https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42229.js"}', {
+                container: '#DC-note-42229'
+              });
+            </script>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+<pre class="pre-scrollable"><code>
+&lt;div id=&quot;DC-note-42229&quot; class=&quot;DC-embed DC-embed-note DC-note-container&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;/test/v1.1-async/loader.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  dc.embed.loadNote(&#x27;{&quot;id&quot;:42229,&quot;page&quot;:18,&quot;title&quot;:&quot;Category Definition&quot;,&quot;content&quot;:&quot;&quot;,&quot;access&quot;:&quot;public&quot;,&quot;location&quot;:{&quot;image&quot;:&quot;131,628,280,74&quot;},&quot;image_url&quot;:&quot;https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p{page}-{size}.gif&quot;,&quot;published_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis.html&quot;,&quot;canonical_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42229.html&quot;,&quot;resource_url&quot;:&quot;https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/42229.js&quot;}&#x27;, {
+    container: &#x27;#DC-note-42229&#x27;
+  });
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <h3 class="h5">With non-default <code>container</code>:</h3>
         <div class="row">
           <div class="col-md-6 col-xs-12">

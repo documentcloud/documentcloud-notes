@@ -12,30 +12,52 @@
   dc.embed.notes = dc.embed.notes || {};
 
   var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
-  var _ = dc._ = dc._     || window._.noConflict();
+  var _ = dc._ = dc._ || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
 
   // Since https://github.com/documentcloud/documentcloud/pull/418, we intend 
   // the public `dc.embed.loadNote` to be a queuing function (defined in the 
   // loader) which only fires this function once it's available.
-  dc.embed.immediatelyLoadNote = function(noteResourceUrl, options) {
+  // `note` can be either a URL to the .js/.json resource, an object, or a JSON 
+  // string blob.
+  dc.embed.immediatelyLoadNote = function(note, options) {
     options = options || {};
 
-    var id = options.id = parseInt(noteResourceUrl.match(/(\d+).(?:js|json)$/)[1], 10);
+    var noteData = {};
+    if (_.has(note, 'id')) {
+      // We were passed note data as a native object
+      noteData = note;
+    } else {
+      try {
+        // We were passed note data as a JSON string
+        noteData = $.parseJSON(note);
+      } catch (e) {
+        // Probably this was a URL string; try to grab the ID out of it
+        try {
+          noteData.id = parseInt(note.match(/(\d+).(?:js|json)$/)[1], 10);
+        } catch (e) {
+          // Probably this is a malformed JSON string
+        };
+      };
+    }
+
+    var id = options.id = noteData.id;
     var noteModel = new dc.embed.noteModel(options);
 
     // Store the note view for later access
     dc.embed.notes[id] = dc.embed.notes[id] || new dc.embed.noteView({model: noteModel, el: options.container});
 
-    if (noteResourceUrl.match(/\.js$/)) {
+    if (_.has(noteData, 'image_url')) {
+      dc.embed.noteCallback(noteData);
+    } else if (note.match(/\.js$/)) {
       // This API assumes that the response will be a JSONP response
       // which will invoke `dc.embed.noteCallback`
       //
       // Get the party started by requesting note data.
-      $.getScript(noteResourceUrl);
-    } else if (noteResourceUrl.match(/\.json$/)) {
-      $.getJSON(noteResourceUrl).done(function(response) {
+      $.getScript(note);
+    } else if (note.match(/\.json$/)) {
+      $.getJSON(note).done(function(response) {
         dc.embed.noteCallback(response);
       });
     }
