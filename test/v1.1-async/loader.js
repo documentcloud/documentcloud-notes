@@ -3,7 +3,7 @@
   dc.noteQueue       = dc.noteQueue || [];
   dc.recordHit       = "//dev.dcloud.org/pixel.gif";
   dc.embed           = dc.embed || {};
-  dc.embed.loadNote  = function(url, options) {
+  dc.embed.loadNote  = function(resource, options) {
     var insertStylesheet = function(href, media) {
       if (!document.querySelector('link[href$="' + href + '"]')) {
         media = media || 'screen';
@@ -33,7 +33,7 @@
       if (loadNote) {
         var q = dc.noteQueue;
         for (var i = 0, qLength = q.length; i < qLength; i++) {
-          loadNote(q[i].url, q[i].options);
+          loadNote(q[i].resource, q[i].options);
         }
         dc.noteQueue = [];
       } else if (window.console) {
@@ -42,9 +42,9 @@
     };
     insertStylesheet('//notes-assets.dcloud.org/dist/note_embed-datauri.css');
     if (dc.embed.immediatelyLoadNote) {
-      dc.embed.immediatelyLoadNote(url, options);
+      dc.embed.immediatelyLoadNote(resource, options);
     } else {
-      dc.noteQueue.push({url: url, options: options});
+      dc.noteQueue.push({resource: resource, options: options});
       insertJavaScript('//notes-assets.dcloud.org/dist/note_embed.js', loadQueuedNotes);
     }
   }
