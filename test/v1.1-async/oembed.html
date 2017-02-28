@@ -31,7 +31,7 @@
     <script src="/src/js/vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
       $(function(){
-        $.get('//notes-assets.dcloud.org/test/v1.1-async/_oembed_code.json').done(function(response){
+        $.get('/test/v1.1-async/_oembed_code.json').done(function(response){
           $('#oembed-ajax-wrapper').html(response.html);
         });
       });
