@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://assets.documentcloud.org:443/css/platform.css" type="text/css" media="screen">
+    <style type="text/css" media="screen">
+      body { padding: 3rem; }
+      section { margin: 2rem 0; }
+      section > section { margin: 1rem 0; }
+      h2 { margin-bottom: 0.5rem; }
+      h3.h5 { margin-bottom: 0; }
+    </style>
+    <title>DocumentCloud Note oEmbed Test</title>
+  </head>
+  <body>
+    
+    <header>
+      <h1>DocumentCloud Note oEmbed Test</h1>
+      <nav class="nav nav-inline">
+        <a class="nav-link" href="index.html">✅ Static</a>
+        <a class="nav-link" href="ajax.html">❌ Ajax</a>
+        <a class="nav-link" href="pjax.html">❌ Pjax</a>
+        <a class="nav-link" href="oembed.html">❌ oEmbed</a>
+      </nav>
+    </header>
+
+    <section id="oembed-ajax-wrapper"></section>
+
+    <script src="/src/js/vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        $.get('//notes-assets.dcloud.org/test/v1.0-sync/_oembed_code.json').done(function(response){
+          $('#oembed-ajax-wrapper').html(response.html);
+        });
+      });
+    </script>
+  </body>
+</html>

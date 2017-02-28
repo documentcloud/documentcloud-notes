@@ -41,8 +41,8 @@ $draftColor:   $errorColor;
 $grayDarker:   rgb(80, 80, 80);
 $noteYellow:   rgb(255, 227, 37);
 
-$fontFamilyRegular: 'Gotham Book', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$fontFamilyBold:    'Gotham Bold', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$fontFamilyRegular: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$fontFamilyBold:    -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
 @mixin transition($transition...) {
   -webkit-transition: $transition;

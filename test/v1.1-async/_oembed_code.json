@@ -1,0 +1,10 @@
+{
+"type": "rich",
+"version": "1.0",
+"provider_name": "DocumentCloud",
+"provider_url": "https://www.documentcloud.org",
+"cache_age": 300,
+"height": null,
+"width": null,
+"html": "<link rel=\"stylesheet\" href=\"//assets.documentcloud.org/note_embed/note_embed.css\" type=\"text/css\"> <div class=\"DC-embed DC-embed-note DC-note-container\"> <div class=\"DC-note\" style=\"background-image:url('https://assets.documentcloud.org/documents/282753/pages/lefler-thesis-p13-normal.gif')\"> <div class=\"DC-note-header\"> <a class=\"DC-note-embed-resource\" title=\"View the note “Test Note” in its original document context on DocumentCloud in a new window or tab\" target=\"_blank\" href=\"https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p13/a80993\"><span class=\"DC-note-title\">Test Note</span> <span class=\"DC-note-page-number\">(p. 13)</span></a> </div> <div class=\"DC-note-image-max-bounds\" style=\"max-height:324px;max-width:560px;\"> <div class=\"DC-note-image-aspect-ratio\" style=\"padding-bottom:57.857142857142854%;\"> <iframe class=\"DC-note-image-space-filler\" src=\"https://www.documentcloud.org/documents/282753-lefler-thesis/annotations/80993.html?embed=true\" title=\"Note “Test Note” on document “Lefler Thesis”\" sandbox=\"allow-scripts allow-same-origin allow-popups\" frameborder=\"0\"></iframe> </div> </div> <div class=\"DC-note-body\"></div> <div class=\"DC-note-credit\"> <a title=\"View the note “Test Note” in its original document context on DocumentCloud in a new window or tab\" target=\"_blank\" href=\"https://www.documentcloud.org/documents/282753-lefler-thesis.html#document/p13/a80993\">View entire document on <span class='DC-note-logotype-link'>DocumentCloud</span></a> </div> <div class=\"DC-note-background-fader\"></div> </div> </div>"
+}

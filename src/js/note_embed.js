@@ -8,37 +8,70 @@
  */
 (function() {
   var dc = window.dc = window.dc || {};
-  dc.embed = dc.embed || { notes: {} };
+  dc.embed = dc.embed || {};
+  dc.embed.notes = dc.embed.notes || {};
 
-  var $ = dc.$ = dc.$ || window.jQuery.noConflict();
-  var _ = dc._ = dc._     || window._.noConflict();
+  var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
+  var _ = dc._ = dc._ || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
 
-  // Public API entry point for loading notes.
-  dc.embed.loadNote = function(noteResourceUrl, options) {
+  // Since https://github.com/documentcloud/documentcloud/pull/418, we intend 
+  // the public `dc.embed.loadNote` to be a queuing function (defined in the 
+  // loader) which only fires this function once it's available.
+  // `note` can be either a URL to the .js/.json resource, an object, or a JSON 
+  // string blob.
+  dc.embed.immediatelyLoadNote = function(note, options) {
     options = options || {};
 
-    var id = options.id = parseInt(noteResourceUrl.match(/(\d+).(?:js|json)$/)[1], 10);
+    var noteData = {};
+    if (_.has(note, 'id')) {
+      // We were passed note data as a native object
+      noteData = note;
+    } else {
+      try {
+        // We were passed note data as a JSON string
+        noteData = $.parseJSON(note);
+      } catch (e) {
+        // Probably this was a URL string; try to grab the ID out of it
+        try {
+          noteData.id = parseInt(note.match(/(\d+).(?:js|json)$/)[1], 10);
+        } catch (e) {
+          // Probably this is a malformed JSON string
+        };
+      };
+    }
+
+    var id = options.id = noteData.id;
     var noteModel = new dc.embed.noteModel(options);
 
     // Store the note view for later access
     dc.embed.notes[id] = dc.embed.notes[id] || new dc.embed.noteView({model: noteModel, el: options.container});
 
-    if (noteResourceUrl.match(/\.js$/)) {
+    if (_.has(noteData, 'image_url')) {
+      dc.embed.noteCallback(noteData);
+    } else if (note.match(/\.js$/)) {
       // This API assumes that the response will be a JSONP response
       // which will invoke `dc.embed.noteCallback`
       //
       // Get the party started by requesting note data.
-      $.getScript(noteResourceUrl);
-    } else if (noteResourceUrl.match(/\.json$/)) {
-      $.getJSON(noteResourceUrl).done(function(response) {
+      $.getScript(note);
+    } else if (note.match(/\.json$/)) {
+      $.getJSON(note).done(function(response) {
         dc.embed.noteCallback(response);
       });
     }
 
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
   };
+
+  // For backwards-compatibility with the old loader (and for use by people who 
+  // don't use the loader), alias `dc.embed.loadNote` when undefined OR when 
+  // defined by the old oEmbed loader 
+  // (https://github.com/documentcloud/documentcloud/issues/420)
+  if (_.isUndefined(dc.embed.loadNote) || !_.isUndefined(dc._notesWaitingForAppLoad)) {
+    dc.embed.loadNote = dc.embed.immediatelyLoadNote;
+  }
 
   // Complete the loading process & render the note.
   dc.embed.noteCallback = function(response) {
@@ -47,7 +80,17 @@
 
     // If the embedder is a horrible person and has attempted to loadNote before their
     // target div exists, we'll try to rescue them with setElement again.
-    if (!note.el) { note.setElement(note.model.options.container || '#DC-note-' + note.model.id); }
+    if (!note.el) {
+      note.setElement(note.model.options.container || '#DC-note-' + note.model.id);
+      // Nuclear option! Create and insert a note div before the script tag 
+      // that called this (we hope)
+      if (!note.el) {
+        $('script:not([src]):contains("/annotations/' + note.model.id + '.js")').each(function(){
+          $(this).before('<div id="DC-note-' + note.model.id + '"></div>');
+          note.setElement('#DC-note-' + note.model.id);
+        });
+      }
+    }
 
     note.model.attributes = response;
     note.render();
@@ -159,7 +202,7 @@
   dc.embed.noteView = function(options){
     // stolen out of Backbone.View.setElement
     this.model = options.model;
-    var el = this.model.options.el || '#DC-note-' + this.model.id
+    var el = this.model.options.el || '#DC-note-' + this.model.id;
     this.setElement(el);
   };
 

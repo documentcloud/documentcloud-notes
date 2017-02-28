@@ -17,9 +17,9 @@
 
   /*@cc_on
   /*@if (@_jscript_version < 5.8)
-    loadCSS("../dist/note_embed.css");
+    loadCSS("/dist/note_embed.css");
   @else @*/
-    loadCSS("../dist/note_embed-datauri.css");
+    loadCSS("/dist/note_embed-datauri.css");
   /*@end
   @*/
 
@@ -27,5 +27,5 @@
   dc.noteEmbedLoaded = true;
 
   // Request the embed JavaScript.
-  document.write('<script type="text/javascript" src="../dist/note_embed.js"></scr' + 'ipt>');
+  document.write('<script type="text/javascript" src="/test/v1.0-sync/note_embed.js"></scr' + 'ipt>');
 })();
