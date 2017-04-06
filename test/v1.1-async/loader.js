@@ -40,12 +40,12 @@
         console.error("DocumentCloud embed can't load because of missing components.");
       }
     };
-    insertStylesheet('//assets.documentcloud.org/dist/note_embed-datauri.css');
+    insertStylesheet('../../dist/note_embed-datauri.css');
     if (dc.embed.immediatelyLoadNote) {
       dc.embed.immediatelyLoadNote(note, options);
     } else {
       dc.noteQueue.push({note: note, options: options});
-      insertJavaScript('//assets.documentcloud.org/dist/note_embed.js', loadQueuedNotes);
+      insertJavaScript('../../dist/note_embed.js', loadQueuedNotes);
     }
   }
 })();
