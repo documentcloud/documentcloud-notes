@@ -118,7 +118,18 @@
     url = url.replace(/[\/]+$/, '');
     var hitUrl = dc.recordHit;
     var key    = encodeURIComponent(type + ':' + id + ':' + url);
-    $(document).ready( function(){ $(document.body).append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
+    
+    var appendPixel = function(){ 
+      var el = document.createElement('img');
+      var attrs = {
+        class:"DV-pixelping", 
+        alt: '', width: 1, height: 1, 
+        src: (hitUrl + '?key=' + key)
+      };
+      _.each(attrs, function(val, key, index){ el.setAttribute(key, val); });
+      document.body.appendChild(el);
+    };
+    if (document.readyState != 'loading'){ appendPixel(); } else { document.addEventListener('DOMContentLoaded', appendPixel); }
   };
 
   // Note Model
