@@ -101,10 +101,9 @@
         console.log("WARNING!  Unable to find an element (" + selector +") to embed note.  Inserting one to continue.");
         
         // find the script that initiated loading this note
-        var initiatorEl = dc._.first(document.querySelectorAll('script:not([src])'), function(el){ 
-          return el.innerText.match("/annotations/"+note.model.id+".js");
+        var initiatorEl = dc._.find(document.querySelectorAll('script:not([src])'), function(candidate){ 
+          return candidate.innerText.match("/annotations/"+note.model.id+".js");
         });
-        
         // stick a div in before it!
         initiatorEl.insertAdjacentHTML('beforebegin', '<div id="DC-note-' + note.model.id + '"></div>');
         note.setElement('#DC-note-' + note.model.id);
