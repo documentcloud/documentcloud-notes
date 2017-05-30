@@ -240,18 +240,19 @@
 
     $: function(selector){ return this.$el.find(selector); },
     setElement: function(element) {
-      this.$el = element instanceof dc.$ ? element : dc.$(element);
-      this.el  = this.$el[0];
+      this.el = element instanceof Element ? element : document.querySelector(element) ;
+      //this.$el = element instanceof dc.$ ? element : dc.$(element);
+      //this.el  = this.$el[0];
     },
 
     render: function() {
-      this.$el.html(JST['note_embed']({
+      this.el.innerHTML = JST['note_embed']({
         note:          this.model,
         hasImage:      !_.isEmpty(this.model.coordinates()),
         extraClasses:  this._extraClasses().join(' '),
         imagePosition: this._inlineCSS()
-      }));
-      return this.$el;
+      });
+      return this.el;
     },
 
     _inlineCSS: function() {
