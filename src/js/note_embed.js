@@ -12,7 +12,6 @@
   dc.embed          = dc.embed || {};
   dc.embed.notes    = dc.embed.notes || {};
 
-  var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._ || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
@@ -238,11 +237,8 @@
   dc.embed.noteView.prototype = {
     IMAGE_WIDTH: 700,
 
-    $: function(selector){ return this.$el.find(selector); },
     setElement: function(element) {
       this.el = element instanceof Element ? element : document.querySelector(element) ;
-      //this.$el = element instanceof dc.$ ? element : dc.$(element);
-      //this.el  = this.$el[0];
     },
 
     render: function() {
