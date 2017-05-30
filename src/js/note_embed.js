@@ -7,9 +7,10 @@
  *
  */
 (function() {
-  var dc = window.dc = window.dc || {};
-  dc.embed = dc.embed || {};
-  dc.embed.notes = dc.embed.notes || {};
+  var dc            = window.dc = window.dc || {};
+  var DocumentCloud = window.DocumentCloud = dc;
+  dc.embed          = dc.embed || {};
+  dc.embed.notes    = dc.embed.notes || {};
 
   var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._ || window._.noConflict();
