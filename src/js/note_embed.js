@@ -7,11 +7,11 @@
  *
  */
 (function() {
-  var dc = window.dc = window.dc || {};
-  dc.embed = dc.embed || {};
-  dc.embed.notes = dc.embed.notes || {};
+  var dc            = window.dc = window.dc || {};
+  var DocumentCloud = window.DocumentCloud = dc;
+  dc.embed          = dc.embed || {};
+  dc.embed.notes    = dc.embed.notes || {};
 
-  var $ = dc.$ = dc.$ || window.jQuery.noConflict(true);
   var _ = dc._ = dc._ || window._.noConflict();
 
   _.t = _.t || function(input){ return input; };
@@ -31,15 +31,15 @@
     } else {
       try {
         // We were passed note data as a JSON string
-        noteData = $.parseJSON(note);
+        noteData = JSON.parse(note);
       } catch (e) {
         // Probably this was a URL string; try to grab the ID out of it
         try {
           noteData.id = parseInt(note.match(/(\d+).(?:js|json)$/)[1], 10);
         } catch (e) {
           // Probably this is a malformed JSON string
-        };
-      };
+        }
+      }
     }
 
     var id = options.id = noteData.id;
@@ -50,16 +50,27 @@
 
     if (_.has(noteData, 'image_url')) {
       dc.embed.noteCallback(noteData);
-    } else if (note.match(/\.js$/)) {
-      // This API assumes that the response will be a JSONP response
-      // which will invoke `dc.embed.noteCallback`
-      //
+    } else { // it's probably a url.
       // Get the party started by requesting note data.
-      $.getScript(note);
-    } else if (note.match(/\.json$/)) {
-      $.getJSON(note).done(function(response) {
-        dc.embed.noteCallback(response);
-      });
+      note_url = note.match(/\.js$/) ? note+"on" : note;
+      
+      var request = new XMLHttpRequest();
+      request.open('GET', note_url, true);
+      
+      request.onload = function(){
+        if (request.status >= 200 && request.status < 400) {
+          var response = JSON.parse(request.responseText);
+          dc.embed.noteCallback(response);
+        } else {
+          // handle error
+        }
+      };
+      
+      request.onerror = function(){
+        //console.log("DocumentCloud: Error loading note");
+      };
+      
+      request.send();
     }
 
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
@@ -81,14 +92,20 @@
     // If the embedder is a horrible person and has attempted to loadNote before their
     // target div exists, we'll try to rescue them with setElement again.
     if (!note.el) {
-      note.setElement(note.model.options.container || '#DC-note-' + note.model.id);
+      var selector = (note.model.options.container || '#DC-note-' + note.model.id);
+      note.setElement(selector);
       // Nuclear option! Create and insert a note div before the script tag 
       // that called this (we hope)
       if (!note.el) {
-        $('script:not([src]):contains("/annotations/' + note.model.id + '.js")').each(function(){
-          $(this).before('<div id="DC-note-' + note.model.id + '"></div>');
-          note.setElement('#DC-note-' + note.model.id);
+        console.log("WARNING!  Unable to find an element (" + selector +") to embed note.  Inserting one to continue.");
+        
+        // find the script that initiated loading this note
+        var initiatorEl = dc._.find(document.querySelectorAll('script:not([src])'), function(candidate){ 
+          return candidate.innerText.match("/annotations/"+note.model.id+".js");
         });
+        // stick a div in before it!
+        initiatorEl.insertAdjacentHTML('beforebegin', '<div id="DC-note-' + note.model.id + '"></div>');
+        note.setElement('#DC-note-' + note.model.id);
       }
     }
 
@@ -106,7 +123,18 @@
     url = url.replace(/[\/]+$/, '');
     var hitUrl = dc.recordHit;
     var key    = encodeURIComponent(type + ':' + id + ':' + url);
-    $(document).ready( function(){ $(document.body).append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />'); });
+    
+    var appendPixel = function(){ 
+      var el = document.createElement('img');
+      var attrs = {
+        class:"DV-pixelping", 
+        alt: '', width: 1, height: 1, 
+        src: (hitUrl + '?key=' + key)
+      };
+      _.each(attrs, function(val, key, index){ el.setAttribute(key, val); });
+      document.body.appendChild(el);
+    };
+    if (document.readyState != 'loading'){ appendPixel(); } else { document.addEventListener('DOMContentLoaded', appendPixel); }
   };
 
   // Note Model
@@ -209,20 +237,18 @@
   dc.embed.noteView.prototype = {
     IMAGE_WIDTH: 700,
 
-    $: function(selector){ return this.$el.find(selector); },
     setElement: function(element) {
-      this.$el = element instanceof dc.$ ? element : dc.$(element);
-      this.el  = this.$el[0];
+      this.el = element instanceof Element ? element : document.querySelector(element) ;
     },
 
     render: function() {
-      this.$el.html(JST['note_embed']({
+      this.el.innerHTML = JST['note_embed']({
         note:          this.model,
         hasImage:      !_.isEmpty(this.model.coordinates()),
         extraClasses:  this._extraClasses().join(' '),
         imagePosition: this._inlineCSS()
-      }));
-      return this.$el;
+      });
+      return this.el;
     },
 
     _inlineCSS: function() {

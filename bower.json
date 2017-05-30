@@ -28,11 +28,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery":     "~3.1.1",
-    "jQuery-ajaxTransport-XDomainRequest": "~1.0.4",
     "underscore": "~1.8.3"
-  },
-  "devDependencies": {
-    "jquery-pjax": "latest"
   }
 }
