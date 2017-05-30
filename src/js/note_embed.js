@@ -54,9 +54,24 @@
     } else { // it's probably a url.
       // Get the party started by requesting note data.
       note_url = note.match(/\.js$/) ? note+"on" : note;
-      $.getJSON(note_url).done(function(response) {
-        dc.embed.noteCallback(response);
-      });
+      
+      var request = new XMLHttpRequest();
+      request.open('GET', note_url, true);
+      
+      request.onload = function(){
+        if (request.status >= 200 && request.status < 400) {
+          var response = JSON.parse(request.responseText);
+          dc.embed.noteCallback(response);
+        } else {
+          // handle error
+        }
+      };
+      
+      request.onerror = function(){
+        //console.log("DocumentCloud: Error loading note");
+      };
+      
+      request.send();
     }
 
     if (dc.recordHit) dc.embed.pingRemoteUrl('note', id);
