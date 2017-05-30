@@ -93,14 +93,21 @@
     // If the embedder is a horrible person and has attempted to loadNote before their
     // target div exists, we'll try to rescue them with setElement again.
     if (!note.el) {
-      note.setElement(note.model.options.container || '#DC-note-' + note.model.id);
+      var selector = (note.model.options.container || '#DC-note-' + note.model.id);
+      note.setElement(selector);
       // Nuclear option! Create and insert a note div before the script tag 
       // that called this (we hope)
       if (!note.el) {
-        $('script:not([src]):contains("/annotations/' + note.model.id + '.js")').each(function(){
-          $(this).before('<div id="DC-note-' + note.model.id + '"></div>');
-          note.setElement('#DC-note-' + note.model.id);
+        console.log("WARNING!  Unable to find an element (" + selector +") to embed note.  Inserting one to continue.");
+        
+        // find the script that initiated loading this note
+        var initiatorEl = dc._.first(document.querySelectorAll('script:not([src])'), function(el){ 
+          return el.innerText.match("/annotations/"+note.model.id+".js");
         });
+        
+        // stick a div in before it!
+        initiatorEl.insertAdjacentHTML('beforebegin', '<div id="DC-note-' + note.model.id + '"></div>');
+        note.setElement('#DC-note-' + note.model.id);
       }
     }
 
