@@ -32,7 +32,7 @@
     } else {
       try {
         // We were passed note data as a JSON string
-        noteData = $.parseJSON(note);
+        noteData = JSON.parse(note);
       } catch (e) {
         // Probably this was a URL string; try to grab the ID out of it
         try {
