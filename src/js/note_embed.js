@@ -39,8 +39,8 @@
           noteData.id = parseInt(note.match(/(\d+).(?:js|json)$/)[1], 10);
         } catch (e) {
           // Probably this is a malformed JSON string
-        };
-      };
+        }
+      }
     }
 
     var id = options.id = noteData.id;
@@ -51,14 +51,10 @@
 
     if (_.has(noteData, 'image_url')) {
       dc.embed.noteCallback(noteData);
-    } else if (note.match(/\.js$/)) {
-      // This API assumes that the response will be a JSONP response
-      // which will invoke `dc.embed.noteCallback`
-      //
+    } else { // it's probably a url.
       // Get the party started by requesting note data.
-      $.getScript(note);
-    } else if (note.match(/\.json$/)) {
-      $.getJSON(note).done(function(response) {
+      note_url = note.match(/\.js$/) ? note+"on" : note;
+      $.getJSON(note_url).done(function(response) {
         dc.embed.noteCallback(response);
       });
     }
