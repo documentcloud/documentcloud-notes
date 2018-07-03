@@ -13,7 +13,7 @@
   "license": "MIT",
   "homepage": "https://github.com/documentcloud/documentcloud-notes#readme",
   "dependencies": {
-    "@bower_components/underscore": "github:jashkenas/underscore#~1.8.3"
+    "underscore": "1.8.3"
   },
   "engines": {
     "yarn": ">= 1.0.0"
